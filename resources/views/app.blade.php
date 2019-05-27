@@ -8,6 +8,9 @@
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
     <title>Roast</title>
 
     <script type='text/javascript'>

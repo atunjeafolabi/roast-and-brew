@@ -6,6 +6,7 @@
 
 import Vue from 'vue';
 import router from './routes.js';
+import store from './store.js';
 
 
 window._ = require('lodash');
@@ -52,5 +53,6 @@ if (token) {
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 new Vue({
-    router
+    router,
+    store
 }).$mount('#app');

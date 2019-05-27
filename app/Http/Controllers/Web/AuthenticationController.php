@@ -7,7 +7,7 @@ use Socialite;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 
 
 class AuthenticationController extends Controller
@@ -67,6 +67,6 @@ class AuthenticationController extends Controller
         /*
           Redirect to the app
         */
-        return redirect('/');
+        return redirect('/#/home');
     }
 }
