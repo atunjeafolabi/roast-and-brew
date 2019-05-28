@@ -31,5 +31,5 @@ mix.js('resources/js/app.js', 'public/js').webpackConfig({
         alias: {
             '@': path.resolve(__dirname, 'resources/sass')
         }
-    }
+    },
 }).sass('resources/sass/app.scss', 'public/css');

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>cafe component by atunje</p>
+    <p>cafes component by atunje</p>
   </div>
 </template>
 

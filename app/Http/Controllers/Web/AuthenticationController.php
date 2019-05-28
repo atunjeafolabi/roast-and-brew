@@ -12,6 +12,12 @@ use App\Models\User;
 
 class AuthenticationController extends Controller
 {
+    /**
+     * @param $account
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * Redirects user to social login page
+     */
     public function getSocialRedirect( $account ){
 
         try{

@@ -13,4 +13,9 @@ class AppController extends Controller
     public function getLogin(){
         return view('login');
     }
+
+    public function getLogout(){
+        Auth::logout();
+        return redirect('/login');
+    }
 }

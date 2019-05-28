@@ -8,7 +8,6 @@ import Vue from 'vue';
 import router from './routes.js';
 import store from './store.js';
 
-
 window._ = require('lodash');
 
 try {
@@ -54,5 +53,5 @@ if (token) {
 
 new Vue({
     router,
-    store
+    store,
 }).$mount('#app');

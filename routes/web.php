@@ -23,3 +23,6 @@ Route::get( '/login/{social}', 'Web\AuthenticationController@getSocialRedirect' 
 
 Route::get( '/login/{social}/callback', 'Web\AuthenticationController@getSocialCallback' )
     ->middleware('guest');
+
+Route::get( '/logout', 'Web\AppController@getLogout' )
+    ->name('logout');

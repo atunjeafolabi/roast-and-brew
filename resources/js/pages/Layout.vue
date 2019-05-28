@@ -6,7 +6,7 @@
     <div id="app-layout">
         <navigation></navigation>
 
-        <router-view></router-view>
+        <router-view></router-view>     <!--children components of layouts as stated in the routes will be injected here-->
     </div>
 </template>
 

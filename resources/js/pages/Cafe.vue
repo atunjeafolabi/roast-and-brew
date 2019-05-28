@@ -4,7 +4,7 @@
 
 <template>
   <div>
-
+    cafe component by atunje
   </div>
 </template>
 
