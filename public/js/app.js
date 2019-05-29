@@ -2045,6 +2045,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2052,18 +2057,111 @@ __webpack_require__.r(__webpack_exports__);
       address: '',
       city: '',
       state: '',
-      zip: ''
+      zip: '',
+      validations: {
+        name: {
+          is_valid: true,
+          text: ''
+        },
+        address: {
+          is_valid: true,
+          text: ''
+        },
+        city: {
+          is_valid: true,
+          text: ''
+        },
+        state: {
+          is_valid: true,
+          text: ''
+        },
+        zip: {
+          is_valid: true,
+          text: ''
+        }
+      }
     };
   },
   methods: {
     submitNewCafe: function submitNewCafe() {
-      this.$store.dispatch('addCafe', {
-        name: this.name,
-        address: this.address,
-        city: this.city,
-        state: this.state,
-        zip: this.zip
-      });
+      if (this.validateNewCafe()) {
+        this.$store.dispatch('addCafe', {
+          name: this.name,
+          address: this.address,
+          city: this.city,
+          state: this.state,
+          zip: this.zip
+        });
+      }
+    },
+    validateNewCafe: function validateNewCafe() {
+      var validNewCafeForm = true;
+      /*
+       Ensure a name has been entered
+       */
+
+      if (this.name.trim() == '') {
+        validNewCafeForm = false;
+        this.validations.name.is_valid = false;
+        this.validations.name.text = 'Please enter a name for the new cafe!';
+      } else {
+        this.validations.name.is_valid = true;
+        this.validations.name.text = '';
+      }
+      /*
+       Ensure an address has been entered
+       */
+
+
+      if (this.address.trim() == '') {
+        validNewCafeForm = false;
+        this.validations.address.is_valid = false;
+        this.validations.address.text = 'Please enter an address for the new cafe!';
+      } else {
+        this.validations.address.is_valid = true;
+        this.validations.address.text = '';
+      }
+      /*
+       Ensure a city has been entered
+       */
+
+
+      if (this.city.trim() == '') {
+        validNewCafeForm = false;
+        this.validations.city.is_valid = false;
+        this.validations.city.text = 'Please enter a city for the new cafe!';
+      } else {
+        this.validations.city.is_valid = true;
+        this.validations.city.text = '';
+      }
+      /*
+       Ensure a state has been entered
+       */
+
+
+      if (this.state.trim() == '') {
+        validNewCafeForm = false;
+        this.validations.state.is_valid = false;
+        this.validations.state.text = 'Please enter a state for the new cafe!';
+      } else {
+        this.validations.state.is_valid = true;
+        this.validations.state.text = '';
+      }
+      /*
+       Ensure a zip has been entered
+       */
+
+
+      if (this.zip.trim() == '' || !this.zip.match(/(^\d{5}$)/)) {
+        validNewCafeForm = false;
+        this.validations.zip.is_valid = false;
+        this.validations.zip.text = 'Please enter a valid zip code for the new cafe!';
+      } else {
+        this.validations.zip.is_valid = true;
+        this.validations.zip.text = '';
+      }
+
+      return validNewCafeForm;
     }
   }
 });
@@ -44164,6 +44262,22 @@ var render = function() {
           _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
             _c("label", [
               _vm._v("Name\n            "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.validations.name.is_valid,
+                      expression: "!validations.name.is_valid"
+                    }
+                  ],
+                  staticClass: "validation"
+                },
+                [_vm._v(_vm._s(_vm.validations.name.text))]
+              ),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -44190,6 +44304,22 @@ var render = function() {
           _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
             _c("label", [
               _vm._v("Address\n            "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.validations.address.is_valid,
+                      expression: "!validations.address.is_valid"
+                    }
+                  ],
+                  staticClass: "validation"
+                },
+                [_vm._v(_vm._s(_vm.validations.address.text))]
+              ),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -44216,6 +44346,22 @@ var render = function() {
           _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
             _c("label", [
               _vm._v("City\n            "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.validations.city.is_valid,
+                      expression: "!validations.city.is_valid"
+                    }
+                  ],
+                  staticClass: "validation"
+                },
+                [_vm._v(_vm._s(_vm.validations.city.text))]
+              ),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -44242,6 +44388,22 @@ var render = function() {
           _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
             _c("label", [
               _vm._v("State\n            "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.validations.state.is_valid,
+                      expression: "!validations.state.is_valid"
+                    }
+                  ],
+                  staticClass: "validation"
+                },
+                [_vm._v(_vm._s(_vm.validations.state.text))]
+              ),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -44268,6 +44430,22 @@ var render = function() {
           _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
             _c("label", [
               _vm._v("Zip\n            "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.validations.zip.is_valid,
+                      expression: "!validations.zip.is_valid"
+                    }
+                  ],
+                  staticClass: "validation"
+                },
+                [_vm._v(_vm._s(_vm.validations.zip.text))]
+              ),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {

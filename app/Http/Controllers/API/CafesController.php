@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCafeRequest;
 
 use App\Models\Cafe;
 
@@ -23,7 +23,7 @@ class CafesController extends Controller
         return response()->json( $cafe );
     }
 
-    public function postNewCafe(Request $request)
+    public function postNewCafe(StoreCafeRequest $request)
     {
         $cafe = new Cafe();
 
