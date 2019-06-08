@@ -36,7 +36,8 @@
         },
         data(){
             return {
-                markers: []
+                markers: [],
+                infoWindows: []
             }
         },
         computed: {
@@ -87,6 +88,22 @@
                         map: this.map
                     });
 
+                    /*
+                     Create the info window and add it to the local
+                     array.
+                     */
+                    let infoWindow = new google.maps.InfoWindow({
+                        content: this.cafes[i].name
+                    });
+
+                    /*
+                     Add the event listener to open the info window for the marker.
+                    */
+                    marker.addListener('click', function() {
+                        infoWindow.open(this.map, this);
+                    });
+
+                    this.infoWindows.push( infoWindow );
                     this.markers.push( marker );
                 }
             },
