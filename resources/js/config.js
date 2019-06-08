@@ -7,6 +7,8 @@
  */
 var api_url = '';
 
+var google_maps_js_api = 'AIzaSyD5t7G0K8ghJDAsiMUkts1mDC3h5XlNtr8';
+
 switch( process.env.NODE_ENV ){
     case 'development':
         api_url = 'https://roast-and-brew.app/api/v1';
@@ -18,4 +20,5 @@ switch( process.env.NODE_ENV ){
 
 export const ROAST_CONFIG = {
     API_URL: api_url,
+    GOOGLE_MAPS_JS_API: google_maps_js_api
 }

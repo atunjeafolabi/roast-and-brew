@@ -26,6 +26,7 @@
 </div>
 
 <script type="text/javascript" src="js/app.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5t7G0K8ghJDAsiMUkts1mDC3h5XlNtr8"></script>
 
 </body>
 </html>
