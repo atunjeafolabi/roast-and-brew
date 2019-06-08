@@ -56,7 +56,7 @@ class AuthenticationController extends Controller
             $newUser->name        = $socialUser->getName();
             $newUser->email       = $socialUser->getEmail() == '' ? '' : $socialUser->getEmail();
             $newUser->avatar      = $socialUser->getAvatar();
-            $newUser->password    = '';
+            $newUser->password    = '';     //TODO: A general default password needs to be set to avoid users login in without password
             $newUser->provider    = $account;
             $newUser->provider_id = $socialUser->getId();
 
