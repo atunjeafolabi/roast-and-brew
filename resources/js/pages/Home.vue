@@ -4,10 +4,10 @@
 
 <template>
   <div id="home">
-    Home component by atunje
+    <loader v-show="cafesLoadStatus == 1" :width="100" :height="100"></loader>
     <span v-show="cafesLoadStatus == 1">Loading</span>
     <span v-show="cafesLoadStatus == 2">Cafes loaded successfully!</span>
-    <span v-show="cafesLoadStatus == 3">Cafes loaded unsuccessfully!</span>
+    <span v-show="cafesLoadStatus == 3">Cafes cannot be loaded!</span>
 
     <ul>
       <li v-for="cafe in cafes">{{ cafe.name }}</li>
@@ -16,7 +16,13 @@
 </template>
 
 <script>
+
+    import Loader from '../components/global/Loader.vue';
+
     export default {
+        components:{
+            Loader
+        },
         created(){
             this.$store.dispatch( 'loadCafes' );
         },
