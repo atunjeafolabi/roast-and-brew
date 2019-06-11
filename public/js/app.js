@@ -2037,6 +2037,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     /*
@@ -2189,6 +2195,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.$store.dispatch('loadCafes');
     this.$store.dispatch('loadUser');
+    this.$store.dispatch('loadBrewMethods');
   }
 });
 
@@ -2251,47 +2258,96 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    this.addLocation();
+  },
   data: function data() {
     return {
       name: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
+      locations: [],
+      website: '',
+      description: '',
+      roaster: false,
       validations: {
         name: {
           is_valid: true,
           text: ''
         },
-        address: {
+        locations: [],
+        oneLocation: {
           is_valid: true,
           text: ''
         },
-        city: {
-          is_valid: true,
-          text: ''
-        },
-        state: {
-          is_valid: true,
-          text: ''
-        },
-        zip: {
+        website: {
           is_valid: true,
           text: ''
         }
       }
     };
   },
+  computed: {
+    brewMethods: function brewMethods() {
+      return this.$store.getters.getBrewMethods;
+    },
+    addCafeStatus: function addCafeStatus() {
+      return this.$store.getters.getCafeAddStatus;
+    }
+  },
+  watch: {
+    'addCafeStatus': function addCafeStatus() {
+      if (this.addCafeStatus == 2) {
+        this.clearForm();
+        $("#cafe-added-successfully").show().delay(5000).fadeOut();
+      }
+
+      if (this.addCafeStatus == 3) {
+        $("#cafe-added-unsuccessfully").show().delay(5000).fadeOut();
+      }
+    }
+  },
   methods: {
     submitNewCafe: function submitNewCafe() {
       if (this.validateNewCafe()) {
         this.$store.dispatch('addCafe', {
           name: this.name,
-          address: this.address,
-          city: this.city,
-          state: this.state,
-          zip: this.zip
+          locations: this.locations,
+          website: this.website,
+          description: this.description,
+          roaster: this.roaster
         });
       }
     },
@@ -2310,59 +2366,123 @@ __webpack_require__.r(__webpack_exports__);
         this.validations.name.text = '';
       }
       /*
-       Ensure an address has been entered
+       Ensure all locations entered are valid
        */
 
 
-      if (this.address.trim() == '') {
-        validNewCafeForm = false;
-        this.validations.address.is_valid = false;
-        this.validations.address.text = 'Please enter an address for the new cafe!';
-      } else {
-        this.validations.address.is_valid = true;
-        this.validations.address.text = '';
-      }
-      /*
-       Ensure a city has been entered
-       */
+      for (var index in this.locations) {
+        if (this.locations.hasOwnProperty(index)) {
+          //this line is not really needed
+
+          /*
+           Ensure an address has been entered
+           */
+          if (this.locations[index].address.trim() == '') {
+            validNewCafeForm = false;
+            this.validations.locations[index].address.is_valid = false;
+            this.validations.locations[index].address.text = 'Please enter an address for the new cafe!';
+          } else {
+            this.validations.locations[index].address.is_valid = true;
+            this.validations.locations[index].address.text = '';
+          }
+        }
+        /*
+         Ensure a city has been entered
+         */
 
 
-      if (this.city.trim() == '') {
-        validNewCafeForm = false;
-        this.validations.city.is_valid = false;
-        this.validations.city.text = 'Please enter a city for the new cafe!';
-      } else {
-        this.validations.city.is_valid = true;
-        this.validations.city.text = '';
-      }
-      /*
-       Ensure a state has been entered
-       */
+        if (this.locations[index].city.trim() == '') {
+          validNewCafeForm = false;
+          this.validations.locations[index].city.is_valid = false;
+          this.validations.locations[index].city.text = 'Please enter a city for the new cafe!';
+        } else {
+          this.validations.locations[index].city.is_valid = true;
+          this.validations.locations[index].city.text = '';
+        }
+        /*
+         Ensure a state has been entered
+         */
 
 
-      if (this.state.trim() == '') {
-        validNewCafeForm = false;
-        this.validations.state.is_valid = false;
-        this.validations.state.text = 'Please enter a state for the new cafe!';
-      } else {
-        this.validations.state.is_valid = true;
-        this.validations.state.text = '';
-      }
-      /*
-       Ensure a zip has been entered
-       */
+        if (this.locations[index].state.trim() == '') {
+          validNewCafeForm = false;
+          this.validations.locations[index].state.is_valid = false;
+          this.validations.locations[index].state.text = 'Please enter a state for the new cafe!';
+        } else {
+          this.validations.locations[index].state.is_valid = true;
+          this.validations.locations[index].state.text = '';
+        }
+        /*
+         Ensure a zip has been entered
+         */
 
 
-      if (this.zip.trim() == '' || !this.zip.match(/(^\d{5}$)/)) {
-        validNewCafeForm = false;
-        this.validations.zip.is_valid = false;
-        this.validations.zip.text = 'Please enter a valid zip code for the new cafe!';
-      } else {
-        this.validations.zip.is_valid = true;
-        this.validations.zip.text = '';
+        if (this.locations[index].zip.trim() == '' || !this.locations[index].zip.match(/(^\d{5}$)/)) {
+          validNewCafeForm = false;
+          this.validations.locations[index].zip.is_valid = false;
+          this.validations.locations[index].zip.text = 'Please enter a valid zip code for the new cafe!';
+        } else {
+          this.validations.locations[index].zip.is_valid = true;
+          this.validations.locations[index].zip.text = '';
+        }
       }
 
       return validNewCafeForm;
+    },
+    addLocation: function addLocation() {
+      this.locations.push({
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        methodsAvailable: []
+      });
+      this.validations.locations.push({
+        address: {
+          is_valid: true,
+          text: ''
+        },
+        city: {
+          is_valid: true,
+          text: ''
+        },
+        state: {
+          is_valid: true,
+          text: ''
+        },
+        zip: {
+          is_valid: true,
+          text: ''
+        }
+      });
+    },
+    removeLocation: function removeLocation(key) {
+      this.locations.splice(key, 1);
+      this.validations.locations.splice(key, 1);
+    },
+    clearForm: function clearForm() {
+      this.name = '';
+      this.locations = [];
+      this.website = '';
+      this.description = '';
+      this.roaster = false;
+      this.validations = {
+        name: {
+          is_valid: true,
+          text: ''
+        },
+        locations: [],
+        oneLocation: {
+          is_valid: true,
+          text: ''
+        },
+        website: {
+          is_valid: true,
+          text: ''
+        }
+      };
+      this.addLocation();
     }
   }
 });
@@ -44495,6 +44615,18 @@ var render = function() {
             ])
           ],
           1
+        ),
+        _vm._v(" "),
+        _c("li", [_vm._v("|")]),
+        _vm._v(" "),
+        _c(
+          "li",
+          [
+            _c("router-link", { attrs: { to: { name: "newcafe" } } }, [
+              _vm._v("\n                New Cafe\n            ")
+            ])
+          ],
+          1
         )
       ]),
       _vm._v(" "),
@@ -44715,6 +44847,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "page" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
     _c("form", [
       _c("div", { staticClass: "grid-container" }, [
         _c("div", { staticClass: "grid-x grid-padding-x" }, [
@@ -44762,7 +44898,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
             _c("label", [
-              _vm._v("Address\n            "),
+              _vm._v("Website\n            "),
               _c(
                 "span",
                 {
@@ -44770,13 +44906,13 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: !_vm.validations.address.is_valid,
-                      expression: "!validations.address.is_valid"
+                      value: !_vm.validations.website.is_valid,
+                      expression: "!validations.website.is_valid"
                     }
                   ],
                   staticClass: "validation"
                 },
-                [_vm._v(_vm._s(_vm.validations.address.text))]
+                [_vm._v(_vm._s(_vm.validations.website.text))]
               ),
               _vm._v(" "),
               _c("input", {
@@ -44784,149 +44920,353 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.address,
-                    expression: "address"
+                    value: _vm.website,
+                    expression: "website"
                   }
                 ],
-                attrs: { type: "text", placeholder: "Address" },
-                domProps: { value: _vm.address },
+                attrs: { type: "text", placeholder: "Website" },
+                domProps: { value: _vm.website },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.address = $event.target.value
+                    _vm.website = $event.target.value
                   }
                 }
               })
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
-            _c("label", [
-              _vm._v("City\n            "),
-              _c(
-                "span",
-                {
-                  directives: [
+          _c(
+            "div",
+            { staticClass: "grid-container" },
+            _vm._l(_vm.locations, function(location, key) {
+              return _c("div", { staticClass: "grid-x grid-padding-x" }, [
+                _vm._m(2, true),
+                _vm._v(" "),
+                _c("div", { staticClass: "large-6 medium-6 small-12 cell" }, [
+                  _c("label", [
+                    _vm._v("Location Name\n                "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.locations[key].name,
+                          expression: "locations[key].name"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "Location Name" },
+                      domProps: { value: _vm.locations[key].name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.locations[key],
+                            "name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "large-6 medium-6 small-12 cell" }, [
+                  _c("label", [
+                    _vm._v("Address\n                "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.locations[key].address,
+                          expression: "locations[key].address"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "Address" },
+                      domProps: { value: _vm.locations[key].address },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.locations[key],
+                            "address",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.validations.city.is_valid,
-                      expression: "!validations.city.is_valid"
-                    }
-                  ],
-                  staticClass: "validation"
-                },
-                [_vm._v(_vm._s(_vm.validations.city.text))]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.city,
-                    expression: "city"
-                  }
-                ],
-                attrs: { type: "text", placeholder: "City" },
-                domProps: { value: _vm.city },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.city = $event.target.value
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
-            _c("label", [
-              _vm._v("State\n            "),
-              _c(
-                "span",
-                {
-                  directives: [
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.validations.locations[key].address
+                            .is_valid,
+                          expression:
+                            "!validations.locations[key].address.is_valid"
+                        }
+                      ],
+                      staticClass: "validation"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s(_vm.validations.locations[key].address.text)
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "large-6 medium-6 small-12 cell" }, [
+                  _c("label", [
+                    _vm._v("City\n                "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.locations[key].city,
+                          expression: "locations[key].city"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "City" },
+                      domProps: { value: _vm.locations[key].city },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.locations[key],
+                            "city",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.validations.state.is_valid,
-                      expression: "!validations.state.is_valid"
-                    }
-                  ],
-                  staticClass: "validation"
-                },
-                [_vm._v(_vm._s(_vm.validations.state.text))]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.state,
-                    expression: "state"
-                  }
-                ],
-                attrs: { type: "text", placeholder: "State" },
-                domProps: { value: _vm.state },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.state = $event.target.value
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
-            _c("label", [
-              _vm._v("Zip\n            "),
-              _c(
-                "span",
-                {
-                  directives: [
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.validations.locations[key].city.is_valid,
+                          expression:
+                            "!validations.locations[key].city.is_valid"
+                        }
+                      ],
+                      staticClass: "validation"
+                    },
+                    [_vm._v(_vm._s(_vm.validations.locations[key].city.text))]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "large-6 medium-6 small-12 cell" }, [
+                  _c("label", [
+                    _vm._v("State\n                "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.locations[key].state,
+                          expression: "locations[key].state"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "State" },
+                      domProps: { value: _vm.locations[key].state },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.locations[key],
+                            "state",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
                     {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.validations.zip.is_valid,
-                      expression: "!validations.zip.is_valid"
-                    }
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.validations.locations[key].state.is_valid,
+                          expression:
+                            "!validations.locations[key].state.is_valid"
+                        }
+                      ],
+                      staticClass: "validation"
+                    },
+                    [_vm._v(_vm._s(_vm.validations.locations[key].state.text))]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "large-6 medium-6 small-12 cell" }, [
+                  _c("label", [
+                    _vm._v("Zip\n                "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.locations[key].zip,
+                          expression: "locations[key].zip"
+                        }
+                      ],
+                      attrs: { type: "text", placeholder: "Zip" },
+                      domProps: { value: _vm.locations[key].zip },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.locations[key],
+                            "zip",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.validations.locations[key].zip.is_valid,
+                          expression: "!validations.locations[key].zip.is_valid"
+                        }
+                      ],
+                      staticClass: "validation"
+                    },
+                    [_vm._v(_vm._s(_vm.validations.locations[key].zip.text))]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "large-12 medium-12 small-12 cell" },
+                  [
+                    _c("label", [_vm._v("Brew Methods Available")]),
+                    _vm._v(" "),
+                    _vm._l(_vm.brewMethods, function(brewMethod) {
+                      return _c("span", { staticClass: "brew-method" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.locations[key].methodsAvailable,
+                              expression: "locations[key].methodsAvailable"
+                            }
+                          ],
+                          attrs: {
+                            id: "brew-method-" + brewMethod.id + "-" + key,
+                            type: "checkbox"
+                          },
+                          domProps: {
+                            value: brewMethod.id,
+                            checked: Array.isArray(
+                              _vm.locations[key].methodsAvailable
+                            )
+                              ? _vm._i(
+                                  _vm.locations[key].methodsAvailable,
+                                  brewMethod.id
+                                ) > -1
+                              : _vm.locations[key].methodsAvailable
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.locations[key].methodsAvailable,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = brewMethod.id,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.locations[key],
+                                      "methodsAvailable",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.locations[key],
+                                      "methodsAvailable",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(
+                                  _vm.locations[key],
+                                  "methodsAvailable",
+                                  $$c
+                                )
+                              }
+                            }
+                          }
+                        }),
+                        _c(
+                          "label",
+                          {
+                            attrs: {
+                              for: "brew-method-" + brewMethod.id + "-" + key
+                            }
+                          },
+                          [_vm._v(_vm._s(brewMethod.method))]
+                        )
+                      ])
+                    })
                   ],
-                  staticClass: "validation"
-                },
-                [_vm._v(_vm._s(_vm.validations.zip.text))]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.zip,
-                    expression: "zip"
-                  }
-                ],
-                attrs: { type: "text", placeholder: "Zip" },
-                domProps: { value: _vm.zip },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.zip = $event.target.value
-                  }
-                }
-              })
-            ])
-          ]),
+                  2
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.removeLocation(key)
+                        }
+                      }
+                    },
+                    [_vm._v("Remove Location")]
+                  )
+                ])
+              ])
+            }),
+            0
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
             _c(
@@ -44947,7 +45287,50 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: { display: "none" },
+        attrs: { id: "cafe-added-successfully" }
+      },
+      [
+        _c("p", { staticStyle: { "background-color": "green" } }, [
+          _vm._v("Cafe was added successfully")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: { display: "none" },
+        attrs: { id: "cafe-added-unsuccessfully" }
+      },
+      [
+        _c("p", { staticStyle: { "background-color": "red" } }, [
+          _vm._v("Unable to add Cafe")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+      _c("h3", [_vm._v("Location")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -60805,6 +61188,50 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/api/brewMethod.js":
+/*!****************************************!*\
+  !*** ./resources/js/api/brewMethod.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  /*
+   GET     /api/v1/brew-methods
+   */
+  getBrewMethods: function getBrewMethods() {
+    return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/brew-methods');
+  }
+  /*
+   GET     /api/v1/cafes/{cafeID}
+   */
+  // getBrewMethod: function( cafeID ){
+  //     return axios.get( ROAST_CONFIG.API_URL + '/cafes/' + cafeID );
+  // },
+
+  /*
+   POST    /api/v1/cafes
+   */
+  // postAddNewBrewMethod: function( name, address, city, state, zip ){
+  //     return axios.post( ROAST_CONFIG.API_URL + '/cafes',
+  //         {
+  //             name: name,
+  //             address: address,
+  //             city: city,
+  //             state: state,
+  //             zip: zip
+  //         }
+  //     );
+  // }
+
+});
+
+/***/ }),
+
 /***/ "./resources/js/api/cafe.js":
 /*!**********************************!*\
   !*** ./resources/js/api/cafe.js ***!
@@ -60837,13 +61264,13 @@ __webpack_require__.r(__webpack_exports__);
   /*
    POST  /api/v1/cafes
    */
-  postAddNewCafe: function postAddNewCafe(name, address, city, state, zip) {
+  postAddNewCafe: function postAddNewCafe(name, locations, website, description, roaster) {
     return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes', {
       name: name,
-      address: address,
-      city: city,
-      state: state,
-      zip: zip
+      locations: locations,
+      website: website,
+      description: description,
+      roaster: roaster
     });
   }
 });
@@ -61238,6 +61665,75 @@ var ROAST_CONFIG = {
 
 /***/ }),
 
+/***/ "./resources/js/modules/brewMethods.js":
+/*!*********************************************!*\
+  !*** ./resources/js/modules/brewMethods.js ***!
+  \*********************************************/
+/*! exports provided: brewMethods */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "brewMethods", function() { return brewMethods; });
+/* harmony import */ var _api_brewMethod_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api/brewMethod.js */ "./resources/js/api/brewMethod.js");
+/*
+ |-------------------------------------------------------------------------------
+ | VUEX modules/brewMethods.js
+ |-------------------------------------------------------------------------------
+ | The Vuex data store for the brewMethods
+ */
+
+var brewMethods = {
+  /*
+   Defines the state being monitored for the module.
+   */
+  state: {
+    brewMethods: [],
+    brewMethodsLoadStatus: 0
+  },
+
+  /*
+   Defines the actions used to retrieve the data.
+   */
+  actions: {
+    /*
+     Loads the brewMethods from the API
+     */
+    loadBrewMethods: function loadBrewMethods(_ref) {
+      var commit = _ref.commit;
+      commit('setBrewMethodsLoadStatus', 1);
+      _api_brewMethod_js__WEBPACK_IMPORTED_MODULE_0__["default"].getBrewMethods().then(function (response) {
+        commit('setBrewMethods', response.data);
+        commit('setBrewMethodsLoadStatus', 2);
+      })["catch"](function () {
+        commit('setBrewMethods', []);
+        commit('setBrewMethodsLoadStatus', 3);
+      });
+    }
+  },
+  mutations: {
+    setBrewMethodsLoadStatus: function setBrewMethodsLoadStatus(state, status) {
+      state.brewMethodsLoadStatus = status;
+    },
+    setBrewMethods: function setBrewMethods(state, brewMethods) {
+      state.brewMethods = brewMethods;
+    },
+    setBrewMethodLoadStatus: function setBrewMethodLoadStatus(state, status) {
+      state.cafeLoadStatus = status;
+    }
+  },
+  getters: {
+    getBrewMethodsLoadStatus: function getBrewMethodsLoadStatus(state) {
+      return state.brewMethodsLoadStatus;
+    },
+    getBrewMethods: function getBrewMethods(state) {
+      return state.brewMethods;
+    }
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/modules/cafes.js":
 /*!***************************************!*\
   !*** ./resources/js/modules/cafes.js ***!
@@ -61310,10 +61806,12 @@ var cafes = {
           state = _ref3.state,
           dispatch = _ref3.dispatch;
       commit('setCafeAddedStatus', 1);
-      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].postAddNewCafe(data.name, data.address, data.city, data.state, data.zip).then(function (response) {
+      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].postAddNewCafe(data.name, data.locations, data.website, data.description, data.roaster).then(function (response) {
+        console.log(response);
         commit('setCafeAddedStatus', 2);
-        dispatch('loadCafes'); // i.e reload cafes
-      })["catch"](function () {
+        dispatch('loadCafes');
+      })["catch"](function (error) {
+        console.log(error.response);
         commit('setCafeAddedStatus', 3);
       });
     }
@@ -61347,6 +61845,9 @@ var cafes = {
     },
     getCafe: function getCafe(state) {
       return state.cafe;
+    },
+    getCafeAddStatus: function getCafeAddStatus(state) {
+      return state.cafeAddStatus;
     }
   }
 };
@@ -61850,6 +62351,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_cafes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/cafes.js */ "./resources/js/modules/cafes.js");
 /* harmony import */ var _modules_users_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/users.js */ "./resources/js/modules/users.js");
+/* harmony import */ var _modules_brewMethods__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/brewMethods */ "./resources/js/modules/brewMethods.js");
 /**
  * Created by Atunje on 24/05/2019.
  */
@@ -61870,6 +62372,7 @@ __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-prom
 
 
 
+
 /*
  Initializes Vuex on Vue.
  */
@@ -61882,7 +62385,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     cafes: _modules_cafes_js__WEBPACK_IMPORTED_MODULE_2__["cafes"],
-    users: _modules_users_js__WEBPACK_IMPORTED_MODULE_3__["users"]
+    users: _modules_users_js__WEBPACK_IMPORTED_MODULE_3__["users"],
+    brewMethods: _modules_brewMethods__WEBPACK_IMPORTED_MODULE_4__["brewMethods"]
   }
 }));
 

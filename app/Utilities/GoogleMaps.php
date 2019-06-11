@@ -22,7 +22,7 @@ class GoogleMaps{
         $geocodeResponse = $client->get( $url )->getBody();
 
         $geocodeData = json_decode( $geocodeResponse );
-
+//var_dump($geocodeData);exit;
         /*
           Initializes the response for the GeoCode Location
         */

@@ -64,14 +64,17 @@ export const cafes = {
 
         },
         addCafe( { commit, state, dispatch }, data ){
+
             commit( 'setCafeAddedStatus', 1 );
 
-            CafeAPI.postAddNewCafe( data.name, data.address, data.city, data.state, data.zip )
+            CafeAPI.postAddNewCafe( data.name, data.locations, data.website, data.description, data.roaster )
                 .then( function( response ){
+                    console.log(response)
                     commit( 'setCafeAddedStatus', 2 );
-                    dispatch( 'loadCafes' );    // i.e reload cafes
+                    dispatch( 'loadCafes' );
                 })
-                .catch( function(){
+                .catch( function(error){
+                    console.log(error.response)
                     commit( 'setCafeAddedStatus', 3 );
                 });
         }
@@ -115,6 +118,9 @@ export const cafes = {
 
         getCafe( state ){
             return state.cafe;
+        },
+        getCafeAddStatus(state){
+            return state.cafeAddStatus;
         }
     }
 }
