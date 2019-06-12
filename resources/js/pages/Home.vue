@@ -10,7 +10,9 @@
     <span v-show="cafesLoadStatus == 3">Cafes cannot be loaded!</span>
 
     <ul>
-      <li v-for="cafe in cafes">{{ cafe.name }}</li>
+      <li v-for="cafe in cafes">
+        <router-link :to="{ name: 'cafe', params: { id: cafe.id }}">{{ cafe.name }}</router-link>
+      </li>
     </ul>
   </div>
 </template>

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCafeRequest;
 use Auth;
+use DB;
+
+use App\Http\Requests\StoreCafeRequest;
 use App\Models\Cafe;
 use App\Utilities\GoogleMaps;
 
@@ -22,6 +25,7 @@ class CafesController extends Controller
         $cafe = Cafe::where('id', '=', $id)
                 ->with('brewMethods')
                 ->with('userLike')
+                ->with('tags')
                 ->first();
 
         return response()->json( $cafe );
@@ -46,6 +50,7 @@ class CafesController extends Controller
         $zip                        = $locations[0]['zip'];
         $locationName       = $locations[0]['name'];
         $brewMethods        = $locations[0]['methodsAvailable'];
+        $tags = $locations[0]['tags'];
 
         /*
           Get the Latitude and Longitude returned from the Google Maps Address.
@@ -73,6 +78,8 @@ class CafesController extends Controller
         */
         $parentCafe->brewMethods()->sync( $brewMethods );
 
+        Tagger::tagCafe( $parentCafe, $tags );
+
         array_push( $addedCafes, $parentCafe->toArray() );
 
         /*
@@ -96,6 +103,7 @@ class CafesController extends Controller
                 $zip                        = $locations[$i]['zip'];
                 $locationName       = $locations[$i]['name'];
                 $brewMethods        = $locations[$i]['methodsAvailable'];
+                $tags               = $locations[$i]['tags'];
 
                 /*
                   Get the Latitude and Longitude returned from the Google Maps Address.
@@ -122,6 +130,8 @@ class CafesController extends Controller
                   Attach the brew methods
                 */
                 $cafe->brewMethods()->sync( $brewMethods );
+
+                Tagger::tagCafe( $cafe, $tags );
 
                 array_push( $addedCafes, $cafe->toArray() );
             }
@@ -154,6 +164,39 @@ class CafesController extends Controller
 
         $cafe->likes()->detach( Auth::user()->id );
 
+        return response(null, 204);
+    }
+
+    public function postAddTags( $cafeID ){
+
+        $tags = Request::get('tags');
+
+        $cafe = Cafe::where('id', '=', $cafeID)->first();
+
+        /*
+          Tags the cafe
+        */
+        Tagger::tagCafe( $cafe, $tags );
+
+        /*
+          Grabs the cafe with the brew methods, user like and tags
+        */
+        $cafe = Cafe::where('id', '=', $cafeID)
+                ->with('brewMethods')
+                ->with('userLike')
+                ->with('tags')
+                ->first();
+
+        return response()->json($cafe, 201);
+    }
+
+    public function deleteCafeTag( $cafeID, $tagID ){
+
+        DB::statement('DELETE FROM cafes_users_tags WHERE cafe_id = `'.$cafeID.'` AND tag_id = `'.$tagID.'` AND user_id = `'.Auth::user()->id.'`');
+
+        /*
+          Return a proper response code for successful untagging
+        */
         return response(null, 204);
     }
 }

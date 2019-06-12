@@ -44,6 +44,21 @@
       }
     }
   }
+
+  div.tags-container{
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    margin-top: 30px;
+
+    span.tag{
+      color: $dark-color;
+      font-family: 'Josefin Sans', sans-serif;
+      margin-right: 20px;
+      display: inline-block;
+      line-height: 20px;
+    }
+  }
 </style>
 
 <template>
@@ -60,7 +75,15 @@
           </loader>
 
           <div class="cafe-page" v-show="cafeLoadStatus == 2">
+
             <toggle-like></toggle-like>
+            <div class="tags-container">
+              <div class="grid-x grid-padding-x">
+                <div class="large-12 medium-12 small-12 cell">
+                  <span class="tag" v-for="tag in cafe.tags">#{{ tag.tag }}</span>
+                </div>
+              </div>
+            </div>
             <h2>{{ cafe.name }}</h2>
             <h3 v-if="cafe.location_name != ''">{{ cafe.location_name }}</h3>
 
@@ -83,6 +106,7 @@
             <br>
 
             <individual-cafe-map></individual-cafe-map>
+
           </div>
         </div>
 

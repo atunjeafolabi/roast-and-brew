@@ -25,4 +25,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
     Route::get('/brew-methods', 'API\BrewMethodsController@getBrewMethods');
     Route::post('/cafes/{id}/like', 'API\CafesController@postLikeCafe');
     Route::delete('/cafes/{id}/like', 'API\CafesController@deleteLikeCafe');
+    Route::post('/cafes/{id}/tags', 'API\CafesController@postAddTags');
+    Route::delete('/cafes/{id}/tags/{tagID}', 'API\CafesController@deleteCafeTag');
+    Route::get('/tags', 'API\TagsController@getTags');
 });

@@ -79,10 +79,6 @@
                     New Cafe
                 </router-link>
             </li>
-            <li>|</li>
-            <li>
-                <router-link :to="{ name: 'cafe', params: { id: 1 }}">Individual Cafe</router-link>
-            </li>
         </ul>
 
         <div class="right">

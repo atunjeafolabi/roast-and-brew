@@ -27,4 +27,8 @@ class Cafe extends Model
     public function userLike(){
         return $this->belongsToMany( 'App\Models\User', 'users_cafes_likes', 'cafe_id', 'user_id')->where('user_id', auth()->id());
     }
+
+    public function tags(){
+        return $this->belongsToMany( 'App\Models\Tag', 'cafes_users_tags', 'cafe_id', 'tag_id');
+    }
 }

@@ -62,8 +62,12 @@
               <div class="large-12 medium-12 small-12 cell">
                 <label>Brew Methods Available</label>
                 <span class="brew-method" v-for="brewMethod in brewMethods">
+                  <!-- Re-Inspect this checkbox line -->
                   <input v-bind:id="'brew-method-'+brewMethod.id+'-'+key" type="checkbox" v-bind:value="brewMethod.id" v-model="locations[key].methodsAvailable"><label v-bind:for="'brew-method-'+brewMethod.id+'-'+key">{{ brewMethod.method }}</label>
                 </span>
+              </div>
+              <div class="large-12 medium-12 small-12 cell">
+                <tags-input v-bind:unique="key"></tags-input>
               </div>
               <div class="large-12 medium-12 small-12 cell">
                 <a class="button" v-on:click="removeLocation( key )">Remove Location</a>
@@ -80,10 +84,24 @@
 </template>
 
 <script>
+
+    import TagsInput from '../components/global/forms/TagsInput.vue';
+
+    /*
+     Imports the Event Bus to pass events on tag updates
+     */
+    import { EventBus } from '../event-bus.js';
+
   export default {
+
+      components: {
+          TagsInput
+      },
+
       created(){
           this.addLocation();
       },
+
       data(){
           return {
               name: '',
@@ -108,6 +126,7 @@
               }
           }
       },
+
       computed: {
           brewMethods(){
               return this.$store.getters.getBrewMethods;
@@ -128,6 +147,15 @@
               }
           }
       },
+      /*
+        Sync the tags to send to the server for the new cafe.
+      */
+      mounted(){
+          EventBus.$on('tags-edited', function( tagsAdded ){
+              this.locations[tagsAdded.unique].tags = tagsAdded.tags;
+          }.bind(this));
+      },
+
       methods:{
           submitNewCafe(){
               if( this.validateNewCafe() ){
@@ -214,8 +242,9 @@
 
               return validNewCafeForm;
           },
+
           addLocation(){
-              this.locations.push( { name: '', address: '', city: '', state: '', zip: '', methodsAvailable: [] } );
+              this.locations.push( { name: '', address: '', city: '', state: '', zip: '', methodsAvailable: [], tags: [] } );
               this.validations.locations.push({
                   address: {
                       is_valid: true,
@@ -235,10 +264,12 @@
                   }
               });
           },
+
           removeLocation( key ){
               this.locations.splice( key, 1 );
               this.validations.locations.splice( key, 1 );
           },
+
           clearForm(){
               this.name = '';
               this.locations = [];
@@ -261,7 +292,10 @@
                   }
               };
 
+              EventBus.$emit('clear-tags');
+
               this.addLocation();
+
           }
       },
   }
