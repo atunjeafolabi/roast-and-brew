@@ -21,6 +21,7 @@ class CafesController extends Controller
     {
         $cafe = Cafe::where('id', '=', $id)
                 ->with('brewMethods')
+                ->with('userLike')
                 ->first();
 
         return response()->json( $cafe );
@@ -127,5 +128,32 @@ class CafesController extends Controller
         }
 
         return response()->json($addedCafes, 201);
+    }
+
+    public function postLikeCafe( $cafeID ){
+
+        $cafe = Cafe::where('id', '=', $cafeID)->first();
+
+        /*
+            If the user doesn't already like the cafe, attaches the cafe to the user's likes
+        */
+        if( !$cafe->likes->contains( Auth::user()->id ) ) {
+
+            $cafe->likes()->attach(Auth::user()->id, [
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+
+        return response()->json( ['cafe_liked' => true], 201 );
+    }
+
+    public function deleteLikeCafe( $cafeID ){
+
+        $cafe = Cafe::where('id', '=', $cafeID)->first();
+
+        $cafe->likes()->detach( Auth::user()->id );
+
+        return response(null, 204);
     }
 }

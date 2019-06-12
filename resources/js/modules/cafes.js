@@ -22,7 +22,11 @@ export const cafes = {
         cafe: {},
         cafeLoadStatus: 0,
 
-        cafeAddStatus: 0
+        cafeAddStatus: 0,
+
+        cafeLikeActionStatus: 0,
+        cafeUnlikeActionStatus: 0,
+        cafeLiked: false,
     },
 
     /*
@@ -46,23 +50,24 @@ export const cafes = {
                 });
         },
 
-        /*
-         Loads an individual cafe from the API
-         */
         loadCafe( { commit }, data ){
+            commit( 'setCafeLikedStatus', false );
             commit( 'setCafeLoadStatus', 1 );
 
             CafeAPI.getCafe( data.id )
                 .then( function( response ){
                     commit( 'setCafe', response.data );
+                    if( response.data.user_like.length > 0 ){
+                        commit('setCafeLikedStatus', true);
+                    }
                     commit( 'setCafeLoadStatus', 2 );
                 })
                 .catch( function(){
                     commit( 'setCafe', {} );
                     commit( 'setCafeLoadStatus', 3 );
                 });
-
         },
+
         addCafe( { commit, state, dispatch }, data ){
 
             commit( 'setCafeAddedStatus', 1 );
@@ -76,6 +81,34 @@ export const cafes = {
                 .catch( function(error){
                     console.log(error.response)
                     commit( 'setCafeAddedStatus', 3 );
+                });
+        },
+
+        likeCafe( { commit, state }, data ){
+
+            commit( 'setCafeLikeActionStatus', 1 );
+
+            CafeAPI.postLikeCafe( data.id )
+                .then( function( response ){
+                    commit( 'setCafeLikedStatus', true );
+                    commit( 'setCafeLikeActionStatus', 2 );
+                })
+                .catch( function(){
+                    commit( 'setCafeLikeActionStatus', 3 );
+                });
+        },
+
+        unlikeCafe( { commit, state }, data ){
+
+            commit( 'setCafeUnlikeActionStatus', 1 );
+
+            CafeAPI.deleteLikeCafe( data.id )
+                .then( function( response ){
+                    commit( 'setCafeLikedStatus', false );
+                    commit( 'setCafeUnlikeActionStatus', 2 );
+                })
+                .catch( function(){
+                    commit( 'setCafeUnlikeActionStatus', 3 );
                 });
         }
     },
@@ -99,6 +132,18 @@ export const cafes = {
         },
         setCafeAddedStatus( state, status ){
             state.cafeAddStatus = status;
+        },
+
+        setCafeLikedStatus( state, status ){
+            state.cafeLiked = status;
+        },
+
+        setCafeLikeActionStatus( state, status ){
+            state.cafeLikeActionStatus = status;
+        },
+
+        setCafeUnlikeActionStatus( state, status ){
+            state.cafeUnlikeActionStatus = status;
         }
     },
 
@@ -119,8 +164,21 @@ export const cafes = {
         getCafe( state ){
             return state.cafe;
         },
+
         getCafeAddStatus(state){
             return state.cafeAddStatus;
+        },
+
+        getCafeLikedStatus( state ){
+            return state.cafeLiked;
+        },
+
+        getCafeLikeActionStatus( state ){
+            return state.cafeLikeActionStatus;
+        },
+
+        getCafeUnlikeActionStatus( state ){
+            return state.cafeUnlikeActionStatus;
         }
     }
 }
