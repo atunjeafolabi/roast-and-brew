@@ -15,9 +15,13 @@ class CafesController extends Controller
 {
     public function getCafes()
     {
-        $cafes = Cafe::with('brewMethods')->get();
+        $cafes = Cafe::with('brewMethods')
+                ->with(['tags' => function( $query ){
+                    $query->select('tag');
+                }])
+                ->get();
 
-        return response()->json( $cafes );  //use api resources instead
+        return response()->json( $cafes );  //can use Laravel api resources instead
     }
 
     public function getCafe( $id )
@@ -108,7 +112,7 @@ class CafesController extends Controller
                 /*
                   Get the Latitude and Longitude returned from the Google Maps Address.
                 */
-                $coordinates = GoogleMaps::geocodeAddress( $address, $city, $state, $zip );
+//                $coordinates = GoogleMaps::geocodeAddress( $address, $city, $state, $zip );
 
                 $cafe->parent               = $parentCafe->id;
                 $cafe->name                     = $request->get('name');

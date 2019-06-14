@@ -6,7 +6,8 @@
         position: relative;
 
         div.tags-input{
-            display: block;
+            /*display: block;*/
+            display:table;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             width: 100%;
@@ -123,8 +124,8 @@
 <script>
 
     import { ROAST_CONFIG } from '../../../config.js';
-
     import { EventBus } from '../../../event-bus.js';
+    import _ from 'lodash';
 
     export default {
 
@@ -263,7 +264,7 @@
             /*
              Searches the API route for tags with the autocomplete.
              */
-            searchTags(){
+            searchTags: _.debounce( function(e) {
                 if( this.currentTag.length > 2 && !this.pauseSearch ){
                     this.searchSelectedIndex = -1;
                     axios.get( ROAST_CONFIG.API_URL + '/tags' , {
@@ -274,7 +275,7 @@
                         this.tagSearchResults = response.data;
                     }.bind(this));
                 }
-            },
+            }, 300),
 
             /*
              Check for tag duplicates.

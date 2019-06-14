@@ -72,7 +72,7 @@
                 /*
                  Defines the image used for the marker.
                  */
-                var image = '/img/coffee-marker.png';
+//                var image = '/img/coffee-marker.png';
 
                 /*
                  Builds the marker for the cafe on the map.
@@ -80,7 +80,7 @@
                 var marker = new google.maps.Marker({
                     position: { lat: parseFloat( this.cafe.latitude ), lng: parseFloat( this.cafe.longitude )},
                     map: this.map,
-                    icon: image
+//                    icon: image
                 });
             }
         }

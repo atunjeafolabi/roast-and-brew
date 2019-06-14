@@ -1,29 +1,56 @@
-<style>
+<style lang="scss">
+  /*@import '~@/abstracts/_variables.scss';*/
+  @import "../../sass/abstracts/_variables.scss";
 
+  div#home{
+    a.add-cafe-button{
+      float: right;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: $dark-color;
+      color: white;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
 </style>
 
 <template>
   <div id="home">
-    <loader v-show="cafesLoadStatus == 1" :width="100" :height="100"></loader>
-    <span v-show="cafesLoadStatus == 1">Loading</span>
-    <span v-show="cafesLoadStatus == 2">Cafes loaded successfully!</span>
-    <span v-show="cafesLoadStatus == 3">Cafes cannot be loaded!</span>
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="large-12 medium-12 small-12 columns">
+          <router-link :to="{ name: 'newcafe' }" class="add-cafe-button">+ Add Cafe</router-link>
+        </div>
+      </div>
+    </div>
 
-    <ul>
-      <li v-for="cafe in cafes">
-        <router-link :to="{ name: 'cafe', params: { id: cafe.id }}">{{ cafe.name }}</router-link>
-      </li>
-    </ul>
-  </div>
+    <cafe-filter></cafe-filter>
+
+    <loader v-show="cafesLoadStatus == 1" :width="100" :height="100"></loader>
+
+    <div class="grid-container">
+      <div class="grid-x">
+        <cafe-card v-for="cafe in cafes" :key="cafe.id" :cafe="cafe"></cafe-card>
+      </div>
+    </div>
+  </div> <!-- end of #home -->
 </template>
 
 <script>
 
     import Loader from '../components/global/Loader.vue';
+    import CafeCard from '../components/cafes/CafeCard.vue';
+    import CafeFilter from '../components/cafes/CafeFilter.vue';
 
     export default {
         components:{
-            Loader
+            CafeCard,
+            Loader,
+            CafeFilter
         },
         created(){
             this.$store.dispatch( 'loadCafes' );
