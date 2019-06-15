@@ -1,18 +1,54 @@
 <style lang="scss">
-    div#cafe-map{
-        width: 100%;
-        height: 400px;
+    /*div#cafe-map{*/
+        /*width: 100%;*/
+        /*height: 400px;*/
+    /*}*/
+
+    div#cafe-map-container{
+        position: absolute;
+        top: 50px;
+        left: 0px;
+        right: 0px;
+        bottom: 50px;
+
+        div#cafe-map{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+        }
     }
 </style>
 
 <template>
-    <div id="cafe-map">
-
+    <div id="cafe-map-container">
+        <div id="cafe-map"></div>
+        <cafe-map-filter></cafe-map-filter>
     </div>
 </template>
 
 <script>
+
+    import CafeMapFilter from './CafeMapFilter.vue';
+    import { EventBus } from '../../event-bus.js';
+    import { CafeIsRoasterFilter } from '../../mixins/filters/CafeIsRoasterFilter.js';
+    import { CafeBrewMethodsFilter } from '../../mixins/filters/CafesBrewMethodsFilter.js';
+    import { CafeTagsFilter } from '../../mixins/filters/CafeTagsFilter.js';
+    import { CafeTextFilter } from '../../mixins/filters/CafeTextFilter.js';
+
     export default {
+
+        components: {
+            CafeMapFilter
+        },
+
+        mixins: [
+            CafeIsRoasterFilter,
+            CafeBrewMethodsFilter,
+            CafeTagsFilter,
+            CafeTextFilter
+        ],
 
         props: {
             'latitude': {
@@ -67,6 +103,10 @@
 
             this.clearMarkers();
             this.buildMarkers();
+
+            EventBus.$on('filters-updated', function( filters ){
+                this.processFilters( filters );
+            }.bind(this));
         },
         methods:{
             /*
@@ -85,7 +125,8 @@
                      */
                     var marker = new google.maps.Marker({
                         position: { lat: parseFloat( this.cafes[i].latitude ), lng: parseFloat( this.cafes[i].longitude ) },
-                        map: this.map
+                        map: this.map,
+                        cafe: this.cafes[i]
                     });
 
                     /*
@@ -107,6 +148,7 @@
                     this.markers.push( marker );
                 }
             },
+
             clearMarkers(){
                 /*
                  Iterate over all of the markers and set the map
@@ -116,6 +158,65 @@
                     this.markers[i].setMap( null );
                 }
             },
+
+            /*
+             Process filters on the map selected by the user.
+             */
+            processFilters( filters ){
+
+                for (var i = 0; i < this.markers.length; i++) {
+
+                    if (filters.text == '' && filters.roaster == false && filters.brew_methods.length == 0)
+                    {
+                        this.markers[i].setMap(this.map);
+
+                    } else {
+                        /*
+                         Initialize flags for the filtering
+                         */
+                        var textPassed = false;
+                        var brewMethodsPassed = false;
+                        var roasterPassed = false;
+
+
+                        /*
+                         Check if the roaster passes
+                         */
+                        if (filters.roaster && this.processCafeIsRoasterFilter(this.markers[i].cafe)) {
+                            roasterPassed = true;
+                        } else if (!filters.roaster) {
+                            roasterPassed = true;
+                        }
+
+                        /*
+                         Check if text passes
+                         */
+                        if (filters.text != '' && this.processCafeTextFilter(this.markers[i].cafe, filters.text)) {
+                            textPassed = true;
+                        } else if (filters.text == '') {
+                            textPassed = true;
+                        }
+
+                        /*
+                         Check if brew methods passes
+                         */
+                        if (filters.brew_methods.length != 0 && this.processCafeBrewMethodsFilter(this.markers[i].cafe, filters.brew_methods)) {
+                            brewMethodsPassed = true;
+                        } else if (filters.brew_methods.length == 0) {
+                            brewMethodsPassed = true;
+                        }
+
+                        /*
+                         If everything passes, then we show the Cafe Marker
+                         */
+                        if (roasterPassed && textPassed && brewMethodsPassed) {
+                            this.markers[i].setMap(this.map);
+                        } else {
+                            this.markers[i].setMap(null);
+                        }
+                    }
+                }
+            }
         },
     }
 </script>
