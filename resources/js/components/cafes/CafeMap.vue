@@ -177,7 +177,7 @@
                         '<span class="street">'+this.cafes[i].address+'</span>' +
                         '<span class="city">'+this.cafes[i].city+'</span> <span class="state">'+this.cafes[i].state+'</span>' +
                         '<span class="zip">'+this.cafes[i].zip+'</span>' +
-                        '<a href="/#/cafes/'+this.cafes[i].id+'">Visit</a>'+
+                        '<a href="/cafes/'+this.cafes[i].id+'">Visit</a>'+
                         '</div>'+
                         '</div>';
 

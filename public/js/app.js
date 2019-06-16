@@ -2257,7 +2257,7 @@ __webpack_require__.r(__webpack_exports__);
           cafe: _this.cafes[i]
         }); //Content of the map info window
 
-        contentString = '<div class="cafe-info-window">' + '<div class="cafe-name">' + _this.cafes[i].name + '</div>' + '<div class="cafe-address">' + '<span class="street">' + _this.cafes[i].address + '</span>' + '<span class="city">' + _this.cafes[i].city + '</span> <span class="state">' + _this.cafes[i].state + '</span>' + '<span class="zip">' + _this.cafes[i].zip + '</span>' + '<a href="/#/cafes/' + _this.cafes[i].id + '">Visit</a>' + '</div>' + '</div>';
+        contentString = '<div class="cafe-info-window">' + '<div class="cafe-name">' + _this.cafes[i].name + '</div>' + '<div class="cafe-address">' + '<span class="street">' + _this.cafes[i].address + '</span>' + '<span class="city">' + _this.cafes[i].city + '</span> <span class="state">' + _this.cafes[i].state + '</span>' + '<span class="zip">' + _this.cafes[i].zip + '</span>' + '<a href="/cafes/' + _this.cafes[i].id + '">Visit</a>' + '</div>' + '</div>';
         /*
          Create the info window and add it to the local
          array.
@@ -63886,6 +63886,12 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   router: _routes_js__WEBPACK_IMPORTED_MODULE_1__["default"],
   store: _store_js__WEBPACK_IMPORTED_MODULE_2__["default"]
 }).$mount('#app');
+ga('set', 'page', _routes_js__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute.path);
+ga('send', 'pageview');
+_routes_js__WEBPACK_IMPORTED_MODULE_1__["default"].afterEach(function (to, from) {
+  ga('set', 'page', to.path);
+  ga('send', 'pageview');
+});
 
 /***/ }),
 
