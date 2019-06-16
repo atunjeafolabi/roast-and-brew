@@ -2011,6 +2011,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /*
  Imports the Event Bus to pass updates.
@@ -2092,6 +2093,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_filters_CafesBrewMethodsFilter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/filters/CafesBrewMethodsFilter.js */ "./resources/js/mixins/filters/CafesBrewMethodsFilter.js");
 /* harmony import */ var _mixins_filters_CafeTagsFilter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/filters/CafeTagsFilter.js */ "./resources/js/mixins/filters/CafeTagsFilter.js");
 /* harmony import */ var _mixins_filters_CafeTextFilter_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/filters/CafeTextFilter.js */ "./resources/js/mixins/filters/CafeTextFilter.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2214,14 +2255,16 @@ __webpack_require__.r(__webpack_exports__);
           },
           map: _this.map,
           cafe: _this.cafes[i]
-        });
+        }); //Content of the map info window
+
+        contentString = '<div class="cafe-info-window">' + '<div class="cafe-name">' + _this.cafes[i].name + '</div>' + '<div class="cafe-address">' + '<span class="street">' + _this.cafes[i].address + '</span>' + '<span class="city">' + _this.cafes[i].city + '</span> <span class="state">' + _this.cafes[i].state + '</span>' + '<span class="zip">' + _this.cafes[i].zip + '</span>' + '<a href="/#/cafes/' + _this.cafes[i].id + '">Visit</a>' + '</div>' + '</div>';
         /*
          Create the info window and add it to the local
          array.
          */
 
         var infoWindow = new google.maps.InfoWindow({
-          content: _this.cafes[i].name
+          content: contentString
         });
         /*
          Add the event listener to open the info window for the marker.
@@ -2238,6 +2281,7 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var i = 0; i < this.cafes.length; i++) {
         var marker;
+        var contentString;
 
         _loop();
       }
@@ -3843,7 +3887,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "div.filter-brew-method {\n  display: inline-block;\n  height: 35px;\n  text-align: center;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding-left: 10px;\n  padding-right: 10px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  margin-right: 10px;\n  margin-top: 10px;\n  cursor: pointer;\n  color: #7F5F2A;\n  font-family: \"Josefin Sans\", sans-serif;\n}\ndiv.filter-brew-method.active {\n  border-bottom: 4px solid #7F6D50;\n}\nspan.show-filters {\n  display: block;\n  margin: auto;\n  color: #7F5F2A;\n  font-family: \"Josefin Sans\", sans-serif;\n  cursor: pointer;\n  font-size: 14px;\n}", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv.filter-brew-method {\n  display: inline-block;\n  height: 35px;\n  text-align: center;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding-left: 10px;\n  padding-right: 10px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  margin-right: 10px;\n  margin-top: 10px;\n  cursor: pointer;\n  color: #7F5F2A;\n  font-family: \"Josefin Sans\", sans-serif;\n}\ndiv.filter-brew-method.active {\n  border-bottom: 4px solid #7F6D50;\n}\nspan.show-filters {\n  display: block;\n  margin: auto;\n  color: #7F5F2A;\n  font-family: \"Josefin Sans\", sans-serif;\n  cursor: pointer;\n  font-size: 14px;\n}", ""]);
 
 // exports
 
@@ -3862,7 +3906,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "/*div#cafe-map{*/\n/*width: 100%;*/\n/*height: 400px;*/\n/*}*/\ndiv#cafe-map-container {\n  position: absolute;\n  top: 50px;\n  left: 0px;\n  right: 0px;\n  bottom: 50px;\n}\ndiv#cafe-map-container div#cafe-map {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  right: 0px;\n  bottom: 0px;\n}", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\n/*div#cafe-map{*/\n/*width: 100%;*/\n/*height: 400px;*/\n/*}*/\ndiv#cafe-map-container {\n  position: absolute;\n  top: 50px;\n  left: 0px;\n  right: 0px;\n  bottom: 50px;\n}\ndiv#cafe-map-container div#cafe-map {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  right: 0px;\n  bottom: 0px;\n}\ndiv#cafe-map-container div.cafe-info-window div.cafe-name {\n  display: block;\n  text-align: center;\n  color: #7F5F2A;\n  font-family: \"Josefin Sans\", sans-serif;\n}\ndiv#cafe-map-container div.cafe-info-window div.cafe-address {\n  display: block;\n  text-align: center;\n  margin-top: 5px;\n  color: #A0A0A0;\n  font-family: \"Lato\", sans-serif;\n}\ndiv#cafe-map-container div.cafe-info-window div.cafe-address span.street {\n  font-size: 14px;\n  display: block;\n}\ndiv#cafe-map-container div.cafe-info-window div.cafe-address span.city {\n  font-size: 12px;\n}\ndiv#cafe-map-container div.cafe-info-window div.cafe-address span.state {\n  font-size: 12px;\n}\ndiv#cafe-map-container div.cafe-info-window div.cafe-address span.zip {\n  font-size: 12px;\n  display: block;\n}\ndiv#cafe-map-container div.cafe-info-window div.cafe-address a {\n  color: #FFBE54;\n  font-weight: bold;\n}", ""]);
 
 // exports
 
