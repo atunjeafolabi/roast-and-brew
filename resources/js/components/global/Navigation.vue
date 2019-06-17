@@ -73,13 +73,6 @@
                     Cafes
                 </router-link>
             </li>
-            <li>|</li>
-            <li>
-                <router-link :to="{ name: 'newcafe' }">
-                    New Cafe
-                </router-link>
-            </li>
-
         </ul>
 
         <div class="right">

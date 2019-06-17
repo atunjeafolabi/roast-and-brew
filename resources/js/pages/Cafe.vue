@@ -15,6 +15,15 @@
       font-family: 'Josefin Sans', sans-serif;
     }
 
+    div.edit-container{
+      text-align: center;
+      a{
+        color: $primary-color;
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+
     span.address{
       text-align: center;
       display: block;
@@ -87,6 +96,10 @@
             <h2>{{ cafe.name }}</h2>
             <h3 v-if="cafe.location_name != ''">{{ cafe.location_name }}</h3>
 
+            <div class="edit-container">
+              <router-link :to="{ name: 'editcafe', params: { id: cafe.id } }">Edit</router-link>
+            </div>
+
             <span class="address">
               {{ cafe.address }}<br>
               {{ cafe.city }}, {{ cafe.state }}<br>
@@ -94,6 +107,10 @@
             </span>
 
             <a class="website" v-bind:href="cafe.website" target="_blank">{{ cafe.website }}</a>
+            <br/>
+            <router-link :to="{name: 'editcafe', params:{id:cafe.id}}" class="suggest-cafe-edit">
+              Suggest an edit
+            </router-link>
 
             <div class="brew-methods-container">
               <div class="grid-x grid-padding-x">
