@@ -11,8 +11,7 @@
 |
 */
 
-Route::get( '/', 'Web\AppController@getApp' )
-    ->middleware('auth');
+Route::get( '/', 'Web\AppController@getApp' );
 
 Route::get('/login', 'Web\AppController@getLogin' )
     ->name('login')

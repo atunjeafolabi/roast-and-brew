@@ -13,21 +13,33 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
+/*
+  Public API Routes
+*/
+Route::group(['prefix' => 'v1'], function(){
 
     Route::get('/user', function( Request $request ){
-        return $request->user();
+        return $request->user('api');
     });
 
     Route::get('/cafes', 'API\CafesController@getCafes');
+    Route::get('/cafes/{id}', 'API\CafesController@getCafe');
+    Route::get('/brew-methods', 'API\BrewMethodsController@getBrewMethods');
+    Route::get('/tags', 'API\TagsController@getTags');
+
+});
+
+/*
+ * Authenticated API routes
+ */
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
+
     Route::post('/cafes', 'API\CafesController@postNewCafe');
     Route::put('/cafes/{cafeID}', 'API\CafesController@putEditCafe');
-    Route::get('/cafes/{id}', 'API\CafesController@getCafe');
     Route::get('/cafes/{id}/edit', 'API\CafesController@getCafeEditData');
-    Route::get('/brew-methods', 'API\BrewMethodsController@getBrewMethods');
     Route::post('/cafes/{id}/like', 'API\CafesController@postLikeCafe');
     Route::delete('/cafes/{id}/like', 'API\CafesController@deleteLikeCafe');
     Route::post('/cafes/{id}/tags', 'API\CafesController@postAddTags');
     Route::delete('/cafes/{id}/tags/{tagID}', 'API\CafesController@deleteCafeTag');
-    Route::get('/tags', 'API\TagsController@getTags');
+    Route::put('/user', 'API\UsersController@putUpdateUser');
 });

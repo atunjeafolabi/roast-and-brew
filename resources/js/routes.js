@@ -14,8 +14,61 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store.js';
 
-Vue.use( VueRouter )
+Vue.use( VueRouter );
+
+/*
+ This will check to see if the user is authenticated or not.
+ */
+function requireAuth (to, from, next) {
+    /*
+     Determines where we should send the user.
+     */
+    function proceed () {
+        /*
+         If the user has been loaded determine where we should
+         send the user.
+         */
+        if ( store.getters.getUserLoadStatus() == 2 ) {
+            /*
+             If the user is not empty, that means there's a user
+             authenticated we allow them to continue. Otherwise, we
+             send the user back to the home page.
+             */
+            if( store.getters.getUser != '' ){
+                next();
+            }else{
+                next('/home');
+            }
+        }
+    }
+
+    /*
+     Confirms the user has been loaded
+     */
+    if ( store.getters.getUserLoadStatus != 2 ) {
+        /*
+         If not, load the user
+         */
+        store.dispatch( 'loadUser' );
+
+        /*
+         Watch for the user to be loaded. When it's finished, then
+         we proceed.
+         */
+        store.watch( store.getters.getUserLoadStatus, function(){
+            if( store.getters.getUserLoadStatus() == 2 ){
+                proceed();
+            }
+        });
+    } else {
+        /*
+         User call completed, so we proceed
+         */
+        proceed()
+    }
+}
 
 export default new VueRouter({
 
@@ -24,6 +77,7 @@ export default new VueRouter({
     routes: [
         {
             path: '/',
+            redirect: { name: 'home' },
             name: 'layout',
             component: Vue.component( 'Layout', require( './pages/Layout.vue' ).default ),
             children: [
@@ -40,12 +94,20 @@ export default new VueRouter({
                 {
                     path: 'cafes/new',
                     name: 'newcafe',
-                    component: Vue.component( 'NewCafe', require( './pages/NewCafe.vue' ).default )
+                    component: Vue.component( 'NewCafe', require( './pages/NewCafe.vue' ).default ),
+                    beforeEnter: requireAuth
                 },
                 {
                     path: 'cafes/:id/edit',
                     name: 'editcafe',
-                    component: Vue.component( 'EditCafe', require( './pages/EditCafe.vue' ).default )
+                    component: Vue.component( 'EditCafe', require( './pages/EditCafe.vue' ).default ),
+                    beforeEnter: requireAuth
+                },
+                {
+                    path: 'profile',
+                    name: 'profile',
+                    component: Vue.component( 'Profile', require( './pages/Profile.vue' ).default ),
+                    beforeEnter: requireAuth
                 },
                 {
                     path: 'cafes/:id',
