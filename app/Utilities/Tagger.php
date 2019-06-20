@@ -3,6 +3,7 @@
 namespace App\Utilities;
 
 use App\Models\Tag;
+use Auth;
 
 class Tagger{
 
@@ -21,7 +22,7 @@ class Tagger{
             /*
               Get the tag by name or create a new instance of tag which is not saved to database.
             */
-            $newCafeTag     = \App\Models\Tag::firstOrNew( array('name' => $name ) );
+            $newCafeTag     = \App\Models\Tag::firstOrNew( array('tag' => $name ) );
 
             /*
               Confirm the cafe tag has the name we provided. If it's set already

@@ -32,6 +32,15 @@ class AddedCafeParentChildRelationship extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('cafes_added_by_foreign');
+            $table->dropColumn('added_by');
+            $table->dropColumn('description');
+            $table->dropColumn('website');
+            $table->dropColumn('roaster');
+            $table->dropColumn('location_name');
+            $table->dropForeign('cafes_parent_foreign');
+            $table->dropColumn('parent');
+        });
     }
 }

@@ -3760,6 +3760,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /*
  Imports the Event Bus to pass events on tag updates
@@ -3781,6 +3786,7 @@ __webpack_require__.r(__webpack_exports__);
       website: '',
       description: '',
       roaster: false,
+      picture: '',
       validations: {
         name: {
           is_valid: true,
@@ -3916,7 +3922,8 @@ __webpack_require__.r(__webpack_exports__);
           locations: this.locations,
           website: this.website,
           description: this.description,
-          roaster: this.roaster
+          roaster: this.roaster,
+          picture: this.picture
         });
       }
     },
@@ -4069,6 +4076,8 @@ __webpack_require__.r(__webpack_exports__);
       this.website = '';
       this.description = '';
       this.roaster = false;
+      this.picture = '';
+      this.$refs.photo.value = '';
       this.validations = {
         name: {
           is_valid: true,
@@ -4086,6 +4095,9 @@ __webpack_require__.r(__webpack_exports__);
       };
       _event_bus_js__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$emit('clear-tags');
       this.addLocation();
+    },
+    handleFileUpload: function handleFileUpload() {
+      this.picture = this.$refs.photo.files[0];
     },
 
     /*
@@ -4355,6 +4367,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
  Imports the Event Bus to pass events on tag updates
@@ -4375,6 +4400,7 @@ __webpack_require__.r(__webpack_exports__);
       website: '',
       description: '',
       roaster: false,
+      picture: '',
       validations: {
         name: {
           is_valid: true,
@@ -4429,7 +4455,8 @@ __webpack_require__.r(__webpack_exports__);
           locations: this.locations,
           website: this.website,
           description: this.description,
-          roaster: this.roaster
+          roaster: this.roaster,
+          picture: this.picture
         });
       }
     },
@@ -4550,6 +4577,8 @@ __webpack_require__.r(__webpack_exports__);
       this.website = '';
       this.description = '';
       this.roaster = false;
+      this.picture = '';
+      this.$refs.photo.value = '';
       this.validations = {
         name: {
           is_valid: true,
@@ -4567,6 +4596,9 @@ __webpack_require__.r(__webpack_exports__);
       };
       _event_bus_js__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$emit('clear-tags');
       this.addLocation();
+    },
+    handleFileUpload: function handleFileUpload() {
+      this.picture = this.$refs.photo.files[0];
     }
   }
 });
@@ -48544,6 +48576,21 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
             _c("label", [
+              _vm._v("Photo\n                        "),
+              _c("input", {
+                ref: "photo",
+                attrs: { type: "file", id: "cafe-photo" },
+                on: {
+                  change: function($event) {
+                    return _vm.handleFileUpload()
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+            _c("label", [
               _vm._v("Description\n                        "),
               _c("textarea", {
                 directives: [
@@ -49231,6 +49278,89 @@ var render = function() {
                   }
                 }
               })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+            _c("label", [
+              _vm._v("Photo\n            "),
+              _c("input", {
+                ref: "photo",
+                attrs: { type: "file", id: "cafe-photo" },
+                on: {
+                  change: function($event) {
+                    return _vm.handleFileUpload()
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+            _c("label", [
+              _vm._v("Description\n            "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.description,
+                    expression: "description"
+                  }
+                ],
+                domProps: { value: _vm.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.description = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.roaster,
+                  expression: "roaster"
+                }
+              ],
+              attrs: { id: "is-roaster", type: "checkbox", value: "1" },
+              domProps: {
+                checked: Array.isArray(_vm.roaster)
+                  ? _vm._i(_vm.roaster, "1") > -1
+                  : _vm.roaster
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.roaster,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = "1",
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.roaster = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.roaster = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.roaster = $$c
+                  }
+                }
+              }
+            }),
+            _c("label", { attrs: { for: "is-roaster" } }, [
+              _vm._v("Is roaster?")
             ])
           ]),
           _vm._v(" "),
@@ -65821,26 +65951,36 @@ __webpack_require__.r(__webpack_exports__);
   /*
    PUT 	/api/v1/cafes/{id}
    */
-  putEditCafe: function putEditCafe(id, name, locations, website, description, roaster) {
-    return axios.put(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes/' + id, {
-      name: name,
-      locations: locations,
-      website: website,
-      description: description,
-      roaster: roaster
+  putEditCafe: function putEditCafe(id, name, locations, website, description, roaster, picture) {
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('locations', JSON.stringify(locations));
+    formData.append('website', website);
+    formData.append('description', description);
+    formData.append('roaster', roaster);
+    formData.append('picture', picture);
+    return axios.put(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes/' + id, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     });
   },
 
   /*
    POST  /api/v1/cafes
    */
-  postAddNewCafe: function postAddNewCafe(name, locations, website, description, roaster) {
-    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes', {
-      name: name,
-      locations: locations,
-      website: website,
-      description: description,
-      roaster: roaster
+  postAddNewCafe: function postAddNewCafe(name, locations, website, description, roaster, picture) {
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('locations', JSON.stringify(locations));
+    formData.append('website', website);
+    formData.append('description', description);
+    formData.append('roaster', roaster);
+    formData.append('picture', picture);
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     });
   },
 
@@ -67245,7 +67385,7 @@ var cafes = {
           state = _ref4.state,
           dispatch = _ref4.dispatch;
       commit('setCafeEditStatus', 1);
-      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].putEditCafe(data.id, data.name, data.locations, data.website, data.description, data.roaster).then(function (response) {
+      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].putEditCafe(data.id, data.name, data.locations, data.website, data.description, data.roaster, data.picture).then(function (response) {
         commit('setCafeEditStatus', 2);
         dispatch('loadCafes');
       })["catch"](function (error) {
@@ -67258,7 +67398,7 @@ var cafes = {
           state = _ref5.state,
           dispatch = _ref5.dispatch;
       commit('setCafeAddedStatus', 1);
-      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].postAddNewCafe(data.name, data.locations, data.website, data.description, data.roaster).then(function (response) {
+      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].postAddNewCafe(data.name, data.locations, data.website, data.description, data.roaster, data.picture).then(function (response) {
         console.log(response);
         commit('setCafeAddedStatus', 2);
         dispatch('loadCafes');
