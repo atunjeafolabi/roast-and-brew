@@ -34,6 +34,7 @@ export default {
 
         let formData = new FormData();
 
+        formData.append('_method', 'PUT');
         formData.append('name', name);
         formData.append('locations', JSON.stringify( locations ) );
         formData.append('website', website);
@@ -41,7 +42,7 @@ export default {
         formData.append('roaster', roaster);
         formData.append('picture', picture);
 
-        return axios.put( ROAST_CONFIG.API_URL + '/cafes/'+id,
+        return axios.post( ROAST_CONFIG.API_URL + '/cafes/'+id,
             formData,
             {
                 headers: {

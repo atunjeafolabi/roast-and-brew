@@ -63,7 +63,9 @@ class CafesController extends Controller
         return response()->json($cafe);
     }
 
-    public function putEditCafe( $cafeID, EditCafeRequest $request ){
+    public function putEditCafe( $cafeID, EditCafeRequest $request )
+    {
+//        var_dump($request->all()['roaster']);exit;
 
         $editedCafes = array();
         $locations = json_decode( $request->get('locations') );
@@ -92,7 +94,7 @@ class CafesController extends Controller
         $cafe->zip 						= $zip;
         $cafe->latitude 			= $cafe->latitude;
         $cafe->longitude 			= $cafe->longitude;
-        $cafe->roaster 				= $request->get('roaster') != '' ? 1 : 0;
+        $cafe->roaster 				= $request->get('roaster') != 'false' ? 1 : 0;
         $cafe->website 				= $request->get('website');
         $cafe->description		= $request->get('description') != '' ? $request->get('description') : '';
 

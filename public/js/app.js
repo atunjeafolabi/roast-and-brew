@@ -65953,13 +65953,14 @@ __webpack_require__.r(__webpack_exports__);
    */
   putEditCafe: function putEditCafe(id, name, locations, website, description, roaster, picture) {
     var formData = new FormData();
+    formData.append('_method', 'PUT');
     formData.append('name', name);
     formData.append('locations', JSON.stringify(locations));
     formData.append('website', website);
     formData.append('description', description);
     formData.append('roaster', roaster);
     formData.append('picture', picture);
-    return axios.put(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes/' + id, formData, {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes/' + id, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -67386,6 +67387,7 @@ var cafes = {
           dispatch = _ref4.dispatch;
       commit('setCafeEditStatus', 1);
       _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].putEditCafe(data.id, data.name, data.locations, data.website, data.description, data.roaster, data.picture).then(function (response) {
+        console.log(response);
         commit('setCafeEditStatus', 2);
         dispatch('loadCafes');
       })["catch"](function (error) {
