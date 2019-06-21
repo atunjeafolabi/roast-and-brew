@@ -2229,7 +2229,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.clearMarkers();
     this.buildMarkers();
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$on('filters-updated', function (filters) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$on('map-filters-updated', function (filters) {
       this.processFilters(filters);
     }.bind(this));
   },
@@ -2468,7 +2468,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateFilterDisplay: function updateFilterDisplay() {
-      _event_bus__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('filters-updated', {
+      _event_bus__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('map-filters-updated', {
         text: this.textSearch,
         roaster: this.isRoaster,
         brew_methods: this.brewMethods

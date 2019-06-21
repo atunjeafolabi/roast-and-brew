@@ -144,7 +144,7 @@
             this.clearMarkers();
             this.buildMarkers();
 
-            EventBus.$on('filters-updated', function( filters ){
+            EventBus.$on('map-filters-updated', function( filters ){
                 this.processFilters( filters );
             }.bind(this));
         },

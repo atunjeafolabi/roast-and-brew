@@ -110,7 +110,7 @@
             },
 
             updateFilterDisplay(){
-                EventBus.$emit('filters-updated', {
+                EventBus.$emit('map-filters-updated', {
                     text: this.textSearch,
                     roaster: this.isRoaster,
                     brew_methods: this.brewMethods
