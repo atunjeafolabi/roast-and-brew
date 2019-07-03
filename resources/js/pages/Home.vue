@@ -1,109 +1,23 @@
-<style lang="scss">
-  /*@import '~@/abstracts/_variables.scss';*/
-  @import "../../sass/abstracts/_variables.scss";
+<style>
 
-  div#home{
-    a.add-cafe-button{
-      float: right;
-      display: block;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      background-color: $dark-color;
-      color: white;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-
-    a.add-cafe-text{
-      float: right;
-      display: inline-block;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      color: $dark-color;
-      font-family: 'Lato', sans-serif;
-    }
-  }
 </style>
 
 <template>
-  <div id="home">
-    <div class="grid-container">
-      <div class="grid-x">
-        <div class="large-12 medium-12 small-12 columns">
-          <router-link :to="{ name: 'newcafe' }" v-if="user != '' && userLoadStatus == 2"  class="add-cafe-button">
-            + Add Cafe
-          </router-link>
-          <a class="add-cafe-text" v-if="user == '' && userLoadStatus == 2" v-on:click="login()">
-            Want to add a cafe? Create a profile and add your favorite cafe!
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <cafe-filter></cafe-filter>
-
-    <loader v-show="cafesLoadStatus == 1" :width="100" :height="100"></loader>
-
-    <div class="grid-container">
-      <div class="grid-x">
-        <cafe-card v-for="cafe in cafes" :key="cafe.id" :cafe="cafe"></cafe-card>
-      </div>
-    </div>
-  </div> <!-- end of #home -->
+  <div id="cafes" class="page">
+    <cafe-map></cafe-map>
+    <add-cafe-button></add-cafe-button>=
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-
-    import Loader from '../components/global/Loader.vue';
-    import CafeCard from '../components/cafes/CafeCard.vue';
-    import CafeFilter from '../components/cafes/CafeFilter.vue';
-    import { EventBus } from '../event-bus.js';
+    import CafeMap from '../components/cafes/CafeMap.vue';
+    import AddCafeButton from '../components/cafes/AddCafeButton.vue';
 
     export default {
-        components:{
-            CafeCard,
-            Loader,
-            CafeFilter
-        },
-        created(){
-            this.$store.dispatch( 'loadCafes' );
-        },
-
-        computed: {
-          /*
-           Gets the cafes load status
-           */
-            cafesLoadStatus(){
-                return this.$store.getters.getCafesLoadStatus;
-            },
-
-          /*
-           Gets the cafes
-           */
-            cafes(){
-                return this.$store.getters.getCafes;
-
-            },
-          /*
-           Gets the authenticated user.
-           */
-            user(){
-                return this.$store.getters.getUser;
-            },
-          /*
-           Gets the user's load status.
-           */
-            userLoadStatus(){
-                return this.$store.getters.getUserLoadStatus();
-            }
-        },
-
-        methods: {
-            login(){
-                EventBus.$emit('prompt-login');
-            }
+        components: {
+            CafeMap,
+            AddCafeButton
         }
     }
 </script>

@@ -64,7 +64,7 @@
 
 <script>
 
-    import TagsInput from '../global/forms/TagsInput.vue';
+//    import TagsInput from '../global/forms/TagsInput.vue';
 
     /*
      Imports the Event Bus to pass updates.
@@ -74,7 +74,7 @@
     export default {
 
         components: {
-            TagsInput
+//            TagsInput
         },
 
         mounted(){

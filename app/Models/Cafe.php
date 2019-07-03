@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Request;
 use Illuminate\Database\Eloquent\Model;
 
 class Cafe extends Model
@@ -19,13 +20,21 @@ class Cafe extends Model
     public function parent(){
         return $this->hasOne( 'App\Models\Cafe', 'id', 'parent' );
     }
-
+    public function company()
+    {
+        return $this->hasOne('App\Models\Company', 'id', 'company');
+    }
     public function likes(){
         return $this->belongsToMany( 'App\Models\User', 'users_cafes_likes', 'cafe_id', 'user_id');
     }
 
     public function userLike(){
-        return $this->belongsToMany( 'App\Models\User', 'users_cafes_likes', 'cafe_id', 'user_id')->where('user_id', auth()->id());
+        $userID = Request::user('api') != '' ? Request::user('api')->id : null;
+
+        return $this->belongsToMany( 'App\Models\User', 'users_cafes_likes', 'cafe_id', 'user_id')
+                    ->where('user_id', $userID );
+
+//        return $this->belongsToMany( 'App\Models\User', 'users_cafes_likes', 'cafe_id', 'user_id')->where('user_id', auth()->id());
     }
 
     public function tags(){

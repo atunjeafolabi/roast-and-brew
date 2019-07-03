@@ -18,6 +18,7 @@ import Vuex from 'vuex'
 import { cafes } from './modules/cafes.js'
 import {users} from './modules/users.js'
 import {brewMethods} from './modules/brewMethods'
+import { display } from './modules/display.js';
 
 /*
  Initializes Vuex on Vue.
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     modules: {
         cafes,
         users,
-        brewMethods
+        brewMethods,
+        display
     }
 });

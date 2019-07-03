@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1'], function(){
         return $request->user('api');
     });
 
+    Route::get('/users', 'API\UsersController@getUsers');
+
     Route::get('/cafes', 'API\CafesController@getCafes');
     Route::get('/cafes/{id}', 'API\CafesController@getCafe');
     Route::get('/brew-methods', 'API\BrewMethodsController@getBrewMethods');
@@ -41,5 +43,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
     Route::delete('/cafes/{id}/like', 'API\CafesController@deleteLikeCafe');
     Route::post('/cafes/{id}/tags', 'API\CafesController@postAddTags');
     Route::delete('/cafes/{id}/tags/{tagID}', 'API\CafesController@deleteCafeTag');
+    Route::delete('/cafes/{id}', 'API\CafesController@deleteCafe');
     Route::put('/user', 'API\UsersController@putUpdateUser');
+    Route::get('/companies/search', 'API\CompaniesController@getCompanySearch');
 });

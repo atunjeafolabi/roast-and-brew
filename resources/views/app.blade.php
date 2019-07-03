@@ -6,9 +6,9 @@
 
     <link href="/css/app.css" rel="stylesheet" type="text/css"/>
 
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 
     <title>Roast</title>
@@ -35,7 +35,7 @@
     </div>
 
     <script type="text/javascript" src="js/app.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5t7G0K8ghJDAsiMUkts1mDC3h5XlNtr8"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5t7G0K8ghJDAsiMUkts1mDC3h5XlNtr8&libraries=places"></script>
 
 </body>
 </html>

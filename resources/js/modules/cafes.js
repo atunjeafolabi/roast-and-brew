@@ -29,7 +29,9 @@ export const cafes = {
 
         cafeLikeActionStatus: 0,
         cafeUnlikeActionStatus: 0,
+        cafeDeletedStatus: 0,
         cafeLiked: false,
+        cafeAdded: {},
     },
 
     /*
@@ -44,10 +46,12 @@ export const cafes = {
 
             CafeAPI.getCafes()
                 .then( function( response ){
+                    // console.log(response.data)
                     commit( 'setCafes', response.data );
                     commit( 'setCafesLoadStatus', 2 );
                 })
-                .catch( function(){
+                .catch( function(error){
+                    console.log(error.response);
                     commit( 'setCafes', [] );
                     commit( 'setCafesLoadStatus', 3 );
                 });
@@ -60,7 +64,7 @@ export const cafes = {
             CafeAPI.getCafe( data.id )
                 .then( function( response ){
                     commit( 'setCafe', response.data );
-                    if( response.data.user_like.length > 0 ){
+                    if( response.data.user_like_count > 0 ){
                         commit('setCafeLikedStatus', true);
                     }
                     commit( 'setCafeLoadStatus', 2 );
@@ -95,7 +99,7 @@ export const cafes = {
 
             commit( 'setCafeEditStatus', 1 );
 
-            CafeAPI.putEditCafe( data.id, data.name, data.locations, data.website, data.description, data.roaster, data.picture )
+            CafeAPI.putEditCafe( data.id, data.company_name, data.company_id, data.company_type, data.website, data.location_name, data.address, data.city, data.state, data.zip, data.lat, data.lng, data.brew_methods )
                 .then( function( response ){
                     console.log(response);
                     commit( 'setCafeEditStatus', 2 );
@@ -111,10 +115,11 @@ export const cafes = {
 
             commit( 'setCafeAddedStatus', 1 );
 
-            CafeAPI.postAddNewCafe( data.name, data.locations, data.website, data.description, data.roaster, data.picture )
+            CafeAPI.postAddNewCafe( data.company_name, data.company_id, data.company_type, data.website, data.location_name, data.address, data.city, data.state, data.zip, data.lat, data.lng, data.brew_methods )
                 .then( function( response ){
                     console.log(response)
                     commit( 'setCafeAddedStatus', 2 );
+                    commit( 'setCafeAdded', response.data );
                     dispatch( 'loadCafes' );
                 })
                 .catch( function(error){
@@ -123,7 +128,7 @@ export const cafes = {
                 });
         },
 
-        likeCafe( { commit, state }, data ){
+        likeCafe( { commit, state, dispatch }, data ){
 
             commit( 'setCafeLikeActionStatus', 1 );
 
@@ -131,13 +136,18 @@ export const cafes = {
                 .then( function( response ){
                     commit( 'setCafeLikedStatus', true );
                     commit( 'setCafeLikeActionStatus', 2 );
+
+                    dispatch( 'loadCafe', { id: data.id } );
+
+                    commit( 'updateCafeLikedStatus', { id: data.id, count: 1 });
+
                 })
                 .catch( function(){
                     commit( 'setCafeLikeActionStatus', 3 );
                 });
         },
 
-        unlikeCafe( { commit, state }, data ){
+        unlikeCafe( { commit, state, dispatch }, data ){
 
             commit( 'setCafeUnlikeActionStatus', 1 );
 
@@ -145,9 +155,32 @@ export const cafes = {
                 .then( function( response ){
                     commit( 'setCafeLikedStatus', false );
                     commit( 'setCafeUnlikeActionStatus', 2 );
+
+                    dispatch( 'loadCafe', { id: data.id } );
+
+                    commit( 'updateCafeLikedStatus', { id: data.id, count: 0 });
                 })
                 .catch( function(){
                     commit( 'setCafeUnlikeActionStatus', 3 );
+                });
+        },
+
+        clearLikeAndUnlikeStatus( { commit }, data ){
+            commit( 'setCafeLikeActionStatus', 0 );
+            commit( 'setCafeUnlikeActionStatus', 0 );
+        },
+
+        deleteCafe( { commit, state, dispatch }, data ){
+            commit( 'setCafeDeleteStatus', 1 );
+
+            CafeAPI.deleteCafe( data.cafe_id )
+                .then( function( response ){
+                    commit( 'setCafeDeleteStatus', 2 );
+
+                    dispatch( 'loadCafes' );
+                })
+                .catch( function(){
+                    commit( 'setCafeDeleteStatus', 3 );
                 });
         }
     },
@@ -191,6 +224,10 @@ export const cafes = {
             state.cafeEditLoadStatus = status;
         },
 
+        setCafeAdded( state, cafe ){
+            state.cafeAdded = cafe;
+        },
+
         setCafeAddedStatus( state, status ){
             state.cafeAddStatus = status;
         },
@@ -205,6 +242,21 @@ export const cafes = {
 
         setCafeUnlikeActionStatus( state, status ){
             state.cafeUnlikeActionStatus = status;
+        },
+
+        /*
+         Update a loaded cafe's like status.
+         */
+        updateCafeLikedStatus( state, data ){
+            for( var i = 0; i < state.cafes.length; i++ ){
+                if( state.cafes[i].id == data.id ){
+                    state.cafes[i].user_like_count = data.count;
+                }
+            }
+        },
+
+        setCafeDeleteStatus( state, status ){
+            state.cafeDeletedStatus = status;
         }
     },
 
@@ -247,6 +299,10 @@ export const cafes = {
             return state.cafeEditLoadStatus;
         },
 
+        getAddedCafe( state ){
+            return state.cafeAdded;
+        },
+
         getCafeAddStatus(state){
             return state.cafeAddStatus;
         },
@@ -261,6 +317,10 @@ export const cafes = {
 
         getCafeUnlikeActionStatus( state ){
             return state.cafeUnlikeActionStatus;
+        },
+
+        getCafeDeletedStatus( state ){
+            return state.cafeDeletedStatus;
         }
     }
 }

@@ -10,6 +10,16 @@ use App\Http\Requests\EditUserRequest;
 
 class UsersController extends Controller
 {
+    public function getUsers(){
+
+        $query = Request::get('search');
+
+        $users = User::where('name', 'LIKE', '%'.$query.'%')
+            ->orWhere('email', 'LIKE', '%'.$query.'%')
+            ->get();
+
+        return response()->json( $users );
+    }
     /*
     |-------------------------------------------------------------------------------
     | Get User

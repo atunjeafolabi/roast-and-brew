@@ -12,4 +12,11 @@
 @import 'abstracts/variables';
 @import 'components/validations';
 
+@import 'animations/slide-in-left';
+@import 'animations/slide-in-right';
+@import 'animations/scale-in-center';
+@import 'animations/slide-out-back';
+@import 'animations/slide-in-top';
+@import 'components/paccontainer';
+
 @import "../../node_modules/foundation-sites/assets/foundation.scss";

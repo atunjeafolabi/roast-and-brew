@@ -11,7 +11,7 @@ class BrewMethodsController extends Controller
 {
     public function getBrewMethods(){
 
-        $brewMethods = BrewMethod::all();
+        $brewMethods =     $brewMethods = BrewMethod::withCount('cafes')->get();
 
         return response()->json($brewMethods, 201);
 

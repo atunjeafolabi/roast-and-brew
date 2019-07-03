@@ -4,6 +4,7 @@
 
     div.loader{
         margin: auto;
+        vertical-align: middle;
     }
 
     svg path,
