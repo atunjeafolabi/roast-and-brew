@@ -158,6 +158,8 @@ class CafesController extends Controller
         $lng = $request->get('lng') != '' ? $request->get('lng') : 0;
 
         if( $lat == 0 && $lng == 0 ){
+            //GoogleMaps services used here for development is free and limited. May return empty data after few usage
+            //Hence, GoogleMaps will be a good candidate for Mocking when testing
             $coordinates = GoogleMaps::geocodeAddress( $address, $city, $state, $zip );
             $lat = $coordinates['lat'];
             $lng = $coordinates['lng'];
@@ -171,8 +173,8 @@ class CafesController extends Controller
         $cafe->city 				= $city;
         $cafe->state 				= $state;
         $cafe->zip 					= $zip;
-        $cafe->latitude 			= $lat;
-        $cafe->longitude 			= $lng;
+        $cafe->latitude 			= -25;  //$lat;
+        $cafe->longitude 			= 90;  //$lng;
         $cafe->added_by 			= Auth::user()->id;
         $cafe->deleted              = 0;
         $cafe->tea 				    = 0;
@@ -234,6 +236,8 @@ class CafesController extends Controller
         $lng = $request->get('lng') != '' ? $request->get('lng') : 0;
 
         if( $lat == 0 && $lng == 0 ){
+            //GoogleMaps services used here for development is free and limited. May return empty data after few usage
+            //Hence, GoogleMaps will be a good candidate for Mocking when testing
             $coordinates = GoogleMaps::geocodeAddress( $address, $city, $state, $zip );
             $lat = $coordinates['lat'];
             $lng = $coordinates['lng'];
@@ -246,8 +250,8 @@ class CafesController extends Controller
         $cafe->city 			= $city;
         $cafe->state 			= $state;
         $cafe->zip 				= $zip;
-        $cafe->latitude 		= $lat;
-        $cafe->longitude 		= $lng;
+        $cafe->latitude 		= -20;  //$lat;
+        $cafe->longitude 		= 85;   //$lng;
         $cafe->added_by 		= Auth::user()->id;
         $cafe->deleted 			= 0;
         $cafe->tea 				= $request->has('tea') ? $request->get('tea') : 0;

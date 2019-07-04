@@ -90,6 +90,8 @@
     import { CafeUserLikeFilter } from '../../mixins/filters/CafeUserLikeFilter.js';
     import { EventBus } from '../../event-bus.js';
     import { CafeTypeFilter } from '../../mixins/filters/CafeTypeFilter.js';
+    import { CafeHasMatchaFilter } from '../../mixins/filters/CafeHasMatchaFilter.js';
+    import { CafeHasTeaFilter } from '../../mixins/filters/CafeHasTeaFilter.js';
 
     export default {
 
@@ -101,7 +103,9 @@
             CafeBrewMethodsFilter,
             CafeTagsFilter,
             CafeTextFilter,
-            CafeUserLikeFilter
+            CafeUserLikeFilter,
+            CafeHasMatchaFilter,
+            CafeHasTeaFilter
         ],
 
         mounted(){
@@ -121,9 +125,13 @@
                 /*
                  If no filters are selected, show the card
                  */
-                if( filters.type == 'all'
+                if( filters.text == ''
+                    && filters.type == 'all'
+                    && filters.brewMethods.length == 0
                     && !filters.liked
-                    && filters.brewMethods.length == 0 ){
+                    && !filters.matcha
+                    && !filters.tea){
+
                     this.show = true;
                 }else{
                     /*
@@ -133,6 +141,8 @@
                     var likedPassed = false;
                     var brewMethodsPassed = false;
                     var textPassed = false;
+                    var matchaPassed = false;
+                    var teaPassed = false;
 
                     /*
                      Check if the roaster passes
@@ -167,16 +177,33 @@
                      }else if( !filters.liked ) {
                          likedPassed = true;
                      }
-                }
+
+                    /*
+                     Checks if the cafe passes matcha filter
+                     */
+                    if( filters.matcha && this.processCafeHasMatchaFilter( this.cafe ) ){
+                        matchaPassed = true;
+                    }else if( !filters.matcha ){
+                        matchaPassed = true;
+                    }
+                    /*
+                     Checks if the cafe passes the tea filter
+                     */
+                    if( filters.tea && this.processCafeHasTeaFilter( this.cafe ) ){
+                        teaPassed = true;
+                    }else if( !filters.tea ){
+                        teaPassed = true;
+                    }
 
                     /*
                      If everything passes, then we show the Cafe Card
                      */
-                    if( typePassed && textPassed && brewMethodsPassed && likedPassed ){
+                    if( typePassed && textPassed && brewMethodsPassed && likedPassed && matchaPassed && teaPassed ){
                         this.show = true;
                     }else{
                         this.show = false;
                     }
+                }
             },
 
             panToLocation( cafe ){

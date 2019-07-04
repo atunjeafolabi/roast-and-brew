@@ -1840,6 +1840,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_filters_CafeUserLikeFilter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/filters/CafeUserLikeFilter.js */ "./resources/js/mixins/filters/CafeUserLikeFilter.js");
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
 /* harmony import */ var _mixins_filters_CafeTypeFilter_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/filters/CafeTypeFilter.js */ "./resources/js/mixins/filters/CafeTypeFilter.js");
+/* harmony import */ var _mixins_filters_CafeHasMatchaFilter_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../mixins/filters/CafeHasMatchaFilter.js */ "./resources/js/mixins/filters/CafeHasMatchaFilter.js");
+/* harmony import */ var _mixins_filters_CafeHasTeaFilter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../mixins/filters/CafeHasTeaFilter.js */ "./resources/js/mixins/filters/CafeHasTeaFilter.js");
 //
 //
 //
@@ -1924,6 +1926,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -1933,7 +1937,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   // This component accepts one cafe as a property
   props: ['cafe'],
-  mixins: [_mixins_filters_CafeTypeFilter_js__WEBPACK_IMPORTED_MODULE_5__["CafeTypeFilter"], _mixins_filters_CafesBrewMethodsFilter_js__WEBPACK_IMPORTED_MODULE_0__["CafeBrewMethodsFilter"], _mixins_filters_CafeTagsFilter_js__WEBPACK_IMPORTED_MODULE_1__["CafeTagsFilter"], _mixins_filters_CafeTextFilter_js__WEBPACK_IMPORTED_MODULE_2__["CafeTextFilter"], _mixins_filters_CafeUserLikeFilter_js__WEBPACK_IMPORTED_MODULE_3__["CafeUserLikeFilter"]],
+  mixins: [_mixins_filters_CafeTypeFilter_js__WEBPACK_IMPORTED_MODULE_5__["CafeTypeFilter"], _mixins_filters_CafesBrewMethodsFilter_js__WEBPACK_IMPORTED_MODULE_0__["CafeBrewMethodsFilter"], _mixins_filters_CafeTagsFilter_js__WEBPACK_IMPORTED_MODULE_1__["CafeTagsFilter"], _mixins_filters_CafeTextFilter_js__WEBPACK_IMPORTED_MODULE_2__["CafeTextFilter"], _mixins_filters_CafeUserLikeFilter_js__WEBPACK_IMPORTED_MODULE_3__["CafeUserLikeFilter"], _mixins_filters_CafeHasMatchaFilter_js__WEBPACK_IMPORTED_MODULE_7__["CafeHasMatchaFilter"], _mixins_filters_CafeHasTeaFilter_js__WEBPACK_IMPORTED_MODULE_8__["CafeHasTeaFilter"]],
   mounted: function mounted() {
     _event_bus_js__WEBPACK_IMPORTED_MODULE_4__["EventBus"].$on('filters-updated', function (filters) {
       this.processFilters(filters);
@@ -1949,7 +1953,7 @@ __webpack_require__.r(__webpack_exports__);
       /*
        If no filters are selected, show the card
        */
-      if (filters.type == 'all' && !filters.liked && filters.brewMethods.length == 0) {
+      if (filters.text == '' && filters.type == 'all' && filters.brewMethods.length == 0 && !filters.liked && !filters.matcha && !filters.tea) {
         this.show = true;
       } else {
         /*
@@ -1959,6 +1963,8 @@ __webpack_require__.r(__webpack_exports__);
         var likedPassed = false;
         var brewMethodsPassed = false;
         var textPassed = false;
+        var matchaPassed = false;
+        var teaPassed = false;
         /*
          Check if the roaster passes
          */
@@ -1996,16 +2002,36 @@ __webpack_require__.r(__webpack_exports__);
         } else if (!filters.liked) {
           likedPassed = true;
         }
-      }
-      /*
-       If everything passes, then we show the Cafe Card
-       */
+        /*
+         Checks if the cafe passes matcha filter
+         */
 
 
-      if (typePassed && textPassed && brewMethodsPassed && likedPassed) {
-        this.show = true;
-      } else {
-        this.show = false;
+        if (filters.matcha && this.processCafeHasMatchaFilter(this.cafe)) {
+          matchaPassed = true;
+        } else if (!filters.matcha) {
+          matchaPassed = true;
+        }
+        /*
+         Checks if the cafe passes the tea filter
+         */
+
+
+        if (filters.tea && this.processCafeHasTeaFilter(this.cafe)) {
+          teaPassed = true;
+        } else if (!filters.tea) {
+          teaPassed = true;
+        }
+        /*
+         If everything passes, then we show the Cafe Card
+         */
+
+
+        if (typePassed && textPassed && brewMethodsPassed && likedPassed && matchaPassed && teaPassed) {
+          this.show = true;
+        } else {
+          this.show = false;
+        }
       }
     },
     panToLocation: function panToLocation(cafe) {
@@ -2034,6 +2060,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_filters_CafeTagsFilter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/filters/CafeTagsFilter.js */ "./resources/js/mixins/filters/CafeTagsFilter.js");
 /* harmony import */ var _mixins_filters_CafeTextFilter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/filters/CafeTextFilter.js */ "./resources/js/mixins/filters/CafeTextFilter.js");
 /* harmony import */ var _mixins_filters_CafeUserLikeFilter_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/filters/CafeUserLikeFilter.js */ "./resources/js/mixins/filters/CafeUserLikeFilter.js");
+/* harmony import */ var _mixins_filters_CafeHasMatchaFilter_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../mixins/filters/CafeHasMatchaFilter.js */ "./resources/js/mixins/filters/CafeHasMatchaFilter.js");
+/* harmony import */ var _mixins_filters_CafeHasTeaFilter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../mixins/filters/CafeHasTeaFilter.js */ "./resources/js/mixins/filters/CafeHasTeaFilter.js");
 //
 //
 //
@@ -2104,6 +2132,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -2112,7 +2142,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
-  mixins: [_mixins_filters_CafeTypeFilter_js__WEBPACK_IMPORTED_MODULE_0__["CafeTypeFilter"], _mixins_filters_CafesBrewMethodsFilter_js__WEBPACK_IMPORTED_MODULE_2__["CafeBrewMethodsFilter"], _mixins_filters_CafeTagsFilter_js__WEBPACK_IMPORTED_MODULE_3__["CafeTagsFilter"], _mixins_filters_CafeTextFilter_js__WEBPACK_IMPORTED_MODULE_4__["CafeTextFilter"], _mixins_filters_CafeUserLikeFilter_js__WEBPACK_IMPORTED_MODULE_5__["CafeUserLikeFilter"]],
+  mixins: [_mixins_filters_CafeTypeFilter_js__WEBPACK_IMPORTED_MODULE_0__["CafeTypeFilter"], _mixins_filters_CafesBrewMethodsFilter_js__WEBPACK_IMPORTED_MODULE_2__["CafeBrewMethodsFilter"], _mixins_filters_CafeTagsFilter_js__WEBPACK_IMPORTED_MODULE_3__["CafeTagsFilter"], _mixins_filters_CafeTextFilter_js__WEBPACK_IMPORTED_MODULE_4__["CafeTextFilter"], _mixins_filters_CafeUserLikeFilter_js__WEBPACK_IMPORTED_MODULE_5__["CafeUserLikeFilter"], _mixins_filters_CafeHasMatchaFilter_js__WEBPACK_IMPORTED_MODULE_7__["CafeHasMatchaFilter"], _mixins_filters_CafeHasTeaFilter_js__WEBPACK_IMPORTED_MODULE_8__["CafeHasTeaFilter"]],
   props: {
     'latitude': {
       type: Number,
@@ -2236,7 +2266,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     processFilters: function processFilters(filters) {
       for (var i = 0; i < this.$markers.length; i++) {
-        if (filters.text == '' && filters.type == 'all' && !filters.liked && filters.brewMethods.length == 0) {
+        if (filters.text == '' && filters.type == 'all' && filters.brewMethods.length == 0 && !filters.liked && !filters.matcha && !filters.tea) {
           this.$markers[i].setMap(this.$map);
         } else {
           /*
@@ -2246,6 +2276,8 @@ __webpack_require__.r(__webpack_exports__);
           var brewMethodsPassed = false;
           var typePassed = false;
           var likedPassed = false;
+          var matchaPassed = false;
+          var teaPassed = false;
           /*
            Check if the roaster passes
            */
@@ -2286,11 +2318,31 @@ __webpack_require__.r(__webpack_exports__);
             likedPassed = true;
           }
           /*
+           Checks if the cafe passes matcha filter
+           */
+
+
+          if (filters.matcha && this.processCafeHasMatchaFilter(this.$markers[i].cafe)) {
+            matchaPassed = true;
+          } else if (!filters.matcha) {
+            matchaPassed = true;
+          }
+          /*
+           Checks if the cafe passes the tea filter
+           */
+
+
+          if (filters.tea && this.processCafeHasTeaFilter(this.$markers[i].cafe)) {
+            teaPassed = true;
+          } else if (!filters.tea) {
+            teaPassed = true;
+          }
+          /*
            If everything passes, then we show the Cafe Marker
            */
 
 
-          if (typePassed && textPassed && brewMethodsPassed && likedPassed) {
+          if (typePassed && textPassed && brewMethodsPassed && likedPassed && matchaPassed && teaPassed) {
             this.$markers[i].setMap(this.$map);
           } else {
             this.$markers[i].setMap(null);
@@ -2852,6 +2904,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
  Imports the event bus
@@ -2871,7 +2984,9 @@ __webpack_require__.r(__webpack_exports__);
       activeLocationFilter: 'all',
       onlyLiked: false,
       brewMethodsFilter: [],
-      shownCount: 1
+      shownCount: 1,
+      hasMatcha: false,
+      hasTea: false
     };
   },
   computed: {
@@ -2906,6 +3021,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     showFilters: function showFilters() {
       this.computeHeight();
+    },
+    hasMatcha: function hasMatcha() {
+      this.updateFilterDisplay();
+    },
+    hasTea: function hasTea() {
+      this.updateFilterDisplay();
     }
   },
   mounted: function mounted() {
@@ -2932,7 +3053,9 @@ __webpack_require__.r(__webpack_exports__);
         text: this.textSearch,
         type: this.activeLocationFilter,
         liked: this.onlyLiked,
-        brewMethods: this.brewMethodsFilter
+        brewMethods: this.brewMethodsFilter,
+        matcha: this.hasMatcha,
+        tea: this.hasTea
       });
       this.$nextTick(function () {
         this.computeShown();
@@ -2952,11 +3075,19 @@ __webpack_require__.r(__webpack_exports__);
         showFilters: !this.showFilters
       });
     },
+    toggleMatchaFilter: function toggleMatchaFilter() {
+      this.hasMatcha = !this.hasMatcha;
+    },
+    toggleTeaFilter: function toggleTeaFilter() {
+      this.hasTea = !this.hasTea;
+    },
     clearFilters: function clearFilters() {
       this.textSearch = '';
       this.activeLocationFilter = 'all';
       this.onlyLiked = false;
       this.brewMethodsFilter = [];
+      this.hasMatcha = false;
+      this.hasTea = false;
     }
   }
 });
@@ -3845,6 +3976,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4313,6 +4496,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
  Imports the Event Bus to pass events on tag updates
@@ -4352,6 +4594,8 @@ __webpack_require__.r(__webpack_exports__);
       lat: '',
       lng: '',
       brewMethodsSelected: [],
+      matcha: 0,
+      tea: 0,
       validations: {
         companyName: {
           is_valid: true,
@@ -4541,6 +4785,8 @@ __webpack_require__.r(__webpack_exports__);
       this.zip = this.editCafe.zip;
       this.lat = this.editCafe.latitude;
       this.lng = this.editCafe.longitude;
+      this.matcha = this.editCafe.matcha;
+      this.tea = this.editCafe.tea;
 
       for (var i = 0; i < this.editCafe.brew_methods.length; i++) {
         this.brewMethodsSelected.push(this.editCafe.brew_methods[i].id);
@@ -4568,7 +4814,9 @@ __webpack_require__.r(__webpack_exports__);
           zip: this.zip,
           lat: this.lat,
           lng: this.lng,
-          brew_methods: this.brewMethodsSelected
+          brew_methods: this.brewMethodsSelected,
+          matcha: this.matcha,
+          tea: this.tea
         });
       }
     },
@@ -4706,6 +4954,8 @@ __webpack_require__.r(__webpack_exports__);
       this.state = '';
       this.zip = '';
       this.brewMethodsSelected = [];
+      this.matcha = 0;
+      this.tea = 0;
       this.validations = {
         companyName: {
           is_valid: true,
@@ -5248,6 +5498,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
  Imports the Event Bus to pass events on tag updates
@@ -5287,6 +5596,8 @@ __webpack_require__.r(__webpack_exports__);
       lat: '',
       lng: '',
       brewMethodsSelected: [],
+      matcha: 0,
+      tea: 0,
       validations: {
         companyName: {
           is_valid: true,
@@ -5420,7 +5731,9 @@ __webpack_require__.r(__webpack_exports__);
           zip: this.zip,
           lat: this.lat,
           lng: this.lng,
-          brew_methods: this.brewMethodsSelected
+          brew_methods: this.brewMethodsSelected,
+          matcha: this.matcha,
+          tea: this.tea
         });
       }
     },
@@ -5539,6 +5852,8 @@ __webpack_require__.r(__webpack_exports__);
       this.state = '';
       this.zip = '';
       this.brewMethodsSelected = [];
+      this.matcha = 0;
+      this.tea = 0;
       this.validations = {
         companyName: {
           is_valid: true,
@@ -6039,7 +6354,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv.filters-container {\n  background-color: white;\n  position: fixed;\n  left: 0;\n  bottom: 0;\n  top: 75px;\n  max-width: 550px;\n  width: 100%;\n  padding-top: 50px;\n  box-shadow: 0 2px 4px 0 rgba(3, 27, 78, 0.1);\n  z-index: 99;\n}\ndiv.filters-container span.clear-filters {\n  font-size: 16px;\n  color: #054E7A;\n  font-family: \"Lato\", sans-serif;\n  cursor: pointer;\n  display: block;\n  float: left;\n  margin-bottom: 20px;\n  display: none;\n}\ndiv.filters-container span.clear-filters img {\n  margin-right: 10px;\n  float: left;\n  margin-top: 6px;\n}\ndiv.filters-container input[type=text].search {\n  box-shadow: none;\n  border-radius: 3px;\n  color: #BABABA;\n  font-size: 16px;\n  font-family: \"Lato\", sans-serif;\n  background-image: url(\"/img/search-icon.svg\");\n  background-repeat: no-repeat;\n  background-position: 6px;\n  padding-left: 35px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n}\ndiv.filters-container label.filter-label {\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  font-weight: bold;\n  color: black;\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\ndiv.filters-container div.location-filter {\n  text-align: center;\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  color: #E8635F;\n  border-bottom: 1px solid #E8635F;\n  border-top: 1px solid #E8635F;\n  border-left: 1px solid #E8635F;\n  border-right: 1px solid #E8635F;\n  width: 33%;\n  display: inline-block;\n  height: 55px;\n  line-height: 55px;\n  cursor: pointer;\n  margin-bottom: 5px;\n}\ndiv.filters-container div.location-filter.active {\n  color: white;\n  background-color: #E8635F;\n}\ndiv.filters-container div.location-filter.all-locations {\n  border-top-left-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\ndiv.filters-container div.location-filter.roasters {\n  border-left: none;\n  border-right: none;\n}\ndiv.filters-container div.location-filter.cafes {\n  border-top-right-radius: 3px;\n  border-bottom-right-radius: 3px;\n}\ndiv.filters-container div.brew-method {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv.filters-container div.brew-method.active {\n  color: white;\n  background-color: #E8635F;\n}\ndiv.filters-container div.brew-method div.brew-method-container {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv.filters-container div.brew-method div.brew-method-container img.brew-method-icon {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv.filters-container div.brew-method div.brew-method-container span.brew-method-name {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv.filters-container span.liked-location-label {\n  color: #666666;\n  font-size: 16px;\n  font-family: \"Lato\", sans-serif;\n  margin-left: 10px;\n}\ndiv.filters-container div.cafe-grid-container {\n  overflow: auto;\n  padding-bottom: 10px;\n}\ndiv.filters-container div.close-filters {\n  height: 90px;\n  width: 23px;\n  position: absolute;\n  right: -20px;\n  background-color: white;\n  border-top-right-radius: 3px;\n  border-bottom-right-radius: 3px;\n  line-height: 90px;\n  top: 50%;\n  cursor: pointer;\n  margin-top: -82px;\n  text-align: center;\n}\ndiv.filters-container span.no-results {\n  display: block;\n  text-align: center;\n  margin-top: 50px;\n  color: #666666;\n  text-transform: uppercase;\n  font-weight: 600;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\ndiv.filters-container {\n    padding-top: 25px;\n    overflow-y: auto;\n}\ndiv.filters-container span.clear-filters {\n    display: block;\n}\ndiv.filters-container div.cafe-grid-container {\n    height: inherit;\n}\ndiv.filters-container div.close-filters {\n    display: none;\n}\n}\n/* Medium only */\n/* Large only */", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv.filters-container {\n  background-color: white;\n  position: fixed;\n  left: 0;\n  bottom: 0;\n  top: 75px;\n  max-width: 550px;\n  width: 100%;\n  padding-top: 50px;\n  box-shadow: 0 2px 4px 0 rgba(3, 27, 78, 0.1);\n  z-index: 99;\n}\ndiv.filters-container span.clear-filters {\n  font-size: 16px;\n  color: #054E7A;\n  font-family: \"Lato\", sans-serif;\n  cursor: pointer;\n  display: block;\n  float: left;\n  margin-bottom: 20px;\n  display: none;\n}\ndiv.filters-container span.clear-filters img {\n  margin-right: 10px;\n  float: left;\n  margin-top: 6px;\n}\ndiv.filters-container input[type=text].search {\n  box-shadow: none;\n  border-radius: 3px;\n  color: #BABABA;\n  font-size: 16px;\n  font-family: \"Lato\", sans-serif;\n  background-image: url(\"/img/search-icon.svg\");\n  background-repeat: no-repeat;\n  background-position: 6px;\n  padding-left: 35px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n}\ndiv.filters-container label.filter-label {\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  font-weight: bold;\n  color: black;\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\ndiv.filters-container div.location-filter {\n  text-align: center;\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  color: #E8635F;\n  border-bottom: 1px solid #E8635F;\n  border-top: 1px solid #E8635F;\n  border-left: 1px solid #E8635F;\n  border-right: 1px solid #E8635F;\n  width: 33%;\n  display: inline-block;\n  height: 55px;\n  line-height: 55px;\n  cursor: pointer;\n  margin-bottom: 5px;\n}\ndiv.filters-container div.location-filter.active {\n  color: white;\n  background-color: #E8635F;\n}\ndiv.filters-container div.location-filter.all-locations {\n  border-top-left-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\ndiv.filters-container div.location-filter.roasters {\n  border-left: none;\n  border-right: none;\n}\ndiv.filters-container div.location-filter.cafes {\n  border-top-right-radius: 3px;\n  border-bottom-right-radius: 3px;\n}\ndiv.filters-container div.brew-method {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv.filters-container div.brew-method.active {\n  color: white;\n  background-color: #E8635F;\n}\ndiv.filters-container div.brew-method div.brew-method-container {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv.filters-container div.brew-method div.brew-method-container img.brew-method-icon {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv.filters-container div.brew-method div.brew-method-container span.brew-method-name {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv.filters-container div.drink-option {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv.filters-container div.drink-option.active {\n  color: white;\n  background-color: #E8635F;\n}\ndiv.filters-container div.drink-option div.drink-option-container {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv.filters-container div.drink-option div.drink-option-container img.drink-option-icon {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv.filters-container div.drink-option div.drink-option-container span.drink-option-name {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv.filters-container span.liked-location-label {\n  color: #666666;\n  font-size: 16px;\n  font-family: \"Lato\", sans-serif;\n  margin-left: 10px;\n}\ndiv.filters-container div.cafe-grid-container {\n  overflow: auto;\n  padding-bottom: 10px;\n}\ndiv.filters-container div.close-filters {\n  height: 90px;\n  width: 23px;\n  position: absolute;\n  right: -20px;\n  background-color: white;\n  border-top-right-radius: 3px;\n  border-bottom-right-radius: 3px;\n  line-height: 90px;\n  top: 50%;\n  cursor: pointer;\n  margin-top: -82px;\n  text-align: center;\n}\ndiv.filters-container span.no-results {\n  display: block;\n  text-align: center;\n  margin-top: 50px;\n  color: #666666;\n  text-transform: uppercase;\n  font-weight: 600;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\ndiv.filters-container {\n    padding-top: 25px;\n    overflow-y: auto;\n}\ndiv.filters-container span.clear-filters {\n    display: block;\n}\ndiv.filters-container div.cafe-grid-container {\n    height: inherit;\n}\ndiv.filters-container div.close-filters {\n    display: none;\n}\n}\n/* Medium only */\n/* Large only */", ""]);
 
 // exports
 
@@ -6153,7 +6468,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv#cafe-page {\n  position: absolute;\n  right: 30px;\n  top: 125px;\n  background: #FFFFFF;\n  box-shadow: 0 2px 4px 0 rgba(3, 27, 78, 0.1);\n  width: 100%;\n  max-width: 480px;\n  padding: 20px;\n  padding-top: 10px;\n}\ndiv#cafe-page img.close-icon {\n  float: right;\n  cursor: pointer;\n  margin-top: 10px;\n}\ndiv#cafe-page h2.cafe-title {\n  color: #342C0C;\n  font-size: 36px;\n  line-height: 44px;\n  font-family: \"Lato\", sans-serif;\n  font-weight: bolder;\n}\ndiv#cafe-page span.location-number {\n  display: inline-block;\n  color: #8E8E8E;\n  font-size: 18px;\n}\ndiv#cafe-page span.location-number span.location-image-container {\n  width: 35px;\n  text-align: center;\n  display: inline-block;\n}\ndiv#cafe-page label.cafe-label {\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  font-weight: bold;\n  color: black;\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\ndiv#cafe-page div.location-type {\n  color: white;\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  width: 105px;\n  height: 45px;\n  text-align: center;\n  line-height: 45px;\n  border-radius: 3px;\n}\ndiv#cafe-page div.location-type img {\n  margin-right: 5px;\n}\ndiv#cafe-page div.location-type.roaster {\n  background-color: #E8635F;\n}\ndiv#cafe-page div.location-type.cafe {\n  background-color: #3D281E;\n}\ndiv#cafe-page div.location-type.cafe img {\n  margin-top: -6px;\n}\ndiv#cafe-page div.brew-method {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#cafe-page div.brew-method div.brew-method-container {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#cafe-page div.brew-method div.brew-method-container img.brew-method-icon {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#cafe-page div.brew-method div.brew-method-container span.brew-method-name {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#cafe-page div.address-container {\n  color: #666666;\n  font-size: 18px;\n  line-height: 23px;\n  font-family: \"Lato\", sans-serif;\n  margin-bottom: 5px;\n}\ndiv#cafe-page div.address-container span.address {\n  display: block;\n}\ndiv#cafe-page div.address-container span.city-state {\n  display: block;\n}\ndiv#cafe-page div.address-container span.zip {\n  display: block;\n}\ndiv#cafe-page a.cafe-website {\n  font-family: \"Lato\", sans-serif;\n  color: #543729;\n  font-size: 18px;\n}\ndiv#cafe-page a.suggest-cafe-edit {\n  font-family: \"Lato\", sans-serif;\n  color: #054E7A;\n  font-size: 14px;\n  display: inline-block;\n  margin-top: 30px;\n  text-decoration: underline;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\ndiv#cafe-page {\n    position: fixed;\n    right: 0px;\n    left: 0px;\n    top: 0px;\n    bottom: 0px;\n    z-index: 99999;\n}\n}\n/* Medium only */\n/* Large only */", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv#cafe-page {\n  position: absolute;\n  right: 30px;\n  top: 125px;\n  background: #FFFFFF;\n  box-shadow: 0 2px 4px 0 rgba(3, 27, 78, 0.1);\n  width: 100%;\n  max-width: 480px;\n  padding: 20px;\n  padding-top: 10px;\n}\ndiv#cafe-page img.close-icon {\n  float: right;\n  cursor: pointer;\n  margin-top: 10px;\n}\ndiv#cafe-page h2.cafe-title {\n  color: #342C0C;\n  font-size: 36px;\n  line-height: 44px;\n  font-family: \"Lato\", sans-serif;\n  font-weight: bolder;\n}\ndiv#cafe-page span.location-number {\n  display: inline-block;\n  color: #8E8E8E;\n  font-size: 18px;\n}\ndiv#cafe-page span.location-number span.location-image-container {\n  width: 35px;\n  text-align: center;\n  display: inline-block;\n}\ndiv#cafe-page label.cafe-label {\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  font-weight: bold;\n  color: black;\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\ndiv#cafe-page div.location-type {\n  color: white;\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  width: 105px;\n  height: 45px;\n  text-align: center;\n  line-height: 45px;\n  border-radius: 3px;\n}\ndiv#cafe-page div.location-type img {\n  margin-right: 5px;\n}\ndiv#cafe-page div.location-type.roaster {\n  background-color: #E8635F;\n}\ndiv#cafe-page div.location-type.cafe {\n  background-color: #3D281E;\n}\ndiv#cafe-page div.location-type.cafe img {\n  margin-top: -6px;\n}\ndiv#cafe-page div.brew-method {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#cafe-page div.brew-method div.brew-method-container {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#cafe-page div.brew-method div.brew-method-container img.brew-method-icon {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#cafe-page div.brew-method div.brew-method-container span.brew-method-name {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#cafe-page div.drink-option {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#cafe-page div.drink-option.active {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#cafe-page div.drink-option div.drink-option-container {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#cafe-page div.drink-option div.drink-option-container img.drink-option-icon {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#cafe-page div.drink-option div.drink-option-container span.drink-option-name {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#cafe-page div.address-container {\n  color: #666666;\n  font-size: 18px;\n  line-height: 23px;\n  font-family: \"Lato\", sans-serif;\n  margin-bottom: 5px;\n}\ndiv#cafe-page div.address-container span.address {\n  display: block;\n}\ndiv#cafe-page div.address-container span.city-state {\n  display: block;\n}\ndiv#cafe-page div.address-container span.zip {\n  display: block;\n}\ndiv#cafe-page a.cafe-website {\n  font-family: \"Lato\", sans-serif;\n  color: #543729;\n  font-size: 18px;\n}\ndiv#cafe-page a.suggest-cafe-edit {\n  font-family: \"Lato\", sans-serif;\n  color: #054E7A;\n  font-size: 14px;\n  display: inline-block;\n  margin-top: 30px;\n  text-decoration: underline;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\ndiv#cafe-page {\n    position: fixed;\n    right: 0px;\n    left: 0px;\n    top: 0px;\n    bottom: 0px;\n    z-index: 99999;\n}\n}\n/* Medium only */\n/* Large only */", ""]);
 
 // exports
 
@@ -6172,7 +6487,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv#new-cafe-page[data-v-1e9295d0] {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background-color: white;\n  z-index: 99999;\n  overflow: auto;\n}\ndiv#new-cafe-page img#back[data-v-1e9295d0] {\n  float: right;\n  margin-top: 20px;\n  margin-right: 20px;\n}\ndiv#new-cafe-page .centered[data-v-1e9295d0] {\n  margin: auto;\n}\ndiv#new-cafe-page h2.page-title[data-v-1e9295d0] {\n  color: #342C0C;\n  font-size: 36px;\n  font-weight: 900;\n  font-family: \"Lato\", sans-serif;\n  margin-top: 60px;\n}\ndiv#new-cafe-page label.form-label[data-v-1e9295d0] {\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  font-weight: bold;\n  color: black;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\ndiv#new-cafe-page input[type=text].form-input[data-v-1e9295d0] {\n  border: 1px solid #BABABA;\n  border-radius: 3px;\n}\ndiv#new-cafe-page input[type=text].form-input.invalid[data-v-1e9295d0] {\n  border: 1px solid #D0021B;\n}\ndiv#new-cafe-page div.validation[data-v-1e9295d0] {\n  color: #D0021B;\n  font-family: \"Lato\", sans-serif;\n  font-size: 14px;\n  margin-top: -15px;\n  margin-bottom: 15px;\n}\ndiv#new-cafe-page div.location-type[data-v-1e9295d0] {\n  text-align: center;\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  color: #E8635F;\n  border-bottom: 1px solid #E8635F;\n  border-top: 1px solid #E8635F;\n  border-left: 1px solid #E8635F;\n  border-right: 1px solid #E8635F;\n  width: 25%;\n  display: inline-block;\n  height: 55px;\n  line-height: 55px;\n  cursor: pointer;\n  margin-bottom: 5px;\n}\ndiv#new-cafe-page div.location-type.active[data-v-1e9295d0] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.location-type.roaster[data-v-1e9295d0] {\n  border-top-left-radius: 3px;\n  border-bottom-left-radius: 3px;\n  border-right: 0px;\n}\ndiv#new-cafe-page div.location-type.cafe[data-v-1e9295d0] {\n  border-top-right-radius: 3px;\n  border-bottom-right-radius: 3px;\n}\ndiv#new-cafe-page div.brew-method[data-v-1e9295d0] {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#new-cafe-page div.brew-method.active[data-v-1e9295d0] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container[data-v-1e9295d0] {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container img.brew-method-icon[data-v-1e9295d0] {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container span.brew-method-name[data-v-1e9295d0] {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#new-cafe-page div.company-selection-container[data-v-1e9295d0] {\n  position: relative;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container[data-v-1e9295d0] {\n  border-radius: 3px;\n  border: 1px solid #BABABA;\n  background-color: white;\n  margin-top: -17px;\n  width: 80%;\n  position: absolute;\n  z-index: 9999;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete[data-v-1e9295d0] {\n  cursor: pointer;\n  padding-left: 12px;\n  padding-right: 12px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete span.company-name[data-v-1e9295d0] {\n  display: block;\n  color: #0D223F;\n  font-size: 16px;\n  font-family: \"Lato\", sans-serif;\n  font-weight: bold;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete span.company-locations[data-v-1e9295d0] {\n  display: block;\n  font-size: 14px;\n  color: #676767;\n  font-family: \"Lato\", sans-serif;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete[data-v-1e9295d0]:hover {\n  background-color: #F2F2F2;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.new-company[data-v-1e9295d0] {\n  cursor: pointer;\n  padding-left: 12px;\n  padding-right: 12px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  font-family: \"Lato\", sans-serif;\n  color: #054E7A;\n  font-style: italic;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.new-company[data-v-1e9295d0]:hover {\n  background-color: #F2F2F2;\n}\ndiv#new-cafe-page a.edit-location-button[data-v-1e9295d0] {\n  display: block;\n  text-align: center;\n  height: 50px;\n  color: white;\n  border-radius: 3px;\n  font-size: 18px;\n  font-family: \"Lato\", sans-serif;\n  background-color: #A7BE4D;\n  line-height: 50px;\n  margin-bottom: 10px;\n}\ndiv#new-cafe-page a.delete-location[data-v-1e9295d0] {\n  color: #D0021B;\n  font-size: 14px;\n  text-decoration: underline;\n  display: inline-block;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\ndiv#new-cafe-page div.location-type[data-v-1e9295d0] {\n    width: 50%;\n}\n}", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv#new-cafe-page[data-v-1e9295d0] {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background-color: white;\n  z-index: 99999;\n  overflow: auto;\n}\ndiv#new-cafe-page img#back[data-v-1e9295d0] {\n  float: right;\n  margin-top: 20px;\n  margin-right: 20px;\n}\ndiv#new-cafe-page .centered[data-v-1e9295d0] {\n  margin: auto;\n}\ndiv#new-cafe-page h2.page-title[data-v-1e9295d0] {\n  color: #342C0C;\n  font-size: 36px;\n  font-weight: 900;\n  font-family: \"Lato\", sans-serif;\n  margin-top: 60px;\n}\ndiv#new-cafe-page label.form-label[data-v-1e9295d0] {\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  font-weight: bold;\n  color: black;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\ndiv#new-cafe-page input[type=text].form-input[data-v-1e9295d0] {\n  border: 1px solid #BABABA;\n  border-radius: 3px;\n}\ndiv#new-cafe-page input[type=text].form-input.invalid[data-v-1e9295d0] {\n  border: 1px solid #D0021B;\n}\ndiv#new-cafe-page div.validation[data-v-1e9295d0] {\n  color: #D0021B;\n  font-family: \"Lato\", sans-serif;\n  font-size: 14px;\n  margin-top: -15px;\n  margin-bottom: 15px;\n}\ndiv#new-cafe-page div.location-type[data-v-1e9295d0] {\n  text-align: center;\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  color: #E8635F;\n  border-bottom: 1px solid #E8635F;\n  border-top: 1px solid #E8635F;\n  border-left: 1px solid #E8635F;\n  border-right: 1px solid #E8635F;\n  width: 25%;\n  display: inline-block;\n  height: 55px;\n  line-height: 55px;\n  cursor: pointer;\n  margin-bottom: 5px;\n}\ndiv#new-cafe-page div.location-type.active[data-v-1e9295d0] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.location-type.roaster[data-v-1e9295d0] {\n  border-top-left-radius: 3px;\n  border-bottom-left-radius: 3px;\n  border-right: 0px;\n}\ndiv#new-cafe-page div.location-type.cafe[data-v-1e9295d0] {\n  border-top-right-radius: 3px;\n  border-bottom-right-radius: 3px;\n}\ndiv#new-cafe-page div.brew-method[data-v-1e9295d0] {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#new-cafe-page div.brew-method.active[data-v-1e9295d0] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container[data-v-1e9295d0] {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container img.brew-method-icon[data-v-1e9295d0] {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container span.brew-method-name[data-v-1e9295d0] {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#new-cafe-page div.drink-option[data-v-1e9295d0] {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#new-cafe-page div.drink-option.active[data-v-1e9295d0] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.drink-option div.drink-option-container[data-v-1e9295d0] {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#new-cafe-page div.drink-option div.drink-option-container img.drink-option-icon[data-v-1e9295d0] {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#new-cafe-page div.drink-option div.drink-option-container span.drink-option-name[data-v-1e9295d0] {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#new-cafe-page div.company-selection-container[data-v-1e9295d0] {\n  position: relative;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container[data-v-1e9295d0] {\n  border-radius: 3px;\n  border: 1px solid #BABABA;\n  background-color: white;\n  margin-top: -17px;\n  width: 80%;\n  position: absolute;\n  z-index: 9999;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete[data-v-1e9295d0] {\n  cursor: pointer;\n  padding-left: 12px;\n  padding-right: 12px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete span.company-name[data-v-1e9295d0] {\n  display: block;\n  color: #0D223F;\n  font-size: 16px;\n  font-family: \"Lato\", sans-serif;\n  font-weight: bold;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete span.company-locations[data-v-1e9295d0] {\n  display: block;\n  font-size: 14px;\n  color: #676767;\n  font-family: \"Lato\", sans-serif;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete[data-v-1e9295d0]:hover {\n  background-color: #F2F2F2;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.new-company[data-v-1e9295d0] {\n  cursor: pointer;\n  padding-left: 12px;\n  padding-right: 12px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  font-family: \"Lato\", sans-serif;\n  color: #054E7A;\n  font-style: italic;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.new-company[data-v-1e9295d0]:hover {\n  background-color: #F2F2F2;\n}\ndiv#new-cafe-page a.edit-location-button[data-v-1e9295d0] {\n  display: block;\n  text-align: center;\n  height: 50px;\n  color: white;\n  border-radius: 3px;\n  font-size: 18px;\n  font-family: \"Lato\", sans-serif;\n  background-color: #A7BE4D;\n  line-height: 50px;\n  margin-bottom: 10px;\n}\ndiv#new-cafe-page a.delete-location[data-v-1e9295d0] {\n  color: #D0021B;\n  font-size: 14px;\n  text-decoration: underline;\n  display: inline-block;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\ndiv#new-cafe-page div.location-type[data-v-1e9295d0] {\n    width: 50%;\n}\n}", ""]);
 
 // exports
 
@@ -6191,7 +6506,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv#new-cafe-page[data-v-32b4e964] {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background-color: white;\n  z-index: 99999;\n  overflow: auto;\n}\ndiv#new-cafe-page img#back[data-v-32b4e964] {\n  float: right;\n  margin-top: 20px;\n  margin-right: 20px;\n}\ndiv#new-cafe-page .centered[data-v-32b4e964] {\n  margin: auto;\n}\ndiv#new-cafe-page h2.page-title[data-v-32b4e964] {\n  color: #342C0C;\n  font-size: 36px;\n  font-weight: 900;\n  font-family: \"Lato\", sans-serif;\n  margin-top: 60px;\n}\ndiv#new-cafe-page label.form-label[data-v-32b4e964] {\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  font-weight: bold;\n  color: black;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\ndiv#new-cafe-page input[type=text].form-input[data-v-32b4e964] {\n  border: 1px solid #BABABA;\n  border-radius: 3px;\n}\ndiv#new-cafe-page input[type=text].form-input.invalid[data-v-32b4e964] {\n  border: 1px solid #D0021B;\n}\ndiv#new-cafe-page div.validation[data-v-32b4e964] {\n  color: #D0021B;\n  font-family: \"Lato\", sans-serif;\n  font-size: 14px;\n  margin-top: -15px;\n  margin-bottom: 15px;\n}\ndiv#new-cafe-page div.location-type[data-v-32b4e964] {\n  text-align: center;\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  color: #E8635F;\n  border-bottom: 1px solid #E8635F;\n  border-top: 1px solid #E8635F;\n  border-left: 1px solid #E8635F;\n  border-right: 1px solid #E8635F;\n  width: 25%;\n  display: inline-block;\n  height: 55px;\n  line-height: 55px;\n  cursor: pointer;\n  margin-bottom: 5px;\n}\ndiv#new-cafe-page div.location-type.active[data-v-32b4e964] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.location-type.roaster[data-v-32b4e964] {\n  border-top-left-radius: 3px;\n  border-bottom-left-radius: 3px;\n  border-right: 0px;\n}\ndiv#new-cafe-page div.location-type.cafe[data-v-32b4e964] {\n  border-top-right-radius: 3px;\n  border-bottom-right-radius: 3px;\n}\ndiv#new-cafe-page div.brew-method[data-v-32b4e964] {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#new-cafe-page div.brew-method.active[data-v-32b4e964] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container[data-v-32b4e964] {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container img.brew-method-icon[data-v-32b4e964] {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container span.brew-method-name[data-v-32b4e964] {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#new-cafe-page div.company-selection-container[data-v-32b4e964] {\n  position: relative;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container[data-v-32b4e964] {\n  border-radius: 3px;\n  border: 1px solid #BABABA;\n  background-color: white;\n  margin-top: -17px;\n  width: 80%;\n  position: absolute;\n  z-index: 9999;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete[data-v-32b4e964] {\n  cursor: pointer;\n  padding-left: 12px;\n  padding-right: 12px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete span.company-name[data-v-32b4e964] {\n  display: block;\n  color: #0D223F;\n  font-size: 16px;\n  font-family: \"Lato\", sans-serif;\n  font-weight: bold;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete span.company-locations[data-v-32b4e964] {\n  display: block;\n  font-size: 14px;\n  color: #676767;\n  font-family: \"Lato\", sans-serif;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete[data-v-32b4e964]:hover {\n  background-color: #F2F2F2;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.new-company[data-v-32b4e964] {\n  cursor: pointer;\n  padding-left: 12px;\n  padding-right: 12px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  font-family: \"Lato\", sans-serif;\n  color: #054E7A;\n  font-style: italic;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.new-company[data-v-32b4e964]:hover {\n  background-color: #F2F2F2;\n}\ndiv#new-cafe-page a.add-location-button[data-v-32b4e964] {\n  display: block;\n  text-align: center;\n  height: 50px;\n  color: white;\n  border-radius: 3px;\n  font-size: 18px;\n  font-family: \"Lato\", sans-serif;\n  background-color: #A7BE4D;\n  line-height: 50px;\n  margin-bottom: 50px;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\ndiv#new-cafe-page div.location-type[data-v-32b4e964] {\n    width: 50%;\n}\n}", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv#new-cafe-page[data-v-32b4e964] {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background-color: white;\n  z-index: 99999;\n  overflow: auto;\n}\ndiv#new-cafe-page img#back[data-v-32b4e964] {\n  float: right;\n  margin-top: 20px;\n  margin-right: 20px;\n}\ndiv#new-cafe-page .centered[data-v-32b4e964] {\n  margin: auto;\n}\ndiv#new-cafe-page h2.page-title[data-v-32b4e964] {\n  color: #342C0C;\n  font-size: 36px;\n  font-weight: 900;\n  font-family: \"Lato\", sans-serif;\n  margin-top: 60px;\n}\ndiv#new-cafe-page label.form-label[data-v-32b4e964] {\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  font-weight: bold;\n  color: black;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\ndiv#new-cafe-page input[type=text].form-input[data-v-32b4e964] {\n  border: 1px solid #BABABA;\n  border-radius: 3px;\n}\ndiv#new-cafe-page input[type=text].form-input.invalid[data-v-32b4e964] {\n  border: 1px solid #D0021B;\n}\ndiv#new-cafe-page div.validation[data-v-32b4e964] {\n  color: #D0021B;\n  font-family: \"Lato\", sans-serif;\n  font-size: 14px;\n  margin-top: -15px;\n  margin-bottom: 15px;\n}\ndiv#new-cafe-page div.location-type[data-v-32b4e964] {\n  text-align: center;\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  color: #E8635F;\n  border-bottom: 1px solid #E8635F;\n  border-top: 1px solid #E8635F;\n  border-left: 1px solid #E8635F;\n  border-right: 1px solid #E8635F;\n  width: 25%;\n  display: inline-block;\n  height: 55px;\n  line-height: 55px;\n  cursor: pointer;\n  margin-bottom: 5px;\n}\ndiv#new-cafe-page div.location-type.active[data-v-32b4e964] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.location-type.roaster[data-v-32b4e964] {\n  border-top-left-radius: 3px;\n  border-bottom-left-radius: 3px;\n  border-right: 0px;\n}\ndiv#new-cafe-page div.location-type.cafe[data-v-32b4e964] {\n  border-top-right-radius: 3px;\n  border-bottom-right-radius: 3px;\n}\ndiv#new-cafe-page div.brew-method[data-v-32b4e964] {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#new-cafe-page div.brew-method.active[data-v-32b4e964] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container[data-v-32b4e964] {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container img.brew-method-icon[data-v-32b4e964] {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#new-cafe-page div.brew-method div.brew-method-container span.brew-method-name[data-v-32b4e964] {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#new-cafe-page div.drink-option[data-v-32b4e964] {\n  font-size: 16px;\n  color: #666666;\n  font-family: \"Lato\", sans-serif;\n  border-radius: 4px;\n  background-color: #F9F9FA;\n  width: 150px;\n  height: 57px;\n  float: left;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  padding: 5px;\n  cursor: pointer;\n  position: relative;\n}\ndiv#new-cafe-page div.drink-option.active[data-v-32b4e964] {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#new-cafe-page div.drink-option div.drink-option-container[data-v-32b4e964] {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\ndiv#new-cafe-page div.drink-option div.drink-option-container img.drink-option-icon[data-v-32b4e964] {\n  display: inline-block;\n  margin-right: 10px;\n  margin-left: 5px;\n  width: 20px;\n  max-height: 30px;\n}\ndiv#new-cafe-page div.drink-option div.drink-option-container span.drink-option-name[data-v-32b4e964] {\n  display: inline-block;\n  width: calc( 100% - 40px);\n  vertical-align: middle;\n}\ndiv#new-cafe-page div.company-selection-container[data-v-32b4e964] {\n  position: relative;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container[data-v-32b4e964] {\n  border-radius: 3px;\n  border: 1px solid #BABABA;\n  background-color: white;\n  margin-top: -17px;\n  width: 80%;\n  position: absolute;\n  z-index: 9999;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete[data-v-32b4e964] {\n  cursor: pointer;\n  padding-left: 12px;\n  padding-right: 12px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete span.company-name[data-v-32b4e964] {\n  display: block;\n  color: #0D223F;\n  font-size: 16px;\n  font-family: \"Lato\", sans-serif;\n  font-weight: bold;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete span.company-locations[data-v-32b4e964] {\n  display: block;\n  font-size: 14px;\n  color: #676767;\n  font-family: \"Lato\", sans-serif;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.company-autocomplete[data-v-32b4e964]:hover {\n  background-color: #F2F2F2;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.new-company[data-v-32b4e964] {\n  cursor: pointer;\n  padding-left: 12px;\n  padding-right: 12px;\n  padding-top: 8px;\n  padding-bottom: 8px;\n  font-family: \"Lato\", sans-serif;\n  color: #054E7A;\n  font-style: italic;\n}\ndiv#new-cafe-page div.company-selection-container div.company-autocomplete-container div.new-company[data-v-32b4e964]:hover {\n  background-color: #F2F2F2;\n}\ndiv#new-cafe-page a.add-location-button[data-v-32b4e964] {\n  display: block;\n  text-align: center;\n  height: 50px;\n  color: white;\n  border-radius: 3px;\n  font-size: 18px;\n  font-family: \"Lato\", sans-serif;\n  background-color: #A7BE4D;\n  line-height: 50px;\n  margin-bottom: 50px;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\ndiv#new-cafe-page div.location-type[data-v-32b4e964] {\n    width: 50%;\n}\n}", ""]);
 
 // exports
 
@@ -49217,6 +49532,70 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
+        _c("div", { attrs: { id: "drink-options-container" } }, [
+          _c("div", { staticClass: "grid-x grid-padding-x" }, [
+            _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+              _c("label", { staticClass: "filter-label" }, [
+                _vm._v("Drink Options")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "grid-x grid-padding-x" }, [
+            _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "drink-option",
+                  class: { active: _vm.hasMatcha },
+                  on: {
+                    click: function($event) {
+                      return _vm.toggleMatchaFilter()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "drink-option-container" }, [
+                    _c("img", {
+                      staticClass: "drink-option-icon",
+                      attrs: { src: "/img/icons/matcha-latte.svg" }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "drink-option-name" }, [
+                      _vm._v("Matcha")
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "drink-option",
+                  class: { active: _vm.hasTea },
+                  on: {
+                    click: function($event) {
+                      return _vm.toggleTeaFilter()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "drink-option-container" }, [
+                    _c("img", {
+                      staticClass: "drink-option-icon",
+                      attrs: { src: "/img/icons/tea-bag.svg" }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "drink-option-name" }, [
+                      _vm._v("Tea")
+                    ])
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
         _c(
           "div",
           {
@@ -49979,6 +50358,46 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
+          _vm.cafe.matcha == 1 || _vm.cafe.tea == 1
+            ? _c("div", { staticClass: "grid-x" }, [
+                _c("div", { staticClass: "large-12 medium-12 small-12 cell" }, [
+                  _c("label", { staticClass: "cafe-label" }, [
+                    _vm._v("Drink Options")
+                  ]),
+                  _vm._v(" "),
+                  _vm.cafe.matcha == 1
+                    ? _c("div", { staticClass: "drink-option" }, [
+                        _c("div", { staticClass: "drink-option-container" }, [
+                          _c("img", {
+                            staticClass: "drink-option-icon",
+                            attrs: { src: "/img/icons/matcha-latte.svg" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "drink-option-name" }, [
+                            _vm._v("Matcha")
+                          ])
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.cafe.tea == 1
+                    ? _c("div", { staticClass: "drink-option" }, [
+                        _c("div", { staticClass: "drink-option-container" }, [
+                          _c("img", {
+                            staticClass: "drink-option-icon",
+                            attrs: { src: "/img/icons/tea-bag.svg" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "drink-option-name" }, [
+                            _vm._v("Tea")
+                          ])
+                        ])
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("div", { staticClass: "grid-x" }, [
             _c(
               "div",
@@ -50401,6 +50820,76 @@ var render = function() {
                 )
               }),
               0
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "grid-x grid-padding-x" }, [
+            _c(
+              "div",
+              { staticClass: "large-8 medium-9 small-12 cell centered" },
+              [
+                _c("label", { staticClass: "form-label" }, [
+                  _vm._v("Drink Options Available")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "grid-x grid-padding-x" }, [
+            _c(
+              "div",
+              { staticClass: "large-8 medium-9 small-12 cell centered" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "drink-option",
+                    class: { active: _vm.matcha == 1 },
+                    on: {
+                      click: function($event) {
+                        _vm.matcha == 0 ? (_vm.matcha = 1) : (_vm.matcha = 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "drink-option-container" }, [
+                      _c("img", {
+                        staticClass: "drink-option-icon",
+                        attrs: { src: "/img/icons/matcha-latte.svg" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "drink-option-name" }, [
+                        _vm._v("Matcha")
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "drink-option",
+                    class: { active: _vm.tea == 1 },
+                    on: {
+                      click: function($event) {
+                        _vm.tea == 0 ? (_vm.tea = 1) : (_vm.tea = 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "drink-option-container" }, [
+                      _c("img", {
+                        staticClass: "drink-option-icon",
+                        attrs: { src: "/img/icons/tea-bag.svg" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "drink-option-name" }, [
+                        _vm._v("Tea Options")
+                      ])
+                    ])
+                  ]
+                )
+              ]
             )
           ]),
           _vm._v(" "),
@@ -51358,6 +51847,76 @@ var render = function() {
                 )
               }),
               0
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "grid-x grid-padding-x" }, [
+            _c(
+              "div",
+              { staticClass: "large-8 medium-9 small-12 cell centered" },
+              [
+                _c("label", { staticClass: "form-label" }, [
+                  _vm._v("Drink Options Available")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "grid-x grid-padding-x" }, [
+            _c(
+              "div",
+              { staticClass: "large-8 medium-9 small-12 cell centered" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "drink-option",
+                    class: { active: _vm.matcha == 1 },
+                    on: {
+                      click: function($event) {
+                        _vm.matcha == 0 ? (_vm.matcha = 1) : (_vm.matcha = 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "drink-option-container" }, [
+                      _c("img", {
+                        staticClass: "drink-option-icon",
+                        attrs: { src: "/img/icons/matcha-latte.svg" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "drink-option-name" }, [
+                        _vm._v("Matcha")
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "drink-option",
+                    class: { active: _vm.tea == 1 },
+                    on: {
+                      click: function($event) {
+                        _vm.tea == 0 ? (_vm.tea = 1) : (_vm.tea = 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "drink-option-container" }, [
+                      _c("img", {
+                        staticClass: "drink-option-icon",
+                        attrs: { src: "/img/icons/tea-bag.svg" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "drink-option-name" }, [
+                        _vm._v("Tea Options")
+                      ])
+                    ])
+                  ]
+                )
+              ]
             )
           ]),
           _vm._v(" "),
@@ -68333,7 +68892,7 @@ __webpack_require__.r(__webpack_exports__);
   /*
    PUT 	/api/v1/cafes/{id}
    */
-  putEditCafe: function putEditCafe(id, companyName, companyID, companyType, website, locationName, address, city, state, zip, lat, lng, brewMethods) {
+  putEditCafe: function putEditCafe(id, companyName, companyID, companyType, website, locationName, address, city, state, zip, lat, lng, brewMethods, matcha, tea) {
     var formData = new FormData();
     formData.append('_method', 'PUT');
     formData.append('company_name', companyName);
@@ -68348,13 +68907,15 @@ __webpack_require__.r(__webpack_exports__);
     formData.append('lat', lat);
     formData.append('lng', lng);
     formData.append('brew_methods', JSON.stringify(brewMethods));
+    formData.append('matcha', matcha);
+    formData.append('tea', tea);
     return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes/' + id, formData);
   },
 
   /*
    POST  /api/v1/cafes
    */
-  postAddNewCafe: function postAddNewCafe(companyName, companyID, companyType, website, locationName, address, city, state, zip, lat, lng, brewMethods) {
+  postAddNewCafe: function postAddNewCafe(companyName, companyID, companyType, website, locationName, address, city, state, zip, lat, lng, brewMethods, matcha, tea) {
     var formData = new FormData();
     formData.append('company_name', companyName);
     formData.append('company_id', companyID);
@@ -68368,6 +68929,8 @@ __webpack_require__.r(__webpack_exports__);
     formData.append('lat', lat);
     formData.append('lng', lng);
     formData.append('brew_methods', JSON.stringify(brewMethods));
+    formData.append('matcha', matcha);
+    formData.append('tea', tea);
     return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["ROAST_CONFIG"].API_URL + '/cafes', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -69608,6 +70171,60 @@ var EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 
 /***/ }),
 
+/***/ "./resources/js/mixins/filters/CafeHasMatchaFilter.js":
+/*!************************************************************!*\
+  !*** ./resources/js/mixins/filters/CafeHasMatchaFilter.js ***!
+  \************************************************************/
+/*! exports provided: CafeHasMatchaFilter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CafeHasMatchaFilter", function() { return CafeHasMatchaFilter; });
+var CafeHasMatchaFilter = {
+  methods: {
+    processCafeHasMatchaFilter: function processCafeHasMatchaFilter(cafe) {
+      /*
+       Checks to see if the cafe has matcha
+       */
+      if (cafe.matcha == 1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/mixins/filters/CafeHasTeaFilter.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/mixins/filters/CafeHasTeaFilter.js ***!
+  \*********************************************************/
+/*! exports provided: CafeHasTeaFilter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CafeHasTeaFilter", function() { return CafeHasTeaFilter; });
+var CafeHasTeaFilter = {
+  methods: {
+    processCafeHasTeaFilter: function processCafeHasTeaFilter(cafe) {
+      /*
+       Checks to see if the cafe has tea
+       */
+      if (cafe.tea == 1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/mixins/filters/CafeTagsFilter.js":
 /*!*******************************************************!*\
   !*** ./resources/js/mixins/filters/CafeTagsFilter.js ***!
@@ -70003,7 +70620,7 @@ var cafes = {
           state = _ref4.state,
           dispatch = _ref4.dispatch;
       commit('setCafeEditStatus', 1);
-      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].putEditCafe(data.id, data.company_name, data.company_id, data.company_type, data.website, data.location_name, data.address, data.city, data.state, data.zip, data.lat, data.lng, data.brew_methods).then(function (response) {
+      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].putEditCafe(data.id, data.company_name, data.company_id, data.company_type, data.website, data.location_name, data.address, data.city, data.state, data.zip, data.lat, data.lng, data.brew_methods, data.matcha, data.tea).then(function (response) {
         console.log(response);
         commit('setCafeEditStatus', 2);
         dispatch('loadCafes');
@@ -70017,7 +70634,7 @@ var cafes = {
           state = _ref5.state,
           dispatch = _ref5.dispatch;
       commit('setCafeAddedStatus', 1);
-      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].postAddNewCafe(data.company_name, data.company_id, data.company_type, data.website, data.location_name, data.address, data.city, data.state, data.zip, data.lat, data.lng, data.brew_methods).then(function (response) {
+      _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].postAddNewCafe(data.company_name, data.company_id, data.company_type, data.website, data.location_name, data.address, data.city, data.state, data.zip, data.lat, data.lng, data.brew_methods, data.matcha, data.tea).then(function (response) {
         console.log(response);
         commit('setCafeAddedStatus', 2);
         commit('setCafeAdded', response.data);
