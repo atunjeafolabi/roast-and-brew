@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Auth;
+use Request;
 
 class AppController extends Controller
 {
-    public function getApp(){
+    public function getApp(Request $request){
+
+        if( $request->has('ref') ){
+            return redirect('/');
+        }
+
         return view('app');
     }
 

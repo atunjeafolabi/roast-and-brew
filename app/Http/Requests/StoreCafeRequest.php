@@ -24,12 +24,14 @@ class StoreCafeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'              => 'required',
+            'company_name'      => 'required_without:company_id',
             'address'           => 'required',
             'city'              => 'required',
             'state'             => 'required',
             'zip'               => 'required|regex:/\b\d{5}\b/',
-            'website'           => 'sometimes|url'    //VALID: http://www.example.com
+            'website'           => 'sometimes|url',    //VALID: http://www.example.com
+            'tea'               => 'boolean',
+            'matcha'            => 'boolean'
         ];
     }
     /**
@@ -40,12 +42,14 @@ class StoreCafeRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => 'A name for the cafe is required.',
-            'address.required'  => 'An address is required to add this cafe.',
-            'city.required'     => 'A city is required to add this cafe.',
-            'state.required'    => 'A state is required to add this cafe.',
-            'zip.required'      => 'A zip code is required to add this cafe.',
-            'zip.regex'         => 'The zip code entered is invalid.'
+            'company_name.required_without'    => 'A name for the cafe is required.',
+            'address'                          => [ 'required' => 'The location needs to have an address.' ],
+            'city'                             => [ 'required' => 'The location needs to have a city.' ],
+            'state'                            => [ 'required' => 'The location needs to have a state.' ],
+            'zip'                              => ['required' => 'The location needs to have a zip.'],
+            'website.url'                      => 'The website must be a proper URL.',
+            'tea'                              => 'The tea flag must be a boolean if present',
+            'matcha'                           => 'The matcha flag must be a boolean if present'
         ];
     }
 }

@@ -22,7 +22,8 @@ class EditCafeRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_name'            => 'required',
+//            'company_name'            => 'required',
+            'company_name'            => 'required_without:company_id',
             'address'                 => 'required',
             'city'                    => 'required',
             'state'                   => 'required',
@@ -38,7 +39,8 @@ class EditCafeRequest extends FormRequest
     public function messages()
     {
         return [
-            'company_name.required'     => 'A name for the cafe is required.',
+//            'company_name.required'     => 'A name for the cafe is required.',
+            'company_name.required_without'     => 'A name for the cafe is required.',
             'address'                   => [ 'required' => 'The location needs to have an address.' ],
             'city'                      => [ 'required' => 'The location needs to have a city.' ],
             'state'                     => [ 'required' => 'The location needs to have a state.' ],
