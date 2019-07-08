@@ -25,7 +25,7 @@ Route::group(['prefix' => 'v1'], function(){
     Route::get('/users', 'API\UsersController@getUsers');
 
     Route::get('/cafes', 'API\CafesController@getCafes');
-    Route::get('/cafes/{id}', 'API\CafesController@getCafe');
+    Route::get('/cafes/{slug}', 'API\CafesController@getCafe');
     Route::get('/brew-methods', 'API\BrewMethodsController@getBrewMethods');
     Route::get('/tags', 'API\TagsController@getTags');
 
@@ -37,13 +37,13 @@ Route::group(['prefix' => 'v1'], function(){
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
 
     Route::post('/cafes', 'API\CafesController@postNewCafe');
-    Route::put('/cafes/{cafeID}', 'API\CafesController@putEditCafe');
-    Route::get('/cafes/{id}/edit', 'API\CafesController@getCafeEditData');
-    Route::post('/cafes/{id}/like', 'API\CafesController@postLikeCafe');
-    Route::delete('/cafes/{id}/like', 'API\CafesController@deleteLikeCafe');
-    Route::post('/cafes/{id}/tags', 'API\CafesController@postAddTags');
-    Route::delete('/cafes/{id}/tags/{tagID}', 'API\CafesController@deleteCafeTag');
-    Route::delete('/cafes/{id}', 'API\CafesController@deleteCafe');
+    Route::put('/cafes/{slug}', 'API\CafesController@putEditCafe');
+    Route::get('/cafes/{slug}/edit', 'API\CafesController@getCafeEditData');
+    Route::post('/cafes/{slug}/like', 'API\CafesController@postLikeCafe');
+    Route::delete('/cafes/{slug}/like', 'API\CafesController@deleteLikeCafe');
+    Route::post('/cafes/{slug}/tags', 'API\CafesController@postAddTags');
+    Route::delete('/cafes/{slug}/tags/{tagID}', 'API\CafesController@deleteCafeTag');
+    Route::delete('/cafes/{slug}', 'API\CafesController@deleteCafe');
     Route::put('/user', 'API\UsersController@putUpdateUser');
     Route::get('/companies/search', 'API\CompaniesController@getCompanySearch');
 });

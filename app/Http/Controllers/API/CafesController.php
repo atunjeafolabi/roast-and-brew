@@ -15,6 +15,8 @@ use App\Utilities\GoogleMaps;
 use App\Utilities\Tagger;
 use App\Models\CafePhoto;
 use App\Models\Company;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 class CafesController extends Controller
 {
@@ -39,9 +41,9 @@ class CafesController extends Controller
         return response()->json( $cafes );  //can use Laravel api resources instead
     }
 
-    public function getCafe( $id )
+    public function getCafe( $slug )
     {
-        $cafe = Cafe::where('id', '=', $id)
+        $cafe = Cafe::where('slug', '=', $slug)
                 ->with('brewMethods')
                 ->withCount('userLike')
                 ->with('tags')
@@ -59,11 +61,11 @@ class CafesController extends Controller
         }
     }
 
-    public function getCafeEditData( $cafeID ){
+    public function getCafeEditData( $slug ){
         /*
             Grab the cafe with the parent of the cafe
         */
-        $cafe = Cafe::where('id', '=', $cafeID)
+        $cafe = Cafe::where('slug', '=', $slug)
                 ->with('brewMethods')
                 ->withCount('userLike')
                 ->with(['company' => function( $query ){
@@ -77,7 +79,7 @@ class CafesController extends Controller
         return response()->json($cafe);
     }
 
-    public function putEditCafe( $cafeID, EditCafeRequest $request )
+    public function putEditCafe( $slug, EditCafeRequest $request )
     {
         $companyID = $request->get('company_id');
 
@@ -123,7 +125,7 @@ class CafesController extends Controller
             $company->save();
         }
 
-        $cafe = Cafe::where('id', '=', $cafeID)->first();
+        $cafe = Cafe::where('slug', '=', $slug)->first();
 
         if( $request->has('address') ){
             $address = $request->get('address');
@@ -165,9 +167,9 @@ class CafesController extends Controller
             $lng = $coordinates['lng'];
         }
 
-        $cafe = Cafe::where('id', '=', $cafeID)->first();
+        $cafe = Cafe::where('slug', '=', $slug)->first();
 
-        $cafe->company 				= $company->id;
+        $cafe->company_id 			= $company->id;
         $cafe->location_name 		= $locationName != null ? $locationName : '';
         $cafe->address 				= $address;
         $cafe->city 				= $city;
@@ -244,8 +246,8 @@ class CafesController extends Controller
         }
 
         $cafe                   = new Cafe();
-        $cafe->company 			= $company->id;
-        $cafe->location_name 	= $locationName != null ? $locationName : '';
+        $cafe->company_id 		= $company->id;
+        $cafe->slug 			= SlugService::createSlug(Cafe::class, 'slug', $company->name.' '.$locationName.' '.$address.' '.$city.' '.$state);        $cafe->location_name 	= $locationName != null ? $locationName : '';
         $cafe->address 			= $address;
         $cafe->city 			= $city;
         $cafe->state 			= $state;
@@ -269,9 +271,9 @@ class CafesController extends Controller
         return response()->json( $company, 201);
     }
 
-    public function postLikeCafe( $cafeID, Request $request ){
+    public function postLikeCafe( $slug, Request $request ){
 
-        $cafe = Cafe::where('id', '=', $cafeID)->first();
+        $cafe = Cafe::where('slug', '=', $slug)->first();
 
         /*
             If the user doesn't already like the cafe, attaches the cafe to the user's likes
@@ -287,20 +289,20 @@ class CafesController extends Controller
         return response()->json( ['cafe_liked' => true], 201 );
     }
 
-    public function deleteLikeCafe( $cafeID ){
+    public function deleteLikeCafe( $slug ){
 
-        $cafe = Cafe::where('id', '=', $cafeID)->first();
+        $cafe = Cafe::where('slug', '=', $slug)->first();
 
         $cafe->likes()->detach( Auth::user()->id );
 
         return response(null, 204);
     }
 
-    public function postAddTags( Request $request, $cafeID ){
+    public function postAddTags( Request $request, $slug ){
 
         $tags = $request->get('tags');
 
-        $cafe = Cafe::where('id', '=', $cafeID)->first();
+        $cafe = Cafe::where('slug', '=', $slug)->first();
 
         /*
           Tags the cafe
@@ -310,7 +312,7 @@ class CafesController extends Controller
         /*
           Grabs the cafe with the brew methods, user like and tags
         */
-        $cafe = Cafe::where('id', '=', $cafeID)
+        $cafe = Cafe::where('slug', '=', $slug)
                 ->with('brewMethods')
                 ->with('userLike')
                 ->with('tags')
@@ -319,9 +321,9 @@ class CafesController extends Controller
         return response()->json($cafe, 201);
     }
 
-    public function deleteCafeTag( $cafeID, $tagID ){
+    public function deleteCafeTag( $slug, $tagID ){
 
-        DB::statement('DELETE FROM cafes_users_tags WHERE cafe_id = "'.$cafeID.'" AND tag_id = "'.$tagID.'" AND user_id = "'.Auth::user()->id.'"');
+        DB::statement('DELETE FROM cafes_users_tags WHERE cafe_id = "'.$slug.'" AND tag_id = "'.$tagID.'" AND user_id = "'.Auth::user()->id.'"');
 
         /*
           Return a proper response code for successful untagging
@@ -329,8 +331,8 @@ class CafesController extends Controller
         return response(null, 204);
     }
 
-    public function deleteCafe( $cafeID ){
-        $cafe = Cafe::where('id', '=', $cafeID)->first();
+    public function deleteCafe( $slug ){
+        $cafe = Cafe::where('slug', '=', $slug)->first();
         $cafe->deleted = 1;
         $cafe->save();
         return response()->json('', 204);

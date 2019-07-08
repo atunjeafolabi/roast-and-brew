@@ -35,12 +35,12 @@
 
 <template>
   <span class="toggle-like" v-show="userLoadStatus == 2 && user != ''">
-    <span class="like" v-on:click="likeCafe( cafe.id )" v-if="!liked && cafeLoadStatus == 2 && cafeLikeActionStatus != 1 && cafeUnlikeActionStatus != 1">
+    <span class="like" v-on:click="likeCafe( cafe.slug )" v-if="!liked && cafeLoadStatus == 2 && cafeLikeActionStatus != 1 && cafeUnlikeActionStatus != 1">
       <span class="image-container">
         <img src="/img/unliked.svg"/>
       </span> Like?
     </span>
-    <span class="un-like" v-on:click="unlikeCafe( cafe.id )" v-if="liked && cafeLoadStatus == 2 && cafeLikeActionStatus != 1 && cafeUnlikeActionStatus != 1">
+    <span class="un-like" v-on:click="unlikeCafe( cafe.slug )" v-if="liked && cafeLoadStatus == 2 && cafeLikeActionStatus != 1 && cafeUnlikeActionStatus != 1">
       <span class="image-container">
         <img src="/img/liked.svg"/>
       </span> Liked
@@ -97,14 +97,14 @@
         },
 
         methods: {
-            likeCafe( cafeID ){
+            likeCafe( slug ){
                 this.$store.dispatch( 'likeCafe', {
-                    id: this.cafe.id
+                    slug: this.cafe.slug
                 });
             },
-            unlikeCafe( cafeID ){
+            unlikeCafe( slug ){
                 this.$store.dispatch( 'unlikeCafe', {
-                    id: this.cafe.id
+                    slug: this.cafe.slug
                 });
             }
         }

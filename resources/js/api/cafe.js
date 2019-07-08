@@ -14,23 +14,23 @@ export default {
     },
 
     /*
-     GET   /api/v1/cafes/{cafeID}
+     GET   /api/v1/cafes/{slug}
      */
-    getCafe: function( cafeID ){
-        return axios.get( ROAST_CONFIG.API_URL + '/cafes/' + cafeID );
+    getCafe: function( slug ){
+        return axios.get( ROAST_CONFIG.API_URL + '/cafes/' + slug );
     },
 
     /*
-     GET 	/api/v1/cafes/{cafeID}/edit
+     GET 	/api/v1/cafes/{slug}/edit
      */
-    getCafeEdit: function( cafeID ){
-        return axios.get( ROAST_CONFIG.API_URL + '/cafes/' + cafeID + '/edit' );
+    getCafeEdit: function( slug ){
+        return axios.get( ROAST_CONFIG.API_URL + '/cafes/' + slug + '/edit' );
     },
 
     /*
-     PUT 	/api/v1/cafes/{id}
+     PUT 	/api/v1/cafes/{slug}
      */
-    putEditCafe: function( id, companyName, companyID, companyType, website, locationName, address, city, state, zip, lat, lng, brewMethods, matcha, tea ){
+    putEditCafe: function( slug, companyName, companyID, companyType, website, locationName, address, city, state, zip, lat, lng, brewMethods, matcha, tea ){
 
         let formData = new FormData();
 
@@ -50,7 +50,7 @@ export default {
         formData.append('matcha', matcha);
         formData.append('tea', tea);
 
-        return axios.post( ROAST_CONFIG.API_URL + '/cafes/'+id,
+        return axios.post( ROAST_CONFIG.API_URL + '/cafes/'+slug,
             formData
         );
     },
@@ -89,17 +89,17 @@ export default {
     /*
      POST  /api/v1/cafes/{cafeID}/like
      */
-    postLikeCafe: function( cafeID ){
-        return axios.post( ROAST_CONFIG.API_URL + '/cafes/' + cafeID + '/like' );
+    postLikeCafe: function( slug ){
+        return axios.post( ROAST_CONFIG.API_URL + '/cafes/' + slug + '/like' );
     },
     /*
      DELETE /api/v1/cafes/{cafeID}/like
      */
-    deleteLikeCafe: function( cafeID ){
-        return axios.delete( ROAST_CONFIG.API_URL + '/cafes/' + cafeID + '/like' );
+    deleteLikeCafe: function( slug ){
+        return axios.delete( ROAST_CONFIG.API_URL + '/cafes/' + slug + '/like' );
     },
 
-    deleteCafe: function( cafeID ){
-        return axios.delete( ROAST_CONFIG.API_URL + '/cafes/' + cafeID );
+    deleteCafe: function( slug ){
+        return axios.delete( ROAST_CONFIG.API_URL + '/cafes/' + slug );
     }
 }
