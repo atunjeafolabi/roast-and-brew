@@ -107,9 +107,9 @@
 
             <div class="login-label">About this project</div>
 
-            <p class="learn-more-description">Roast is a project of <a href="https://serversideup.net" target="_blank">Server Side Up</a>, where we provide resources for people who want to learn software development. Learn more how this app below.</p>
+            <p class="learn-more-description">Roast is an application to help coffee lovers.</p>
 
-            <a class="learn-more-button" href="https://serversideup.net/series/api-driven-development-laravel-vuejs/" target="_blank">Learn How This App Was Built</a>
+            <a class="learn-more-button" href="https://github.com/atunjeafolabi/roast-and-brew" target="_blank">See it on GitHub</a>
         </div>
     </div>
 </template>

@@ -1,6 +1,7 @@
 <style lang="scss">
-    @import '~@/abstracts/_variables.scss';
-    /*@import "../../abstracts/_variables.scss";*/
+    /*@import '~@/abstracts/_variables.scss';*/
+
+    @import "../../../sass/abstracts/_variables.scss";
 
     nav.top-navigation{
         background-color: #FFFFFF;
@@ -147,14 +148,13 @@
                 </a>
 
                 <span class="clear-filters" v-show="showFilters" v-on:click="clearFilters()">
-          <img src="/img/clear-filters-icon.svg"/> Clear filters
-        </span>
+                  <img src="/img/clear-filters-icon.svg"/> Clear filters
+                </span>
 
             </div>
             <div class="large-4 medium-4 small-4 cell">
                 <router-link :to="{ name: 'cafes'}">
                     <img src="/img/logo.svg" class="logo"/>
-
                 </router-link>
             </div>
             <div class="large-4 medium-4 small-4 cell">

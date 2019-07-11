@@ -3695,6 +3695,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -6314,7 +6315,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "/*@import \"../../abstracts/_variables.scss\";*/\nnav.top-navigation {\n  background-color: #FFFFFF;\n  height: 75px;\n  box-shadow: 0 2px 4px 0 rgba(3, 27, 78, 0.1);\n  z-index: 9999;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n}\nnav.top-navigation a.filters {\n  cursor: pointer;\n  color: #E8635F;\n  width: 140px;\n  height: 45px;\n  border: 2px solid #E8635F;\n  border-radius: 3px;\n  text-transform: uppercase;\n  display: block;\n  float: left;\n  text-align: center;\n  line-height: 41px;\n  margin-top: 15px;\n  margin-left: 20px;\n  font-family: \"Lato\", sans-serif;\n  font-weight: bold;\n  font-size: 16px;\n}\nnav.top-navigation a.filters img {\n  display: inline-block;\n  vertical-align: middle;\n  margin-right: 10px;\n  height: 13px;\n}\nnav.top-navigation a.filters img.chevron-active {\n  display: none;\n}\nnav.top-navigation a.filters.active {\n  background-color: #E8635F;\n  color: white;\n}\nnav.top-navigation a.filters.active img.chevron {\n  display: none;\n}\nnav.top-navigation a.filters.active img.chevron-active {\n  display: inline-block;\n}\nnav.top-navigation span.clear-filters {\n  font-size: 16px;\n  color: #054E7A;\n  font-family: \"Lato\", sans-serif;\n  cursor: pointer;\n  margin-left: 25px;\n  display: block;\n  float: left;\n  margin-top: 25px;\n}\nnav.top-navigation span.clear-filters img {\n  margin-right: 10px;\n  float: left;\n  margin-top: 6px;\n}\nnav.top-navigation img.logo {\n  margin: auto;\n  margin-top: 22.5px;\n  margin-bottom: 22.5px;\n  display: block;\n}\nnav.top-navigation img.hamburger {\n  float: right;\n  margin-right: 18px;\n  margin-top: 30px;\n  cursor: pointer;\n}\nnav.top-navigation img.avatar {\n  float: right;\n  margin-right: 20px;\n  width: 40px;\n  height: 40px;\n  border-radius: 20px;\n  margin-top: 18px;\n}\nnav.top-navigation:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\nnav.top-navigation span.login {\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  text-transform: uppercase;\n  color: black;\n  font-weight: bold;\n  float: right;\n  margin-top: 27px;\n  margin-right: 15px;\n  cursor: pointer;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\nnav.top-navigation a.filters {\n    line-height: 31px;\n    margin-top: 20px;\n    width: 75px;\n    height: 35px;\n}\nnav.top-navigation a.filters img {\n    display: none;\n}\nnav.top-navigation a.filters.active img.chevron-active {\n    display: none;\n}\nnav.top-navigation span.clear-filters {\n    display: none;\n}\nnav.top-navigation span.login {\n    display: none;\n}\nnav.top-navigation img.hamburger {\n    margin-top: 26px;\n}\n}\n/* Medium only */\n/* Large only */", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\nnav.top-navigation {\n  background-color: #FFFFFF;\n  height: 75px;\n  box-shadow: 0 2px 4px 0 rgba(3, 27, 78, 0.1);\n  z-index: 9999;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n}\nnav.top-navigation a.filters {\n  cursor: pointer;\n  color: #E8635F;\n  width: 140px;\n  height: 45px;\n  border: 2px solid #E8635F;\n  border-radius: 3px;\n  text-transform: uppercase;\n  display: block;\n  float: left;\n  text-align: center;\n  line-height: 41px;\n  margin-top: 15px;\n  margin-left: 20px;\n  font-family: \"Lato\", sans-serif;\n  font-weight: bold;\n  font-size: 16px;\n}\nnav.top-navigation a.filters img {\n  display: inline-block;\n  vertical-align: middle;\n  margin-right: 10px;\n  height: 13px;\n}\nnav.top-navigation a.filters img.chevron-active {\n  display: none;\n}\nnav.top-navigation a.filters.active {\n  background-color: #E8635F;\n  color: white;\n}\nnav.top-navigation a.filters.active img.chevron {\n  display: none;\n}\nnav.top-navigation a.filters.active img.chevron-active {\n  display: inline-block;\n}\nnav.top-navigation span.clear-filters {\n  font-size: 16px;\n  color: #054E7A;\n  font-family: \"Lato\", sans-serif;\n  cursor: pointer;\n  margin-left: 25px;\n  display: block;\n  float: left;\n  margin-top: 25px;\n}\nnav.top-navigation span.clear-filters img {\n  margin-right: 10px;\n  float: left;\n  margin-top: 6px;\n}\nnav.top-navigation img.logo {\n  margin: auto;\n  margin-top: 22.5px;\n  margin-bottom: 22.5px;\n  display: block;\n}\nnav.top-navigation img.hamburger {\n  float: right;\n  margin-right: 18px;\n  margin-top: 30px;\n  cursor: pointer;\n}\nnav.top-navigation img.avatar {\n  float: right;\n  margin-right: 20px;\n  width: 40px;\n  height: 40px;\n  border-radius: 20px;\n  margin-top: 18px;\n}\nnav.top-navigation:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\nnav.top-navigation span.login {\n  font-family: \"Lato\", sans-serif;\n  font-size: 16px;\n  text-transform: uppercase;\n  color: black;\n  font-weight: bold;\n  float: right;\n  margin-top: 27px;\n  margin-right: 15px;\n  cursor: pointer;\n}\n\n/* Small only */\n@media screen and (max-width: 39.9375em) {\nnav.top-navigation a.filters {\n    line-height: 31px;\n    margin-top: 20px;\n    width: 75px;\n    height: 35px;\n}\nnav.top-navigation a.filters img {\n    display: none;\n}\nnav.top-navigation a.filters.active img.chevron-active {\n    display: none;\n}\nnav.top-navigation span.clear-filters {\n    display: none;\n}\nnav.top-navigation span.login {\n    display: none;\n}\nnav.top-navigation img.hamburger {\n    margin-top: 26px;\n}\n}\n/* Medium only */\n/* Large only */", ""]);
 
 // exports
 
@@ -6333,7 +6334,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "div.pop-out {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  background-color: rgba(55, 44, 12, 0.29);\n  z-index: 9999;\n}\ndiv.pop-out div.pop-out-side-bar {\n  position: fixed;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  width: 250px;\n  background-color: white;\n  box-shadow: -2px 0 4px 0 rgba(3, 27, 78, 0.1);\n  padding: 30px;\n}\ndiv.pop-out div.pop-out-side-bar div.side-bar-link {\n  border-bottom: 1px solid #BABABA;\n  font-size: 16px;\n  font-weight: bold;\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  padding-top: 25px;\n  padding-bottom: 25px;\n}\ndiv.pop-out div.pop-out-side-bar div.side-bar-link a {\n  color: black;\n}\ndiv.pop-out div.pop-out-side-bar img.close-menu-icon {\n  float: right;\n  cursor: pointer;\n}\ndiv.pop-out div.pop-out-side-bar div.ssu-container {\n  position: absolute;\n  bottom: 30px;\n}\ndiv.pop-out div.pop-out-side-bar div.ssu-container span.ssu-built-on {\n  color: black;\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  display: block;\n  margin-bottom: 10px;\n}\ndiv.pop-out div.pop-out-side-bar div.ssu-container img {\n  margin: auto;\n  max-width: 190px;\n}", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv.pop-out {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  background-color: rgba(55, 44, 12, 0.29);\n  z-index: 9999;\n}\ndiv.pop-out div.pop-out-side-bar {\n  position: fixed;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  width: 250px;\n  background-color: white;\n  box-shadow: -2px 0 4px 0 rgba(3, 27, 78, 0.1);\n  padding: 30px;\n}\ndiv.pop-out div.pop-out-side-bar div.side-bar-link {\n  border-bottom: 1px solid #BABABA;\n  font-size: 16px;\n  font-weight: bold;\n  font-family: \"Lato\", sans-serif;\n  text-transform: uppercase;\n  padding-top: 25px;\n  padding-bottom: 25px;\n}\ndiv.pop-out div.pop-out-side-bar div.side-bar-link a {\n  color: black;\n}\ndiv.pop-out div.pop-out-side-bar img.close-menu-icon {\n  float: right;\n  cursor: pointer;\n}\ndiv.pop-out div.pop-out-side-bar div.ssu-container {\n  position: absolute;\n  bottom: 30px;\n}\ndiv.pop-out div.pop-out-side-bar div.ssu-container span.ssu-built-on {\n  color: black;\n  font-size: 14px;\n  font-family: \"Lato\", sans-serif;\n  display: block;\n  margin-bottom: 10px;\n}\ndiv.pop-out div.pop-out-side-bar div.ssu-container img {\n  margin: auto;\n  max-width: 190px;\n}", ""]);
 
 // exports
 
@@ -49814,19 +49815,20 @@ var render = function() {
             _vm._v("About this project")
           ]),
           _vm._v(" "),
-          _vm._m(3),
+          _c("p", { staticClass: "learn-more-description" }, [
+            _vm._v("Roast is an application to help coffee lovers.")
+          ]),
           _vm._v(" "),
           _c(
             "a",
             {
               staticClass: "learn-more-button",
               attrs: {
-                href:
-                  "https://serversideup.net/series/api-driven-development-laravel-vuejs/",
+                href: "https://github.com/atunjeafolabi/roast-and-brew",
                 target: "_blank"
               }
             },
-            [_vm._v("Learn How This App Was Built")]
+            [_vm._v("See it on GitHub")]
           )
         ]
       )
@@ -49863,22 +49865,6 @@ var staticRenderFns = [
       { staticClass: "social-link", attrs: { href: "/login/facebook" } },
       [_c("img", { attrs: { src: "/img/facebook-login.svg" } })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "learn-more-description" }, [
-      _vm._v("Roast is a project of "),
-      _c(
-        "a",
-        { attrs: { href: "https://serversideup.net", target: "_blank" } },
-        [_vm._v("Server Side Up")]
-      ),
-      _vm._v(
-        ", where we provide resources for people who want to learn software development. Learn more how this app below."
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -49950,7 +49936,7 @@ var render = function() {
           },
           [
             _c("img", { attrs: { src: "/img/clear-filters-icon.svg" } }),
-            _vm._v(" Clear filters\n    ")
+            _vm._v(" Clear filters\n            ")
           ]
         )
       ]),
@@ -50177,7 +50163,7 @@ var render = function() {
                 {
                   attrs: {
                     href:
-                      "https://github.com/serversideup/roastandbrew/issues/new/choose",
+                      "https://github.com/atunjeafolabi/roast-and-brew/issues",
                     target: "_blank"
                   }
                 },
@@ -50190,8 +50176,7 @@ var render = function() {
                 "a",
                 {
                   attrs: {
-                    href:
-                      "https://serversideup.net/series/api-driven-development-laravel-vuejs/",
+                    href: "https://github.com/atunjeafolabi/roast-and-brew",
                     target: "_blank"
                   }
                 },
@@ -50208,7 +50193,7 @@ var render = function() {
                 "a",
                 {
                   attrs: {
-                    href: "https://github.com/serversideup/roastandbrew",
+                    href: "https://github.com/atunjeafolabi/roast-and-brew",
                     target: "_blank"
                   }
                 },
@@ -50222,20 +50207,25 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "ssu-container" }, [
               _c("span", { staticClass: "ssu-built-on" }, [
-                _vm._v("Learn how this app was built on")
+                _c("img", {
+                  staticClass: "logo",
+                  attrs: { src: "/img/logo.svg" }
+                }),
+                _c("h6", [
+                  _vm._v(
+                    "An app for coffee lovers to quickly locate coffee shops around"
+                  )
+                ])
               ]),
               _vm._v(" "),
-              _c(
-                "a",
-                {
+              _c("a", { attrs: { href: "", target: "_blank" } }, [
+                _c("img", {
                   attrs: {
-                    href:
-                      "https://serversideup.net/courses/api-driven-development-laravel-vuejs/",
-                    target: "_blank"
+                    src:
+                      "https://thumbs.dreamstime.com/b/coffee-cup-saucer-white-background-26448251.jpg"
                   }
-                },
-                [_c("img", { attrs: { src: "/img/ssu-logo.png" } })]
-              )
+                })
+              ])
             ])
           ]
         )

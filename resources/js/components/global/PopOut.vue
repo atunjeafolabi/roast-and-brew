@@ -1,5 +1,6 @@
 <style lang="scss">
-    @import '~@/abstracts/_variables.scss';
+    /*@import '~@/abstracts/_variables.scss';*/
+    @import "../../../sass/abstracts/_variables.scss";
     div.pop-out{
         position: fixed;
         left: 0;
@@ -72,25 +73,25 @@
                     <a v-if="user == ''" v-on:click="login()">Sign In</a>
                 </div>
                 <div class="side-bar-link">
-                    <a href="https://github.com/serversideup/roastandbrew/issues/new/choose" target="_blank">
+                    <a href="https://github.com/atunjeafolabi/roast-and-brew/issues" target="_blank">
                         Report a Bug
                     </a>
                 </div>
                 <div class="side-bar-link">
-                    <a href="https://serversideup.net/series/api-driven-development-laravel-vuejs/" target="_blank">
+                    <a href="https://github.com/atunjeafolabi/roast-and-brew" target="_blank">
                         About This Project
                     </a>
                 </div>
                 <div class="side-bar-link">
-                    <a href="https://github.com/serversideup/roastandbrew" target="_blank">
+                    <a href="https://github.com/atunjeafolabi/roast-and-brew" target="_blank">
                         View on Github
                     </a>
                 </div>
 
                 <div class="ssu-container">
-                    <span class="ssu-built-on">Learn how this app was built on</span>
-                    <a href="https://serversideup.net/courses/api-driven-development-laravel-vuejs/" target="_blank">
-                        <img src="/img/ssu-logo.png"/>
+                    <span class="ssu-built-on"><img src="/img/logo.svg" class="logo"/><h6>An app for coffee lovers to quickly locate coffee shops around</h6></span>
+                    <a href="" target="_blank">
+                        <img src="https://thumbs.dreamstime.com/b/coffee-cup-saucer-white-background-26448251.jpg"/>
                     </a>
                 </div>
             </div>
