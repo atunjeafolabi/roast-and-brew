@@ -772,7 +772,7 @@ class CafeTest extends TestCase
             'cafe_id' => $cafe->id
         ]);
     }
-    
+
     /*
       Test delete cafe
     */
