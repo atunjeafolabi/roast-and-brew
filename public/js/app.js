@@ -2615,6 +2615,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     cafesView: function cafesView() {
@@ -3696,6 +3699,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -4599,7 +4603,6 @@ __webpack_require__.r(__webpack_exports__);
    When the component is created, add a location
    */
   created: function created() {
-    this.addLocation();
     this.$store.dispatch('loadCafeEdit', {
       slug: this.$route.params.slug
     });
@@ -4622,8 +4625,14 @@ __webpack_require__.r(__webpack_exports__);
     editCafe: function editCafe() {
       return this.$store.getters.getCafeEdit;
     },
+    editCafeText: function editCafeText() {
+      return this.$store.getters.getCafeEditText;
+    },
     deleteCafeStatus: function deleteCafeStatus() {
       return this.$store.getters.getCafeDeletedStatus;
+    },
+    deleteCafeText: function deleteCafeText() {
+      return this.$store.getters.getCafeDeletedText;
     }
   },
 
@@ -4633,6 +4642,9 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     'editCafeStatus': function editCafeStatus() {
       if (this.editCafeStatus == 2) {
+        _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('show-success', {
+          notification: this.editCafeText
+        });
         this.$router.push({
           name: 'cafe',
           params: {
@@ -4652,7 +4664,7 @@ __webpack_require__.r(__webpack_exports__);
           name: 'cafes'
         });
         _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('show-success', {
-          notification: 'Cafe deleted successfully!'
+          notification: this.deleteCafeText
         });
       }
     }
@@ -5498,11 +5510,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     addCafeStatus: function addCafeStatus() {
       return this.$store.getters.getCafeAddStatus;
+    },
+    addCafeText: function addCafeText() {
+      return this.$store.getters.getCafeAddText;
     }
   },
   watch: {
     'addCafeStatus': function addCafeStatus() {
       if (this.addCafeStatus == 2) {
+        _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('show-success', {
+          notification: this.addCafeText
+        });
         this.clearForm();
         this.$router.push({
           name: 'cafes'
@@ -5698,8 +5716,7 @@ __webpack_require__.r(__webpack_exports__);
         this.validations.zip.text = '';
       }
 
-      return;
-      validNewCafeForm;
+      return validNewCafeForm;
     },
 
     /*
@@ -6201,7 +6218,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "div#toggle-cafes-view {\n  position: absolute;\n  z-index: 999999;\n  right: 15px;\n  top: 90px;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);\n  border-radius: 5px;\n}\ndiv#toggle-cafes-view span.toggle-button {\n  cursor: pointer;\n  display: inline-block;\n  padding: 5px 20px;\n  background-color: white;\n  font-family: \"Lato\", sans-serif;\n  text-align: center;\n}\ndiv#toggle-cafes-view span.toggle-button.map-view {\n  border-top-left-radius: 5px;\n  border-bottom-left-radius: 5px;\n}\ndiv#toggle-cafes-view span.toggle-button.map-view.active {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#toggle-cafes-view span.toggle-button.list-view {\n  border-top-right-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\ndiv#toggle-cafes-view span.toggle-button.list-view.active {\n  color: white;\n  background-color: #E8635F;\n}", ""]);
+exports.push([module.i, "/*@import '~@/abstracts/_variables.scss';*/\ndiv#toggle-cafes-view {\n  position: absolute;\n  z-index: 999999;\n  right: 15px;\n  top: 90px;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);\n  border-radius: 5px;\n}\ndiv#toggle-cafes-view span.toggle-button {\n  cursor: pointer;\n  display: inline-block;\n  padding: 5px 20px;\n  background-color: white;\n  font-family: \"Lato\", sans-serif;\n  text-align: center;\n}\ndiv#toggle-cafes-view span.toggle-button.map-view {\n  border-top-left-radius: 5px;\n  border-bottom-left-radius: 5px;\n}\ndiv#toggle-cafes-view span.toggle-button.map-view.active {\n  color: white;\n  background-color: #E8635F;\n}\ndiv#toggle-cafes-view span.toggle-button.list-view {\n  border-top-right-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\ndiv#toggle-cafes-view span.toggle-button.list-view.active {\n  color: white;\n  background-color: #E8635F;\n}", ""]);
 
 // exports
 
@@ -70785,12 +70802,15 @@ var cafes = {
     cafeEdit: {},
     cafeEditLoadStatus: 0,
     cafeEditStatus: 0,
+    cafeEditText: '',
+    cafeLiked: false,
+    cafeAdded: {},
     cafeAddStatus: 0,
+    cafeAddText: '',
     cafeLikeActionStatus: 0,
     cafeUnlikeActionStatus: 0,
     cafeDeletedStatus: 0,
-    cafeLiked: false,
-    cafeAdded: {},
+    cafeDeleteText: '',
     cafesView: 'map'
   },
 
@@ -70857,6 +70877,13 @@ var cafes = {
       commit('setCafeEditStatus', 1);
       _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].putEditCafe(data.slug, data.company_name, data.company_id, data.company_type, data.website, data.location_name, data.address, data.city, data.state, data.zip, data.lat, data.lng, data.brew_methods, data.matcha, data.tea).then(function (response) {
         console.log(response);
+
+        if (typeof response.data.cafe_updates_pending !== 'undefined') {
+          commit('setCafeEditText', response.data.cafe_updates_pending + ' updates are pending!');
+        } else {
+          commit('setCafeEditText', response.company.name + ' has been successfully updated!');
+        }
+
         commit('setCafeEditStatus', 2);
         dispatch('loadCafes');
       })["catch"](function (error) {
@@ -70871,6 +70898,13 @@ var cafes = {
       commit('setCafeAddedStatus', 1);
       _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].postAddNewCafe(data.company_name, data.company_id, data.company_type, data.website, data.location_name, data.address, data.city, data.state, data.zip, data.lat, data.lng, data.brew_methods, data.matcha, data.tea).then(function (response) {
         console.log(response);
+
+        if (typeof response.data.cafe_add_pending !== 'undefined') {
+          commit('setCafeAddedText', response.data.cafe_add_pending + ' is pending approval!');
+        } else {
+          commit('setCafeAddedText', response.data.name + ' has been added!');
+        }
+
         commit('setCafeAddedStatus', 2);
         commit('setCafeAdded', response.data);
         dispatch('loadCafes');
@@ -70928,6 +70962,12 @@ var cafes = {
           dispatch = _ref9.dispatch;
       commit('setCafeDeleteStatus', 1);
       _api_cafe_js__WEBPACK_IMPORTED_MODULE_0__["default"].deleteCafe(data.slug).then(function (response) {
+        if (typeof response.data.cafe_delete_pending !== 'undefined') {
+          commit('setCafeDeletedText', response.data.cafe_delete_pending + ' is pending deletion!');
+        } else {
+          commit('setCafeDeletedText', 'Cafe has been successfully deleted!');
+        }
+
         commit('setCafeDeleteStatus', 2);
         dispatch('loadCafes');
       })["catch"](function () {
@@ -70968,6 +71008,9 @@ var cafes = {
     setCafeEditStatus: function setCafeEditStatus(state, status) {
       state.cafeEditStatus = status;
     },
+    setCafeEditText: function setCafeEditText(state, text) {
+      state.cafeEditText = text;
+    },
 
     /*
      Sets the cafe edit load status
@@ -70980,6 +71023,9 @@ var cafes = {
     },
     setCafeAddedStatus: function setCafeAddedStatus(state, status) {
       state.cafeAddStatus = status;
+    },
+    setCafeAddedText: function setCafeAddedText(state, text) {
+      state.cafeAddText = text;
     },
     setCafeLikedStatus: function setCafeLikedStatus(state, status) {
       state.cafeLiked = status;
@@ -71003,6 +71049,9 @@ var cafes = {
     },
     setCafeDeleteStatus: function setCafeDeleteStatus(state, status) {
       state.cafeDeletedStatus = status;
+    },
+    setCafeDeletedText: function setCafeDeletedText(state, text) {
+      state.cafeDeleteText = text;
     },
     setCafesView: function setCafesView(state, view) {
       state.cafesView = view;
@@ -71035,6 +71084,9 @@ var cafes = {
     getCafeEditStatus: function getCafeEditStatus(state) {
       return state.cafeEditStatus;
     },
+    getCafeEditText: function getCafeEditText(state) {
+      return state.cafeEditText;
+    },
 
     /*
      Gets the cafe edit load status
@@ -71048,6 +71100,9 @@ var cafes = {
     getCafeAddStatus: function getCafeAddStatus(state) {
       return state.cafeAddStatus;
     },
+    getCafeAddText: function getCafeAddText(state) {
+      return state.cafeAddText;
+    },
     getCafeLikedStatus: function getCafeLikedStatus(state) {
       return state.cafeLiked;
     },
@@ -71059,6 +71114,9 @@ var cafes = {
     },
     getCafeDeletedStatus: function getCafeDeletedStatus(state) {
       return state.cafeDeletedStatus;
+    },
+    getCafeDeletedText: function getCafeDeletedText(state) {
+      return state.cafeDeleteText;
     },
     getCafesView: function getCafesView(state) {
       return state.cafesView;

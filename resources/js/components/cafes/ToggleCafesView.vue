@@ -1,8 +1,11 @@
 <style lang="scss">
-    @import '~@/abstracts/_variables.scss';
+    /*@import '~@/abstracts/_variables.scss';*/
+    @import "../../../sass/abstracts/_variables.scss";
+
+
     div#toggle-cafes-view{
         position: absolute;
-        z-index: 999999;
+        z-index: 999999;    // Changed to         z-index: 9; on serverside github. Change later
         right: 15px;
         top: 90px;
         -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);

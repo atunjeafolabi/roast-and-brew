@@ -386,6 +386,7 @@
               brewMethodsSelected: [],
               matcha: 0,
               tea: 0,
+
               validations: {
                   companyName: {
                       is_valid: true,
@@ -421,12 +422,20 @@
           },
           addCafeStatus(){
               return this.$store.getters.getCafeAddStatus;
+          },
+          addCafeText(){
+              return this.$store.getters.getCafeAddText;
           }
       },
 
       watch: {
           'addCafeStatus': function(){
               if( this.addCafeStatus == 2 ){
+
+                  EventBus.$emit('show-success', {
+                      notification: this.addCafeText
+                  });
+
                   this.clearForm();
                   this.$router.push({ name: 'cafes' });
               }
@@ -615,8 +624,7 @@
                   this.validations.zip.text = '';
               }
 
-                  return
-                      validNewCafeForm;
+                  return validNewCafeForm;
           },
         /*
            Clears the form.
