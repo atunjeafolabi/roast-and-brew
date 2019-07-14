@@ -105,7 +105,7 @@ class CafeService{
      * @param array $data Array of the data defining the cafe updates.
      * @param int $addedBy Integer of the user updating the cafe.
      */
-    public static function editCafe( $id, $data, $updatedBy ){
+    public static function editCafe( $id, $data){
         /*
           If the company ID is not empty, load the company being
           edited.
@@ -249,7 +249,6 @@ class CafeService{
         $cafe->zip 					= $zip;
         $cafe->latitude 			= $lat;
         $cafe->longitude 			= $lng;
-        $cafe->added_by 			= $updatedBy;
 
         /*
           If the data has matcha, apply the matcha flag.

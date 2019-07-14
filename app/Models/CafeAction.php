@@ -26,4 +26,11 @@ class CafeAction extends Model
     public function processedBy(){
         return $this->belongsTo( 'App\Models\User', 'processed_by', 'id' );
     }
+
+    /**
+     * An action belongs to a company.
+     */
+    public function company(){
+        return $this->belongsTo( 'App\Models\Company', 'company_id', 'id' );
+    }
 }
