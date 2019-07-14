@@ -8,6 +8,8 @@ use Laravel\Passport\Passport;
 
 use App\Models\Cafe;
 use App\Policies\CafePolicy;
+use App\Models\CafeAction;
+use App\Policies\CafeActionPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,7 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
-        Cafe::class => CafePolicy::class
+        Cafe::class => CafePolicy::class,
+        CafeAction::class => CafeActionPolicy::class
     ];
 
     /**

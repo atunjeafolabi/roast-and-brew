@@ -47,3 +47,50 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
     Route::put('/user', 'API\UsersController@putUpdateUser');
     Route::get('/companies/search', 'API\CompaniesController@getCompanySearch');
 });
+
+/*
+  Owner Routes. Must be at least a company owner to access these routes.
+*/
+Route::group(['prefix' => 'v1/admin', 'middleware' => ['auth:api', 'owner']], function(){
+    /*
+    |-------------------------------------------------------------------------------
+    | Gets All Unprocessed Actions
+    |-------------------------------------------------------------------------------
+    | URL:            /api/v1/admin/actions
+    | Controller:     API\Admin\ActionsController@getActions
+    | Method:         GET
+    | Description:    Gets all of the unprocessed actions for a user.
+    */
+    Route::get('/actions', 'API\Admin\ActionsController@getActions');
+    /*
+    |-------------------------------------------------------------------------------
+    | Approves an action
+    |-------------------------------------------------------------------------------
+    | URL:            /api/v1/admin/actions/{action}/approve
+    | Controller:     API\Admin\ActionsController@putApproveAction
+    | Method:         PUT
+    | Description:    Approves an action for a user.
+    | Middleware:     Only runs if the user is authorized to approve the action.
+    */
+    Route::put('/actions/{action}/approve', 'API\Admin\ActionsController@putApproveAction')
+        ->middleware('can:approve,action');
+    /*
+    |-------------------------------------------------------------------------------
+    | Denies an action
+    |-------------------------------------------------------------------------------
+    | URL:            /api/v1/admin/actions/{action}/deny
+    | Controller:     API\Admin\ActionsController@putDenyAction
+    | Method:         PUT
+    | Description:    Denies an action for a user.
+    | Middleware:     Only runs if the user is authorized to deny the action.
+    */
+    Route::put('/actions/{action}/deny', 'API\Admin\ActionsController@putDenyAction')
+        ->middleware('can:deny,action');
+});
+
+/*
+  Admin Routes
+*/
+Route::group(['prefix' => 'v1/admin', 'middleware' => ['auth:api', 'admin']], function(){
+
+});

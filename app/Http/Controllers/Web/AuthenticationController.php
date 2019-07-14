@@ -13,10 +13,11 @@ use App\Models\User;
 class AuthenticationController extends Controller
 {
     /**
-     * @param $account
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * Initializes the social login defined by the user. Can be
+     * Facebook, Google +, or Twitter.
      *
-     * Redirects user to social login page
+     * @param string $account   The account the user is logging in with.
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function getSocialRedirect( $account ){
 
@@ -29,6 +30,12 @@ class AuthenticationController extends Controller
         }
     }
 
+    /**
+     * Handles the call back from the social network.
+     *
+     * @param string $account   The social account that is handling the log in.
+     * @return \Illuminate\Routing\Redirector
+     */
     public function getSocialCallback( $account )
     {
         /*
