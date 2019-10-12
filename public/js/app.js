@@ -1944,7 +1944,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    user: function user() {
+      return this.$store.getters.getUser;
+    }
+  }
+});
 
 /***/ }),
 
@@ -86164,42 +86170,42 @@ function requireAuth(to, from, next) {
     }, {
       path: 'companies/:id',
       name: 'admin-company',
-      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminCompany', __webpack_require__(/*! ./pages/admin/Company.vue */ "./resources/js/pages/admin/Company.vue")),
+      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminCompany', __webpack_require__(/*! ./pages/admin/Company.vue */ "./resources/js/pages/admin/Company.vue")["default"]),
       meta: {
         permission: 'owner'
       }
     }, {
       path: 'companies/:id/cafe/:cafeID',
       name: 'admin-cafe',
-      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminCafe', __webpack_require__(/*! ./pages/admin/Cafe.vue */ "./resources/js/pages/admin/Cafe.vue")),
+      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminCafe', __webpack_require__(/*! ./pages/admin/Cafe.vue */ "./resources/js/pages/admin/Cafe.vue")["default"]),
       meta: {
         permission: 'owner'
       }
     }, {
       path: 'users',
       name: 'admin-users',
-      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminUsers', __webpack_require__(/*! ./pages/admin/Users.vue */ "./resources/js/pages/admin/Users.vue")),
+      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminUsers', __webpack_require__(/*! ./pages/admin/Users.vue */ "./resources/js/pages/admin/Users.vue")["default"]),
       meta: {
         permission: 'admin'
       }
     }, {
       path: 'users/:id',
       name: 'admin-user',
-      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminUser', __webpack_require__(/*! ./pages/admin/User.vue */ "./resources/js/pages/admin/User.vue")),
+      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminUser', __webpack_require__(/*! ./pages/admin/User.vue */ "./resources/js/pages/admin/User.vue")["default"]),
       meta: {
         permission: 'admin'
       }
     }, {
       path: 'brew-methods',
       name: 'admin-brew-methods',
-      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminBrewMethods', __webpack_require__(/*! ./pages/admin/BrewMethods.vue */ "./resources/js/pages/admin/BrewMethods.vue")),
+      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminBrewMethods', __webpack_require__(/*! ./pages/admin/BrewMethods.vue */ "./resources/js/pages/admin/BrewMethods.vue")["default"]),
       meta: {
         permission: 'super-admin'
       }
     }, {
       path: 'brew-methods/:id',
       name: 'admin-brew-method',
-      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminBrewMethod', __webpack_require__(/*! ./pages/admin/BrewMethod.vue */ "./resources/js/pages/admin/BrewMethod.vue")),
+      component: vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AdminBrewMethod', __webpack_require__(/*! ./pages/admin/BrewMethod.vue */ "./resources/js/pages/admin/BrewMethod.vue")["default"]),
       meta: {
         permission: 'super-admin'
       }

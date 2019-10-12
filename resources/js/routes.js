@@ -199,7 +199,7 @@ export default new VueRouter({
                 {
                     path: 'companies/:id',
                     name: 'admin-company',
-                    component: Vue.component( 'AdminCompany', require( './pages/admin/Company.vue' ) ),
+                    component: Vue.component( 'AdminCompany', require( './pages/admin/Company.vue' ).default ),
                     meta: {
                         permission: 'owner'
                     }
@@ -207,7 +207,7 @@ export default new VueRouter({
                 {
                     path: 'companies/:id/cafe/:cafeID',
                     name: 'admin-cafe',
-                    component: Vue.component( 'AdminCafe', require( './pages/admin/Cafe.vue' ) ),
+                    component: Vue.component( 'AdminCafe', require( './pages/admin/Cafe.vue' ).default ),
                     meta: {
                         permission: 'owner'
                     }
@@ -215,7 +215,7 @@ export default new VueRouter({
                 {
                     path: 'users',
                     name: 'admin-users',
-                    component: Vue.component( 'AdminUsers', require( './pages/admin/Users.vue' ) ),
+                    component: Vue.component( 'AdminUsers', require( './pages/admin/Users.vue' ).default ),
                     meta: {
                         permission: 'admin'
                     }
@@ -223,7 +223,7 @@ export default new VueRouter({
                 {
                     path: 'users/:id',
                     name: 'admin-user',
-                    component: Vue.component( 'AdminUser', require( './pages/admin/User.vue' ) ),
+                    component: Vue.component( 'AdminUser', require( './pages/admin/User.vue' ).default ),
                     meta: {
                         permission: 'admin'
                     }
@@ -231,7 +231,7 @@ export default new VueRouter({
                 {
                     path: 'brew-methods',
                     name: 'admin-brew-methods',
-                    component: Vue.component( 'AdminBrewMethods', require( './pages/admin/BrewMethods.vue' ) ),
+                    component: Vue.component( 'AdminBrewMethods', require( './pages/admin/BrewMethods.vue' ).default ),
                     meta: {
                         permission: 'super-admin'
                     }
@@ -239,7 +239,7 @@ export default new VueRouter({
                 {
                     path: 'brew-methods/:id',
                     name: 'admin-brew-method',
-                    component: Vue.component( 'AdminBrewMethod', require( './pages/admin/BrewMethod.vue' ) ),
+                    component: Vue.component( 'AdminBrewMethod', require( './pages/admin/BrewMethod.vue' ).default ),
                     meta: {
                         permission: 'super-admin'
                     }
