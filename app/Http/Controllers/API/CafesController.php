@@ -15,9 +15,9 @@ use App\Models\Cafe;
 use App\Utilities\Tagger;
 use App\Models\CafePhoto;
 use App\Models\Company;
-use App\Models\CafeAction;
+use App\Models\Action;
 use App\Services\CafeService;
-use App\Services\CafeActionService;
+use App\Services\ActionService;
 
 class CafesController extends Controller
 {
@@ -86,7 +86,9 @@ class CafesController extends Controller
         /*
             Grab the cafe to be edited.
         */
-        $cafe = Cafe::where('slug', '=', $slug)->first();
+        $cafe = Cafe::where('slug', '=', $slug)
+                ->with('brewMethods')
+                ->first();
 
         /*
 			Confirms user can edit the cafe through the Cafes Policy
@@ -109,7 +111,7 @@ class CafesController extends Controller
 				Create a new cafe action and save the action for an
 				admin to approve.
 			*/
-            CafeActionService::createApprovedAction($cafe->id, $cafe->company_id, 'cafe-updated', $content);
+            ActionService::createApprovedAction($cafe->id, $cafe->company_id, 'cafe-updated', $content);
 
             $updatedCafe = CafeService::editCafe($cafe->id, $request->all());
 
@@ -143,7 +145,7 @@ class CafesController extends Controller
                     Create a new cafe action and save the action for an
                     admin to approve.
                 */
-            CafeActionService::createPendingAction($cafe->id, $cafe->company_id, 'cafe-updated', $content);
+            ActionService::createPendingAction($cafe->id, $cafe->company_id, 'cafe-updated', $content);
 
             if ($request->has('brew_methods')) {
                 /*
@@ -174,7 +176,7 @@ class CafesController extends Controller
 
             $cafe = CafeService::addCafe($request->all(), Auth::user()->id);
 
-            CafeActionService::createApprovedAction(null, $cafe->company_id, 'cafe-added', $request->all());
+            ActionService::createApprovedAction(null, $cafe->company_id, 'cafe-added', $request->all());
 
             /*
                 Grab the company to return
@@ -192,7 +194,7 @@ class CafesController extends Controller
                 Create a new cafe action and save all of the data
                 that the user has provided
             */
-            CafeActionService::createPendingAction(null, $request->get('company_id'), 'cafe-added', $request->all());
+            ActionService::createPendingAction(null, $request->get('company_id'), 'cafe-added', $request->all());
 
             /*
                 Return the flag that the cafe addition is pending
@@ -285,7 +287,7 @@ class CafesController extends Controller
             /*
                 Creates an action that tracks and approves a cafe deletion.
             */
-            CafeActionService::createApprovedAction($cafe->id, $cafe->company_id, 'cafe-deleted', '');
+            ActionService::createApprovedAction($cafe->id, $cafe->company_id, 'cafe-deleted', '');
 
 
             return response()->json('', 204);
@@ -298,7 +300,7 @@ class CafesController extends Controller
             /*
                 Creates an action that tracks and approves a cafe deletion.
             */
-            CafeActionService::createPendingAction($cafe->id, $cafe->company_id, 'cafe-deleted', '');
+            ActionService::createPendingAction($cafe->id, $cafe->company_id, 'cafe-deleted', '');
 
             /*
                 Return the cafe delete pending

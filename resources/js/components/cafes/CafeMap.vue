@@ -177,7 +177,14 @@
                         var image = '/img/cafe-marker.svg';
                     }
 
+                    /*
+                     If the cafe has a lat and lng, create a marker object and
+                     show it on the map.
+                     */
                     if (this.cafes[i].latitude != null) {
+                        /*
+                         Create a new marker object.
+                         */
                         var marker = new google.maps.Marker({
                             position: {
                                 lat: parseFloat(this.cafes[i].latitude),
@@ -188,6 +195,10 @@
                             cafe: this.cafes[i]
                         });
 
+                        /*
+                         Localize the global router variable so when clicked, we go
+                         to the cafe.
+                         */
                         let router = this.$router;
 
                         marker.addListener('click', function () {

@@ -226,6 +226,9 @@
 
         methods: {
 
+            /*
+             Sets the editable fields.
+             */
             setFields(){
                 this.profile_visibility = this.user.profile_visibility;
                 this.favorite_coffee = this.user.favorite_coffee;

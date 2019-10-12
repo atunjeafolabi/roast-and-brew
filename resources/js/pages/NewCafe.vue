@@ -502,6 +502,10 @@
          Searches the API route for companies
          */
           searchCompanies: _.debounce(function (e) {
+
+            /*
+             Ensures something is entered before searching companies.
+             */
               if (this.companyName.length > 1) {
                   this.showAutocomplete = true;
                   axios.get(ROAST_CONFIG.API_URL + '/companies/search', {

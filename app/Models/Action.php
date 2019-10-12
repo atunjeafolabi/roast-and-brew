@@ -2,7 +2,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class CafeAction extends Model
+class Action extends Model
 {
     protected $table = 'cafes_actions';
 

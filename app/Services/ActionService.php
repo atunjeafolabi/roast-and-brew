@@ -8,11 +8,11 @@
 
 namespace App\Services;
 
-use App\Models\CafeAction;
+use App\Models\Action;
 
 use Auth;
 
-class CafeActionService{
+class ActionService{
     /**
      * Creates a pending action.
      *
@@ -23,7 +23,7 @@ class CafeActionService{
      */
     public static function createPendingAction( $cafeID, $companyID, $type, $content )
     {
-        $cafeAction 				= new CafeAction();
+        $cafeAction 				= new Action();
         $cafeAction->cafe_id 		= $cafeID;
         $cafeAction->company_id     = $companyID;
         $cafeAction->user_id		= Auth::user()->id;
@@ -43,7 +43,7 @@ class CafeActionService{
     public static function createApprovedAction( $cafeID, $companyID, $type, $content )
     {
 
-        $cafeAction = new CafeAction();
+        $cafeAction = new Action();
         $cafeAction->cafe_id 				= $cafeID;
         $cafeAction->company_id 		    = $companyID;
         $cafeAction->user_id				= Auth::user()->id;
@@ -57,7 +57,7 @@ class CafeActionService{
     /**
      * Approves an action
      *
-     * @param \App\Models\CafeAction $action  Action being approved.
+     * @param \App\Models\Action $action  Action being approved.
      */
     public static function approveAction( $action )
     {
@@ -72,7 +72,7 @@ class CafeActionService{
     /**
      * Denies an action
      *
-     * @param \App\Models\CafeAction $action  Action being denied.
+     * @param \App\Models\Action $action  Action being denied.
      */
     public static function denyAction( $action )
     {

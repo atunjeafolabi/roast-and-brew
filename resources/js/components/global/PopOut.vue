@@ -59,6 +59,11 @@
         <transition name="slide-in-right">
             <div class="pop-out-side-bar" v-show="showRightNav" v-on:click.stop>
                 <img src="/img/close-menu.svg" class="close-menu-icon" v-on:click="hideNav()"/>
+                <div class="side-bar-link">
+                    <router-link :to="{ name: 'cafes' }" v-on:click.native="hideNav()">
+                        Cafes
+                    </router-link>
+                </div>
                 <div class="side-bar-link" v-if="user != '' && userLoadStatus == 2">
                     <router-link :to="{ name: 'newcafe' }" v-on:click.native="hideNav()">
                         Add Cafe
@@ -67,6 +72,11 @@
                 <div class="side-bar-link" v-if="user != '' && userLoadStatus == 2">
                     <router-link :to="{ name: 'profile' }" v-on:click.native="hideNav()">
                         My Profile
+                    </router-link>
+                </div>
+                <div class="side-bar-link" v-if="user != '' && userLoadStatus == 2 && user.permission >= 1">
+                    <router-link :to="{ name: 'admin'}" v-on:click.native="hideNav()">
+                        Admin
                     </router-link>
                 </div>
                 <div class="side-bar-link">

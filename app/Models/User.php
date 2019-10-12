@@ -47,11 +47,11 @@ class User extends Authenticatable
     }
 
     public function cafeActions(){
-        return $this->hasMany( 'App\Models\CafeAction', 'id', 'user_id' );
+        return $this->hasMany( 'App\Models\Action', 'id', 'user_id' );
     }
 
     public function cafeActionsProcessed(){
-        return $this->hasMany( 'App\Models\CafeAction', 'id', 'processed_by' );
+        return $this->hasMany( 'App\Models\Action', 'id', 'processed_by' );
     }
 
     public function companiesOwned(){

@@ -52,6 +52,10 @@
             EventBus.$on('show-success', function( data ){
                 this.successMessage = data.notification;
                 this.show = true;
+
+                /*
+                 After 3 seconds hide the notification.
+                 */
                 setTimeout( function(){
                     this.show = false;
                 }.bind(this), 3000);

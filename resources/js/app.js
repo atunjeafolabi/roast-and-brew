@@ -56,9 +56,15 @@ new Vue({
     store,
 }).$mount('#app');
 
+/*
+ Send google analytics the current path.
+ */
 ga('set', 'page', router.currentRoute.path);
 ga('send', 'pageview');
 
+/*
+ After each page navigation, send the path to Google analytics.
+ */
 router.afterEach(( to, from ) => {
     ga('set', 'page', to.path);
     ga('send', 'pageview');

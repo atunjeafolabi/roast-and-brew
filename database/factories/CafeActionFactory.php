@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\CafeAction::class, function (Faker $faker) {
+$factory->define(App\Models\Action::class, function (Faker $faker) {
     return [
         'status' => 0,
         'processed_by' => null,

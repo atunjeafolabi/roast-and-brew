@@ -111,10 +111,15 @@ export const cafes = {
                 .then( function( response ){
                     console.log(response);
 
+                    /*
+                     If the cafe is pending because the user didn't have permission,
+                     set the text as pending to alert the user. Otherwise let them know
+                     that the edits have been approved.
+                     */
                     if( typeof response.data.cafe_updates_pending !== 'undefined' ){
                         commit( 'setCafeEditText', response.data.cafe_updates_pending +' updates are pending!');
                     }else{
-                        commit( 'setCafeEditText', response.company.name+' has been successfully updated!');
+                        commit( 'setCafeEditText', response.data.name+' has been successfully updated!');
                     }
 
                     commit( 'setCafeEditStatus', 2 );

@@ -97,7 +97,7 @@ class ActionsTest extends TestCase
         /*
           Create 5 actions so we can return all of them
         */
-        $actions = factory(\App\Models\CafeAction::class, 5)->create([
+        $actions = factory(\App\Models\Action::class, 5)->create([
             'user_id'       => $this->generalUser->id,
             'cafe_id'       => $this->cafeGeneralUser->id,
             'company_id'    => $this->companyGeneralUser->id,
@@ -126,7 +126,7 @@ class ActionsTest extends TestCase
           Create 3 actions so we can return all of them that are on
           the company owned by the user.
         */
-        $actions = factory(\App\Models\CafeAction::class, 3)->create([
+        $actions = factory(\App\Models\Action::class, 3)->create([
             'user_id'       => $this->owner->id,
             'cafe_id'       => $this->cafeOwnedByUser->id,
             'company_id'    => $this->companyOwnedByUser->id,
@@ -136,7 +136,7 @@ class ActionsTest extends TestCase
           Create 2 actions that we don't return because they are
           not owned by the user.
         */
-        $actions = factory(\App\Models\CafeAction::class, 3)->create([
+        $actions = factory(\App\Models\Action::class, 3)->create([
             'user_id'       => $this->owner->id,
             'cafe_id'       => $this->cafeGeneralUser->id,
             'company_id'    => $this->companyGeneralUser->id,
@@ -169,7 +169,7 @@ class ActionsTest extends TestCase
         /*
           Create 5 actions so we can return all of them
         */
-        $actions = factory(\App\Models\CafeAction::class, 5)->create([
+        $actions = factory(\App\Models\Action::class, 5)->create([
             'user_id'       => $this->generalUser->id,
             'cafe_id'       => $this->cafeGeneralUser->id,
             'company_id'    => $this->companyGeneralUser->id,
@@ -214,7 +214,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to approve
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id'   => $this->generalUser->id,
             'type'      => 'cafe-added',
             'content'   => json_encode( $newCafe )
@@ -263,7 +263,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to approve
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id'       => $this->generalUser->id,
             'type'          => 'cafe-updated',
             'cafe_id'       => $this->cafeGeneralUser->id,
@@ -302,7 +302,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to approve
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id' => $this->generalUser->id,
             'type' => 'cafe-deleted',
             'cafe_id' => $this->cafeGeneralUser->id,
@@ -357,7 +357,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to approve
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id' => $this->generalUser->id,
             'type' => 'cafe-added',
             'cafe_id' => $this->cafeOwnedByUser->id,
@@ -405,7 +405,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to approve
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id'       => $this->generalUser->id,
             'type'          => 'cafe-updated',
             'cafe_id'       => $this->cafeOwnedByUser->id,
@@ -443,7 +443,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to approve
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id' => $this->generalUser->id,
             'type' => 'cafe-deleted',
             'cafe_id' => $this->cafeOwnedByUser->id,
@@ -480,7 +480,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to approve
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id' => $this->generalUser->id,
             'type' => 'cafe-deleted',
             'cafe_id' => $this->cafeGeneralUser->id,
@@ -506,7 +506,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to approve
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id'   => $this->generalUser->id,
             'type'      => 'cafe-deleted',
             'cafe_id'   => $this->cafeGeneralUser->id,
@@ -532,7 +532,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to deny
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id' => $this->generalUser->id,
             'type' => 'cafe-deleted',
             'cafe_id' => $this->cafeGeneralUser->id,
@@ -562,7 +562,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to deny
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id'   => $this->generalUser->id,
             'type'      => 'cafe-deleted',
             'cafe_id'   => $this->cafeOwnedByUser->id,
@@ -592,7 +592,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to deny
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id'   => $this->generalUser->id,
             'type'      => 'cafe-deleted',
             'cafe_id'   => $this->cafeGeneralUser->id,
@@ -617,7 +617,7 @@ class ActionsTest extends TestCase
         /*
           Create 1 actions to deny
         */
-        $action = factory(\App\Models\CafeAction::class)->create([
+        $action = factory(\App\Models\Action::class)->create([
             'user_id'   => $this->generalUser->id,
             'type'      => 'cafe-deleted',
             'cafe_id'   => $this->cafeGeneralUser->id,

@@ -36,13 +36,13 @@
 </template>
 
 <script>
-    import { CafeTypeFilter } from '../../mixins/filters/CafeTypeFilter.js';
-    import { CafeBrewMethodsFilter } from '../../mixins/filters/CafesBrewMethodsFilter.js';
-    import { CafeTagsFilter } from '../../mixins/filters/CafeTagsFilter.js';
-    import { CafeTextFilter } from '../../mixins/filters/CafeTextFilter.js';
-    import { CafeUserLikeFilter } from '../../mixins/filters/CafeUserLikeFilter.js';
-    import { CafeHasMatchaFilter } from '../../mixins/filters/CafeHasMatchaFilter.js';
-    import { CafeHasTeaFilter } from '../../mixins/filters/CafeHasTeaFilter.js';
+//    import { CafeTypeFilter } from '../../mixins/filters/CafeTypeFilter.js';
+//    import { CafeBrewMethodsFilter } from '../../mixins/filters/CafesBrewMethodsFilter.js';
+//    import { CafeTagsFilter } from '../../mixins/filters/CafeTagsFilter.js';
+//    import { CafeTextFilter } from '../../mixins/filters/CafeTextFilter.js';
+//    import { CafeUserLikeFilter } from '../../mixins/filters/CafeUserLikeFilter.js';
+//    import { CafeHasMatchaFilter } from '../../mixins/filters/CafeHasMatchaFilter.js';
+//    import { CafeHasTeaFilter } from '../../mixins/filters/CafeHasTeaFilter.js';
     import CafeCard from '../../components/cafes/CafeCard.vue';
     /*
      Imports the Event Bus to pass updates.
@@ -57,15 +57,15 @@
         components: {
             CafeCard
         },
-        mixins: [
-            CafeTypeFilter,
-            CafeBrewMethodsFilter,
-            CafeTagsFilter,
-            CafeTextFilter,
-            CafeUserLikeFilter,
-            CafeHasMatchaFilter,
-            CafeHasTeaFilter
-        ],
+//        mixins: [
+//            CafeTypeFilter,
+//            CafeBrewMethodsFilter,
+//            CafeTagsFilter,
+//            CafeTextFilter,
+//            CafeUserLikeFilter,
+//            CafeHasMatchaFilter,
+//            CafeHasTeaFilter
+//        ],
         mounted(){
             EventBus.$on('filters-updated', function( filters ){
                 this.computeShown();
@@ -80,6 +80,9 @@
             }
         },
         methods: {
+            /*
+             Computes the count of cafes that are shown.
+             */
             computeShown(){
                 this.shownCount = $('.cafe-card-container').filter(function() {
                     return $(this).css('display') !== 'none';

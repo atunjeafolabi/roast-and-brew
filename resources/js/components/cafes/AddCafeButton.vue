@@ -48,6 +48,12 @@
         },
 
         methods: {
+            /*
+             Checks to see if a user is authenticated or not.
+             This item can be viewed by non-authenticated users.
+             If the user isn't authenticated, we prompt them to log in,
+             otherwise we take them to the new cafe page.
+             */
             checkAuth(){
                 if( this.user == '' && this.userLoadStatus == 2 ){
                     EventBus.$emit('prompt-login');

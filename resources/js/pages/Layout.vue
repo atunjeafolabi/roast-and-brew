@@ -26,7 +26,7 @@
 <template>
     <div id="app-layout">
         <div class="show-filters" v-show="!showFilters" v-on:click="toggleShowFilters()">
-            <img src="/img/grey-right.svg"/>
+            <img src="/img/grey-right.svg"/>a
         </div>
         <success-notification></success-notification>
         <navigation></navigation>
@@ -63,6 +63,14 @@
             this.$store.dispatch('loadCafes');
             this.$store.dispatch('loadUser');
             this.$store.dispatch('loadBrewMethods');
+
+            /*
+             If the admin module is set, unregister it. We don't need
+             it here.
+             */
+            if( this.$store._modules.get(['admin'] ) ){
+                this.$store.unregisterModule( 'admin', {} );
+            }
         },
 
         computed: {
