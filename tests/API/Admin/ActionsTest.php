@@ -229,7 +229,7 @@ class ActionsTest extends TestCase
         /*
           Confirm the action was approved.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'id'            => $action->id,
             'type'          => 'cafe-added',
             'status'        => 1,
@@ -278,7 +278,7 @@ class ActionsTest extends TestCase
         /*
           Confirm the action was approved.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'id'            => $action->id,
             'type'          => 'cafe-updated',
             'status'        => 1,
@@ -316,7 +316,7 @@ class ActionsTest extends TestCase
         /*
           Confirm the action was approved.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'id'            => $action->id,
             'type'          => 'cafe-deleted',
             'status'        => 1,
@@ -372,7 +372,7 @@ class ActionsTest extends TestCase
         /*
           Confirm the action was approved.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'id' => $action->id,
             'type' => 'cafe-added',
             'status' => 1,
@@ -420,7 +420,7 @@ class ActionsTest extends TestCase
         /*
           Confirm the action was approved.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'id' => $action->id,
             'type' => 'cafe-updated',
             'status' => 1,
@@ -457,7 +457,7 @@ class ActionsTest extends TestCase
         /*
           Confirm the action was approved.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'id' => $action->id,
             'type' => 'cafe-deleted',
             'status' => 1,
@@ -546,7 +546,7 @@ class ActionsTest extends TestCase
         /*
           Confirm the action was approved.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'id'            => $action->id,
             'type'          => 'cafe-deleted',
             'status'        => 2,
@@ -576,7 +576,7 @@ class ActionsTest extends TestCase
         /*
           Confirm the action was approved.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'id'           => $action->id,
             'type'         => 'cafe-deleted',
             'status'       => 2,

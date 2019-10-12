@@ -217,7 +217,7 @@ class CafeTest extends TestCase
         /*
           Confirm the database has an action for the added cafe.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'user_id' => $user->id,
             'type' => 'cafe-added',
             'status' => 1,
@@ -271,7 +271,7 @@ class CafeTest extends TestCase
         /*
           Confirm the database has an action for the added cafe.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'user_id' => $user->id,
             'type' => 'cafe-added',
             'status' => 0
@@ -587,7 +587,7 @@ class CafeTest extends TestCase
         /*
             Confirm the database has an action for the added cafe.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'user_id' => $user->id,
             'type' => 'cafe-updated',
             'status' => 1,
@@ -833,7 +833,7 @@ class CafeTest extends TestCase
         /*
           Confirm the database has an action for the added cafe.
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'user_id' => $user->id,
             'type' => 'cafe-deleted',
             'status' => 1,
@@ -981,7 +981,7 @@ class CafeTest extends TestCase
         /*
           Confirms that the action exists in the database
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'cafe_id' => $cafe->id,
             'type' => 'cafe-updated'
         ]);
@@ -1116,7 +1116,7 @@ class CafeTest extends TestCase
         /*
           Confirms that the action exists in the database
         */
-        $this->assertDatabaseHas('cafes_actions', [
+        $this->assertDatabaseHas('actions', [
             'cafe_id' => $cafe->id,
             'type' => 'cafe-deleted'
         ]);
