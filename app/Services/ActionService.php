@@ -23,14 +23,14 @@ class ActionService{
      */
     public static function createPendingAction( $cafeID, $companyID, $type, $content )
     {
-        $cafeAction 				= new Action();
-        $cafeAction->cafe_id 		= $cafeID;
-        $cafeAction->company_id     = $companyID;
-        $cafeAction->user_id		= Auth::user()->id;
-        $cafeAction->status 		= 0;
-        $cafeAction->type 			= $type;
-        $cafeAction->content 		= json_encode( $content );
-        $cafeAction->save();
+        $action 				= new Action();
+        $action->cafe_id 		= $cafeID;
+        $action->company_id     = $companyID;
+        $action->user_id		= Auth::user()->id;
+        $action->status 		= 0;
+        $action->type 			= $type;
+        $action->content 		= json_encode( $content );
+        $action->save();
     }
     /**
      * Creates an approved action.
@@ -43,16 +43,16 @@ class ActionService{
     public static function createApprovedAction( $cafeID, $companyID, $type, $content )
     {
 
-        $cafeAction = new Action();
-        $cafeAction->cafe_id 				= $cafeID;
-        $cafeAction->company_id 		    = $companyID;
-        $cafeAction->user_id				= Auth::user()->id;
-        $cafeAction->status 				= 1;
-        $cafeAction->type 					= $type;
-        $cafeAction->content 				= json_encode( $content );
-        $cafeAction->processed_by		    = Auth::user()->id;
-        $cafeAction->processed_on 	        = date('Y-m-d H:i:s', time() );
-        $cafeAction->save();
+        $action = new Action();
+        $action->cafe_id 				= $cafeID;
+        $action->company_id 		    = $companyID;
+        $action->user_id				= Auth::user()->id;
+        $action->status 				= 1;
+        $action->type 					= $type;
+        $action->content 				= json_encode( $content );
+        $action->processed_by		    = Auth::user()->id;
+        $action->processed_on 	        = date('Y-m-d H:i:s', time() );
+        $action->save();
     }
     /**
      * Approves an action

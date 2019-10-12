@@ -97,6 +97,6 @@ class Cafe extends Model
      */
     public function actions()
     {
-        return $this->hasMany( 'App\Models\Action', 'id', 'cafe_id' );
+        return $this->hasMany( 'App\Models\Action', 'cafe_id', 'id' );
     }
 }

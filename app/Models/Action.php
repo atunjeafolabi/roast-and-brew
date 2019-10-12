@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Action extends Model
 {
-    protected $table = 'cafes_actions';
+    protected $table = 'actions';
 
     /**
      * An action belongs to a cafe.

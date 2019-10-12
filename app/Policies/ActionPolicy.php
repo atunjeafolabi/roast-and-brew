@@ -13,7 +13,7 @@ use App\Models\Action;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CafeActionPolicy
+class ActionPolicy
 {
     use HandlesAuthorization;
     /**
@@ -31,13 +31,13 @@ class CafeActionPolicy
      * If the user owns the company that owns the cafe then they can approve actions.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Action $cafeAction
+     * @param \App\Models\Action $action
      * @return bool
      */
-    public function approve(User $user, Action $cafeAction ){
+    public function approve(User $user, Action $action ){
         if( $user->permission == 2 || $user->permission == 3 ){
             return true;
-        }else if( $user->companiesOwned->contains( $cafeAction->company_id ) ){
+        }else if( $user->companiesOwned->contains( $action->company_id ) ){
             return true;
         }else{
             return false;
@@ -49,13 +49,13 @@ class CafeActionPolicy
      * If the user owns the company that owns the cafe then they can deny actions.
      *
      * @param \App\Models\User $user
-     * @param \App\Models\Action $cafeAction
+     * @param \App\Models\Action $action
      * @return bool
      */
-    public function deny(User $user, Action $cafeAction ){
+    public function deny(User $user, Action $action ){
         if( $user->permission == 2 || $user->permission == 3 ){
             return true;
-        }else if( $user->companiesOwned->contains( $cafeAction->company_id ) ){
+        }else if( $user->companiesOwned->contains( $action->company_id ) ){
             return true;
         }else{
             return false;

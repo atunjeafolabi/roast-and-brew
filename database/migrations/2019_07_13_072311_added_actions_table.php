@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddedCafeActionsTable extends Migration
+class AddedActionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class AddedCafeActionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cafes_actions', function( Blueprint $table ){
+        Schema::create('actions', function( Blueprint $table ){
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
@@ -36,6 +36,6 @@ class AddedCafeActionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cafes_actions');
+        Schema::drop('actions');
     }
 }

@@ -46,11 +46,11 @@ class User extends Authenticatable
         return $this->hasMany( 'App\Models\CafePhoto', 'id', 'cafe_id' );
     }
 
-    public function cafeActions(){
+    public function actions(){
         return $this->hasMany( 'App\Models\Action', 'id', 'user_id' );
     }
 
-    public function cafeActionsProcessed(){
+    public function actionsProcessed(){
         return $this->hasMany( 'App\Models\Action', 'id', 'processed_by' );
     }
 
