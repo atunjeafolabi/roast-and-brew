@@ -22,7 +22,8 @@ class ActionsController extends Controller
      * URL: /api/v1/admin/actions
      * Method: GET
      */
-    public function getActions(){
+    public function getActions()
+    {
         /*
           If the user is an admin grab all of the actions that haven't been
           processed.
@@ -36,7 +37,7 @@ class ActionsController extends Controller
         }else{
 
             /*
-              Geta all of the un processed actions owned by the user.
+              Get all of the unprocessed actions owned by the user.
             */
             $actions = CafeAction::with('cafe')
                         ->with('company')
@@ -54,7 +55,8 @@ class ActionsController extends Controller
      *
      * @param \App\Models\CafeAction $action
      */
-    public function putApproveAction( CafeAction $action ){
+    public function putApproveAction( CafeAction $action )
+    {
         /*
           Determine the proper action based on action type.
         */
@@ -118,7 +120,8 @@ class ActionsController extends Controller
      *
      * @param \App\Models\CafeAction $action
      */
-    public function putDenyAction( CafeAction $action ){
+    public function putDenyAction( CafeAction $action )
+    {
         /*
           Denies the action
         */

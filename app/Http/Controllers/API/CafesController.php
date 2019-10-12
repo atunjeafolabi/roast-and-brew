@@ -31,56 +31,57 @@ class CafesController extends Controller
     public function getCafes()
     {
         $cafes = Cafe::with('brewMethods')
-                    ->with(['tags' => function( $query ){
-                        $query->select('tag');
-                    }])
-                    ->with('company')
-                    ->withCount('userLike')
-                    ->where('deleted', '=', 0)
-                    ->get();
+            ->with(['tags' => function ($query) {
+                $query->select('tag');
+            }])
+            ->with('company')
+            ->withCount('userLike')
+            ->where('deleted', '=', 0)
+            ->get();
 
-        return response()->json( $cafes );  //can use Laravel api resources instead
+        return response()->json($cafes);  //can use Laravel api resources instead
     }
 
-    public function getCafe( $slug )
+    public function getCafe($slug)
     {
         $cafe = Cafe::where('slug', '=', $slug)
-                    ->with('brewMethods')
-                    ->withCount('userLike')
-                    ->with('tags')
-                    ->with(['company' => function( $query ){
-                                $query->withCount('cafes');
-                    }])
-                    ->withCount('likes')
-                    ->where('deleted', '=', 0)
-                    ->first();
+            ->with('brewMethods')
+            ->withCount('userLike')
+            ->with('tags')
+            ->with(['company' => function ($query) {
+                $query->withCount('cafes');
+            }])
+            ->withCount('likes')
+            ->where('deleted', '=', 0)
+            ->first();
 
-        if( $cafe != null ){
-            return response()->json( $cafe );
-        }else{
+        if ($cafe != null) {
+            return response()->json($cafe);
+        } else {
             abort(404);
         }
     }
 
-    public function getCafeEditData( $slug ){
+    public function getCafeEditData($slug)
+    {
         /*
             Grab the cafe with the parent of the cafe
         */
         $cafe = Cafe::where('slug', '=', $slug)
-                    ->with('brewMethods')
-                    ->withCount('userLike')
-                    ->with(['company' => function( $query ){
-                        $query->withCount('cafes');
-                    }])
-                    ->where('deleted', '=', 0)
-                    ->first();
+            ->with('brewMethods')
+            ->withCount('userLike')
+            ->with(['company' => function ($query) {
+                $query->withCount('cafes');
+            }])
+            ->where('deleted', '=', 0)
+            ->first();
         /*
            Return the cafe queried.
        */
         return response()->json($cafe);
     }
 
-    public function putEditCafe( $slug, EditCafeRequest $request )
+    public function putEditCafe($slug, EditCafeRequest $request)
     {
         /*
             Grab the cafe to be edited.
@@ -101,23 +102,23 @@ class CafesController extends Controller
 				Set the before cafe to the data that was existing,
 				and the after to what was set.
 			*/
-            $content['before']  = $cafe;
-            $content['after']   = $request->all();
+            $content['before'] = $cafe;
+            $content['after'] = $request->all();
 
             /*
 				Create a new cafe action and save the action for an
 				admin to approve.
 			*/
-            CafeActionService::createApprovedAction( $cafe->id, $cafe->company_id, 'cafe-updated', $content );
+            CafeActionService::createApprovedAction($cafe->id, $cafe->company_id, 'cafe-updated', $content);
 
-            $updatedCafe = CafeService::editCafe( $cafe->id, $request->all() );
+            $updatedCafe = CafeService::editCafe($cafe->id, $request->all());
 
             /*
                     Load the company and return it.
                 */
             $company = Company::where('id', '=', $updatedCafe->company_id)
-                        ->with('cafes')
-                        ->first();
+                ->with('cafes')
+                ->first();
             /*
 		    Return the edited cafes as JSON
 		  */
@@ -142,7 +143,7 @@ class CafesController extends Controller
                     Create a new cafe action and save the action for an
                     admin to approve.
                 */
-            CafeActionService::createPendingAction( $cafe->id, $cafe->company_id, 'cafe-updated', $content );
+            CafeActionService::createPendingAction($cafe->id, $cafe->company_id, 'cafe-updated', $content);
 
             if ($request->has('brew_methods')) {
                 /*
@@ -171,16 +172,16 @@ class CafesController extends Controller
         */
         if (Auth::user()->can('create', [Cafe::class, $company])) {
 
-            $cafe = CafeService::addCafe( $request->all(), Auth::user()->id );
+            $cafe = CafeService::addCafe($request->all(), Auth::user()->id);
 
-            CafeActionService::createApprovedAction( null, $cafe->company_id, 'cafe-added', $request->all() );
+            CafeActionService::createApprovedAction(null, $cafe->company_id, 'cafe-added', $request->all());
 
             /*
                 Grab the company to return
             */
-            $company =  Company::where('id', '=', $cafe->company->id)
-                        ->with('cafes')
-                        ->first();
+            $company = Company::where('id', '=', $cafe->company->id)
+                ->with('cafes')
+                ->first();
             /*
                 Return the added cafes as JSON
             */
@@ -191,7 +192,7 @@ class CafesController extends Controller
                 Create a new cafe action and save all of the data
                 that the user has provided
             */
-            CafeActionService::createPendingAction( null, $request->get('company_id'), 'cafe-added', $request->all() );
+            CafeActionService::createPendingAction(null, $request->get('company_id'), 'cafe-added', $request->all());
 
             /*
                 Return the flag that the cafe addition is pending
@@ -200,14 +201,15 @@ class CafesController extends Controller
         }
     }
 
-    public function postLikeCafe( $slug, Request $request ){
+    public function postLikeCafe($slug, Request $request)
+    {
 
         $cafe = Cafe::where('slug', '=', $slug)->first();
 
         /*
             If the user doesn't already like the cafe, attaches the cafe to the user's likes
         */
-        if( !$cafe->likes->contains( Auth::user()->id ) ) {
+        if (!$cafe->likes->contains(Auth::user()->id)) {
 
             $cafe->likes()->attach(Auth::user()->id, [
                 'created_at' => date('Y-m-d H:i:s'),
@@ -215,19 +217,21 @@ class CafesController extends Controller
             ]);
         }
 
-        return response()->json( ['cafe_liked' => true], 201 );
+        return response()->json(['cafe_liked' => true], 201);
     }
 
-    public function deleteLikeCafe( $slug ){
+    public function deleteLikeCafe($slug)
+    {
 
         $cafe = Cafe::where('slug', '=', $slug)->first();
 
-        $cafe->likes()->detach( Auth::user()->id );
+        $cafe->likes()->detach(Auth::user()->id);
 
         return response(null, 204);
     }
 
-    public function postAddTags( Request $request, $slug ){
+    public function postAddTags(Request $request, $slug)
+    {
 
         $tags = $request->get('tags');
 
@@ -236,23 +240,27 @@ class CafesController extends Controller
         /*
           Tags the cafe
         */
-        Tagger::tagCafe( $cafe, $tags );
+        Tagger::tagCafe($cafe, $tags);
 
         /*
           Grabs the cafe with the brew methods, user like and tags
         */
         $cafe = Cafe::where('slug', '=', $slug)
-                ->with('brewMethods')
-                ->with('userLike')
-                ->with('tags')
-                ->first();
+            ->with('brewMethods')
+            ->with('userLike')
+            ->with('tags')
+            ->first();
 
         return response()->json($cafe, 201);
     }
 
-    public function deleteCafeTag( $slug, $tagID ){
+    public function deleteCafeTag($slug, $tagID)
+    {
 
-        DB::statement('DELETE FROM cafes_users_tags WHERE cafe_id = "'.$slug.'" AND tag_id = "'.$tagID.'" AND user_id = "'.Auth::user()->id.'"');
+        DB::statement(
+            'DELETE FROM cafes_users_tagsWHERE cafe_id = "' . $slug . '" AND tag_id = "' . $tagID .
+            '" AND user_id = "' . Auth::user()->id . '"'
+        );
 
         /*
           Return a proper response code for successful untagging
@@ -260,7 +268,8 @@ class CafesController extends Controller
         return response(null, 204);
     }
 
-    public function deleteCafe( $slug ){
+    public function deleteCafe($slug)
+    {
         /*
 			Grabs the Cafe to be deleted
 		*/
@@ -269,19 +278,19 @@ class CafesController extends Controller
             Checks if the user can delete the cafe through
             our CafePolicy.
         */
-        if( Auth::user()->can('delete', $cafe ) ){
+        if (Auth::user()->can('delete', $cafe)) {
 
             $cafe->deleted = 1;
             $cafe->save();
             /*
                 Creates an action that tracks and approves a cafe deletion.
             */
-            CafeActionService::createApprovedAction( $cafe->id, $cafe->company_id, 'cafe-deleted', '' );
+            CafeActionService::createApprovedAction($cafe->id, $cafe->company_id, 'cafe-deleted', '');
 
 
             return response()->json('', 204);
 
-        }else {
+        } else {
             /*
                 Get the cafe to create the action.
             */
@@ -289,7 +298,7 @@ class CafesController extends Controller
             /*
                 Creates an action that tracks and approves a cafe deletion.
             */
-            CafeActionService::createPendingAction( $cafe->id, $cafe->company_id, 'cafe-deleted', '' );
+            CafeActionService::createPendingAction($cafe->id, $cafe->company_id, 'cafe-deleted', '');
 
             /*
                 Return the cafe delete pending

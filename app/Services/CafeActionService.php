@@ -21,7 +21,8 @@ class CafeActionService{
      * @param string $type  Type of action being created.
      * @param string $content  Data content for the action
      */
-    public static function createPendingAction( $cafeID, $companyID, $type, $content ){
+    public static function createPendingAction( $cafeID, $companyID, $type, $content )
+    {
         $cafeAction 				= new CafeAction();
         $cafeAction->cafe_id 		= $cafeID;
         $cafeAction->company_id     = $companyID;
@@ -39,7 +40,8 @@ class CafeActionService{
      * @param string $type  Type of action being created.
      * @param string $content  Data content for the action
      */
-    public static function createApprovedAction( $cafeID, $companyID, $type, $content ){
+    public static function createApprovedAction( $cafeID, $companyID, $type, $content )
+    {
 
         $cafeAction = new CafeAction();
         $cafeAction->cafe_id 				= $cafeID;
@@ -57,7 +59,8 @@ class CafeActionService{
      *
      * @param \App\Models\CafeAction $action  Action being approved.
      */
-    public static function approveAction( $action ){
+    public static function approveAction( $action )
+    {
         /*
           Approve the action
         */
@@ -71,7 +74,8 @@ class CafeActionService{
      *
      * @param \App\Models\CafeAction $action  Action being denied.
      */
-    public static function denyAction( $action ){
+    public static function denyAction( $action )
+    {
         $action->status = 2;
         $action->processed_by = Auth::user()->id;
         $action->processed_on = date('Y-m-d H:i:s', time() );

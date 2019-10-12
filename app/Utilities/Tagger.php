@@ -7,7 +7,8 @@ use Auth;
 
 class Tagger{
 
-    public static function tagCafe( $cafe, $tags ){
+    public static function tagCafe( $cafe, $tags )
+    {
         /*
           Iterate over all of the tags attaching each one
           to the cafe.

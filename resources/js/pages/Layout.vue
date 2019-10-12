@@ -2,23 +2,24 @@
     /*@import '~@/abstracts/_variables.scss';*/
     @import "../../sass/abstracts/_variables.scss";
 
-    div#app-layout{
+    div#app-layout {
 
-        div.show-filters{
-            height: 90px;
-            width: 23px;
-            position: absolute;
-            left: 0px;
-            background-color: white;
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            line-height: 90px;
-            top: 50%;
-            cursor: pointer;
-            margin-top: -45px;
-            z-index: 9;
-            text-align: center;
-        }
+    div.show-filters {
+        height: 90px;
+        width: 23px;
+        position: absolute;
+        left: 0px;
+        background-color: white;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        line-height: 90px;
+        top: 50%;
+        cursor: pointer;
+        margin-top: -45px;
+        z-index: 9;
+        text-align: center;
+    }
+
     }
 </style>
 
@@ -29,7 +30,8 @@
         </div>
         <success-notification></success-notification>
         <navigation></navigation>
-        <router-view></router-view>     <!--children components of layouts as stated in the routes will be injected here-->
+        <router-view></router-view>
+        <!--children components of layouts as stated in the routes will be injected here-->
         <login-modal></login-modal>
         <filters></filters>
         <pop-out></pop-out>
@@ -39,7 +41,7 @@
 
 <script>
 
-    import { EventBus } from '../event-bus.js';
+    import {EventBus} from '../event-bus.js';
     import Navigation from '../components/global/Navigation.vue';
     import LoginModal from '../components/global/LoginModal.vue';
     import Filters from '../components/global/Filters.vue';
@@ -58,9 +60,9 @@
         },
 
         created(){
-            this.$store.dispatch( 'loadCafes' );
-            this.$store.dispatch( 'loadUser' );
-            this.$store.dispatch( 'loadBrewMethods' );
+            this.$store.dispatch('loadCafes');
+            this.$store.dispatch('loadUser');
+            this.$store.dispatch('loadBrewMethods');
         },
 
         computed: {
@@ -81,10 +83,10 @@
         },
 
         watch: {
-            'addCafeStatus': function(){
-                if( this.addCafeStatus == 2 ){
+            'addCafeStatus': function () {
+                if (this.addCafeStatus == 2) {
                     EventBus.$emit('show-success', {
-                        notification: this.addedCafe.name+' has been added!'
+                        notification: this.addedCafe.name + ' has been added!'
                     });
                 }
             }

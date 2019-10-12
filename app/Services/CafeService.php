@@ -77,7 +77,16 @@ class CafeService{
         */
         $cafe                       = new Cafe();
         $cafe->company_id 			= $company->id;
-        $cafe->slug 				= SlugService::createSlug(Cafe::class, 'slug', $company->name.' '.$locationName.' '.$address.' '.$city.' '.$state);
+
+        $cafe->slug 				= SlugService::createSlug(
+                                    Cafe::class, 'slug',
+                                        $company->name.' '.
+                                        $locationName.' '.
+                                        $address.' '.
+                                        $city.' '.
+                                        $state
+        );
+
         $cafe->location_name 		= $locationName != null ? $locationName : '';
         $cafe->address 				= $address;
         $cafe->city 				= $city;

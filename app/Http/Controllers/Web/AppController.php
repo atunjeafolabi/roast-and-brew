@@ -10,9 +10,11 @@ class AppController extends Controller
 {
     public function getApp(Request $request){
 
-        if( $request->has('ref') ){
-            return redirect('/');
-        }
+//        var_dump($request->ref);
+//        //This may not really be doing anything. Don't know
+//        if( $request->has('ref') ){
+//            return redirect('/');
+//        }
 
         return view('app');
     }

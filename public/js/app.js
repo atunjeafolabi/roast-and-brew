@@ -3542,6 +3542,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -4990,6 +4993,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_global_PopOut_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/global/PopOut.vue */ "./resources/js/components/global/PopOut.vue");
 /* harmony import */ var _components_global_SuccessNotification_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/global/SuccessNotification.vue */ "./resources/js/components/global/SuccessNotification.vue");
 /* harmony import */ var _components_global_ErrorNotification_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/global/ErrorNotification.vue */ "./resources/js/components/global/ErrorNotification.vue");
+//
+//
 //
 //
 //
@@ -6484,7 +6489,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.i(__webpack_require__(/*! -!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../sass/abstracts/_variables.scss */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./resources/sass/abstracts/_variables.scss"), "");
 
 // module
-exports.push([module.i, "\n/*@import '~@/abstracts/_variables.scss';*/\ndiv#app-layout{\ndiv.show-filters{\n        height: 90px;\n        width: 23px;\n        position: absolute;\n        left: 0px;\n        background-color: white;\n        border-top-right-radius: 3px;\n        border-bottom-right-radius: 3px;\n        line-height: 90px;\n        top: 50%;\n        cursor: pointer;\n        margin-top: -45px;\n        z-index: 9;\n        text-align: center;\n}\n}\n", ""]);
+exports.push([module.i, "\n/*@import '~@/abstracts/_variables.scss';*/\ndiv#app-layout {\ndiv.show-filters {\n    height: 90px;\n    width: 23px;\n    position: absolute;\n    left: 0px;\n    background-color: white;\n    border-top-right-radius: 3px;\n    border-bottom-right-radius: 3px;\n    line-height: 90px;\n    top: 50%;\n    cursor: pointer;\n    margin-top: -45px;\n    z-index: 9;\n    text-align: center;\n}\n}\n", ""]);
 
 // exports
 

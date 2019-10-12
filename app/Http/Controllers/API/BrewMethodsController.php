@@ -21,7 +21,8 @@ class BrewMethodsController extends Controller
 
     }
 
-    public function postNewBrewMethod(Request $request){
+    public function postNewBrewMethod(Request $request)
+    {
 
         $brewMethod = new BrewMethod();
 

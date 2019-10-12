@@ -15,7 +15,7 @@ class AddedCafeParentChildRelationship extends Migration
     {
         Schema::table('cafes', function( Blueprint $table ){
             $table->integer('parent')->unsigned()->nullable()->after('id');
-            $table->foreign('parent')->references('id')->on('cafes');
+            $table->foreign('parent')->references('id')->on('cafes');   //
             $table->string('location_name')->after('name');
             $table->integer('roaster')->after('longitude');
             $table->text('website')->after('roaster');

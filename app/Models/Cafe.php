@@ -29,8 +29,12 @@ class Cafe extends Model
     /**
      * A cafe can have many brew methods.
      */
-    public function brewMethods(){
-        return $this->belongsToMany( 'App\Models\BrewMethod', 'cafes_brew_methods', 'cafe_id', 'brew_method_id' );
+    public function brewMethods()
+    {
+        return $this->belongsToMany(
+            'App\Models\BrewMethod', 'cafes_brew_methods',
+            'cafe_id', 'brew_method_id'
+        );
     }
 
 //    public function children(){
@@ -54,14 +58,16 @@ class Cafe extends Model
     /**
      * A cafe can have many user likes.
      */
-    public function likes(){
+    public function likes()
+    {
         return $this->belongsToMany( 'App\Models\User', 'users_cafes_likes', 'cafe_id', 'user_id');
     }
 
     /**
      * A cafe can have one like from a specific user.
      */
-    public function userLike(){
+    public function userLike()
+    {
         $userID = Request::user('api') != '' ? Request::user('api')->id : null;
 
         return $this->belongsToMany( 'App\Models\User', 'users_cafes_likes', 'cafe_id', 'user_id')
@@ -73,21 +79,24 @@ class Cafe extends Model
     /**
      * A cafe can have many tags.
      */
-    public function tags(){
+    public function tags()
+    {
         return $this->belongsToMany( 'App\Models\Tag', 'cafes_users_tags', 'cafe_id', 'tag_id');
     }
 
     /**
      * A cafe can have many photos.
      */
-    public function photos(){
+    public function photos()
+    {
         return $this->hasMany( 'App\Models\CafePhoto', 'id', 'cafe_id' );
     }
 
     /**
      * A cafe can have many actions
      */
-    public function actions(){
+    public function actions()
+    {
         return $this->hasMany( 'App\Models\CafeAction', 'id', 'cafe_id' );
     }
 }

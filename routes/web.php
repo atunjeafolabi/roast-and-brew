@@ -11,17 +11,17 @@
 |
 */
 
-Route::get( '/', 'Web\AppController@getApp' );
+Route::get('/', 'Web\AppController@getApp');
 
-Route::get('/login', 'Web\AppController@getLogin' )
+Route::get('/login', 'Web\AppController@getLogin')
     ->name('login')
     ->middleware('guest');
 
-Route::get( '/login/{social}', 'Web\AuthenticationController@getSocialRedirect' )
+Route::get('/login/{social}', 'Web\AuthenticationController@getSocialRedirect')
     ->middleware('guest');
 
-Route::get( '/login/{social}/callback', 'Web\AuthenticationController@getSocialCallback' )
+Route::get('/login/{social}/callback', 'Web\AuthenticationController@getSocialCallback')
     ->middleware('guest');
 
-Route::get( '/logout', 'Web\AppController@getLogout' )
+Route::get('/logout', 'Web\AppController@getLogout')
     ->name('logout');
