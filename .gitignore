@@ -5,7 +5,7 @@
 /vendor
 /.idea
 /app/Photos
-.env
+.env.local
 .env.example
 .phpunit.result.cache
 Homestead.json

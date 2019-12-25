@@ -18,12 +18,14 @@ class CompanyPolicy
     {
         //
     }
+
     /**
      * If the user is an admin they can load a company. If the user
      * owns the company they can view the company as well.
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Company $company
+     * @param User $user
+     * @param Company $company
+     * @return bool
      */
     public function view( User $user, Company $company ){
         if( $user->permission == 2 || $user->permission == 3 ){
@@ -34,12 +36,14 @@ class CompanyPolicy
             return false;
         }
     }
+
     /**
      * If the user is an admin they can update a company. If the user
      * owns the company they can update the company as well.
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Company $company
+     * @param User $user
+     * @param Company $company
+     * @return bool
      */
     public function update( User $user, Company $company ){
         if( $user->permission == 2 || $user->permission == 3 ){
@@ -50,10 +54,12 @@ class CompanyPolicy
             return false;
         }
     }
+
     /**
      * If the user is an admin they can update owners on a company.
      *
-     * @param \App\Models\User $user
+     * @param User $user
+     * @return bool
      */
     public function updateOwners( User $user ){
         if( $user->permission == 2 || $user->permission == 3 ){
