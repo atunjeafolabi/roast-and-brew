@@ -15,7 +15,7 @@ switch( process.env.NODE_ENV ){
         // api_url = 'https://f7309f8c.ngrok.io/api/v1';
         break;
     case 'production':
-        api_url = 'https://roastandbrew.coffee/api/v1';
+        api_url = 'https://atunje.com/api/v1';
         break;
 }
 
