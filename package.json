@@ -14,7 +14,7 @@
         "cross-env": "^5.1.4",
         "es6-promise": "^4.2.6",
         "foundation-sites": "^6.5.3",
-        "jquery": "^3.2",
+        "jquery": "^3.5",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.10",
         "popper.js": "^1.12",
