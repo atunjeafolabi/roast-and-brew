@@ -126,6 +126,11 @@ export default new VueRouter({
             component: Vue.component( 'Layout', require( './pages/Layout.vue' ).default ),
             children: [
                 {
+                    path: "/",
+                    name: "LandingPage",
+                    component: Vue.component( 'LandingPage', require( './pages/Index.vue' ).default )
+                },
+                {
                     path: 'cafes',
                     name: 'cafes',
                     component: Vue.component( 'Home', require( './pages/Home.vue' ).default ),
