@@ -10702,7 +10702,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "div#landing-page {\n  position: absolute;\n  top: 75px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\ndiv#landing-page div#bg-image {\n  height: 100%;\n  background: #7F5F2A url(" + escape(__webpack_require__(/*! ../assets/images/coffee3.jpeg */ "./resources/js/assets/images/coffee3.jpeg")) + ") no-repeat;\n  -webkit-filter: blur(2px);\n          filter: blur(2px);\n  background-size: 100%;\n}\ndiv#landing-page div#welcome-text {\n  position: absolute;\n  top: 150px;\n  left: 100px;\n  z-index: 2;\n  padding: 40px;\n  background-color: black;\n  /* Fallback color */\n  background-color: rgba(0, 0, 0, 0.6);\n  /* Black w/opacity/see-through */\n  color: white;\n}", ""]);
+exports.push([module.i, "div#landing-page {\n  position: absolute;\n  top: 75px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\ndiv#landing-page div#bg-image {\n  height: 100%;\n  background: #7F5F2A url(" + escape(__webpack_require__(/*! ../assets/images/coffee1.jpeg */ "./resources/js/assets/images/coffee1.jpeg")) + ") no-repeat;\n  /*filter: blur(2px);*/\n  background-size: 100%;\n}\ndiv#landing-page div#welcome-text {\n  position: absolute;\n  top: 150px;\n  left: 100px;\n  z-index: 2;\n  padding: 40px;\n  background-color: black;\n  /* Fallback color */\n  background-color: rgba(0, 0, 0, 0.3);\n  /* Black w/opacity/see-through */\n  color: white;\n  border: 1px solid 1px solid #251a17;\n  box-shadow: rgba(255, 173, 89, 0.4) -6px 2px 16px 0px;\n}", ""]);
 
 // exports
 
@@ -80987,14 +80987,14 @@ _routes_js__WEBPACK_IMPORTED_MODULE_1__["default"].afterEach(function (to, from)
 
 /***/ }),
 
-/***/ "./resources/js/assets/images/coffee3.jpeg":
+/***/ "./resources/js/assets/images/coffee1.jpeg":
 /*!*************************************************!*\
-  !*** ./resources/js/assets/images/coffee3.jpeg ***!
+  !*** ./resources/js/assets/images/coffee1.jpeg ***!
   \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/coffee3.jpeg?7ab2f756103cfaba56e4a5f63c463004";
+module.exports = "/images/coffee1.jpeg?c0aa4242f3e01cdb2bead3438952f057";
 
 /***/ }),
 

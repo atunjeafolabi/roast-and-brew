@@ -8,8 +8,8 @@
         right: 0;
         div#bg-image{
             height: 100%;
-            background: #7F5F2A url("../assets/images/coffee3.jpeg") no-repeat;
-            filter: blur(2px);
+            background: #7F5F2A url("../assets/images/coffee1.jpeg") no-repeat;
+            /*filter: blur(2px);*/
             background-size: 100%;
         }
         div#welcome-text{
@@ -19,8 +19,10 @@
             z-index: 2;
             padding: 40px;
             background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0, 0.6); /* Black w/opacity/see-through */
+            background-color: rgba(0,0,0, 0.3); /* Black w/opacity/see-through */
             color: white;
+            border: 1px solid 1px solid #251a17;
+            box-shadow: rgb(255 173 89 / 40%) -6px 2px 16px 0px;
         }
     }
 </style>

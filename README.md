@@ -12,30 +12,6 @@ There are two kinds of users:
 - Regular user
 - Admin user
 
-### Screenshots
-##### Home Page
-
-##### Show all Cafes on map
-![GitHub Logo](screenshots/all-cafes-on-map.png)
-
-##### List of all Cafes
-![GitHub Logo](screenshots/list-of-all-cafes.png)
-
-##### Add Cafe
-![GitHub Logo](screenshots/add-cafe.png)
-
-##### Edit Cafe
-![GitHub Logo](screenshots/edit-cafe.png)
-
-##### Link to Admin section
-![GitHub Logo](screenshots/admin-menu.png)
-
-##### Admin - Approve/Deny Actions
-![GitHub Logo](screenshots/admin-approve-deny.png)
-
-##### Admin - Manage Companies
-![GitHub Logo](screenshots/admin-section.png)
-
 Requirements
 ------------
 - Laravel 5.7
@@ -63,6 +39,30 @@ Usage
 ----
 Visit the local homepage at `localhost:5000`
 
+### Screenshots
+##### Home Page
+
+##### Show all Cafes on map
+![GitHub Logo](screenshots/all-cafes-on-map.png)
+
+##### List of all Cafes
+![GitHub Logo](screenshots/list-of-all-cafes.png)
+
+##### Add Cafe
+![GitHub Logo](screenshots/add-cafe.png)
+
+##### Edit Cafe
+![GitHub Logo](screenshots/edit-cafe.png)
+
+##### Link to Admin section
+![GitHub Logo](screenshots/admin-menu.png)
+
+##### Admin - Approve/Deny Actions
+![GitHub Logo](screenshots/admin-approve-deny.png)
+
+##### Admin - Manage Companies
+![GitHub Logo](screenshots/admin-section.png)
+
 Running Test:
 ------------
 - Create a mysql database named ```roast-and-brew-test``` and enter the database details in the `.env.testing` file
@@ -75,4 +75,4 @@ Future Works
 
 Issues
 ------
-- If you face any difficulty in setting this project up locally or have other issues, kindly create an github issue at [Issue](https://www.github.com/issues).
+- If you face any difficulty in setting this project up locally or have other issues, kindly create a github [Issue](https://github.com/atunjeafolabi/roast-and-brew/issues).
