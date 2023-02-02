@@ -28,6 +28,7 @@ Installation:
 - Rename ```.env.example``` to ```.env``` and fill it with the database credentials (username and password). New App need to be created on Google and also Facebook developer section to enable the OAuth Login. (If you need test credentials to put in the `.env` file, kindly contact me) 
 - From the project root directory, run `composer install`
 - Run migrations ```php artisan migrate```
+- Generate some dummy data ```php artisan db:seed```
 - Generate App Key with `php artisan key:generate`
 - Start local dev server: ```php artisan serve --port=5000``` 
 - Run Seeders?
