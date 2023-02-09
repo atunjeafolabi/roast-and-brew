@@ -2,8 +2,10 @@
 
 Overview
 --------
-Roast is a coffee shop finder web app that helps in locating local coffee roasters and shops with the help of Google Maps included. It’s pretty simple, we will have a few entities such as users, coffee shops, tags, etc. A live version is hosted at `http://roast.tunjiafolabi.com`. However, a local setup can be achieved by following the installation steps below.
-Currently, the authentication is implemeted via OAuth i.e `Login with Google` and `Login with Facebook`. Traditional email registration and login will be implemented later.
+(This is a personal project)
+
+Roast is a coffee shop finder web app that helps in locating local coffee roasters and shops with the help of Google Maps included. It’s pretty simple, we have a few entities such as users, coffee shops, tags, companies etc. A live version is hosted at `https://roastcoffee.atunje.com/`. However, a local setup can be achieved by following the installation steps below.
+Currently, a working authentication / login is implemented via Google OAuth i.e `Login with Google`. Traditional email registration and login will be implemented later.
 
 The app consists of a restricted section accessible to only an admin - an admin menu link shows on the sidebar when an admin is logged in. The admin can approve a new cafe added by regular users. Users and Companies are also managed by an admin.
 
@@ -24,14 +26,13 @@ Installation:
 -------------
 ### Backend Setup
 - Clone the project: ```git clone https://github.com/atunjeafolabi/roast-and-brew.git```
-- Create a mysql database named ```roast-and-brew```
-- Rename ```.env.example``` to ```.env``` and fill it with the database credentials (username and password). New App need to be created on Google and also Facebook developer section to enable the OAuth Login. (If you need test credentials to put in the `.env` file, kindly contact me) 
+- Create a mysql database
+- Rename ```.env.example``` to ```.env``` and fill it with the database credentials (username and password). New App need to be created on Google and also Facebook developer section to enable the OAuth Login.
 - From the project root directory, run `composer install`
 - Run migrations ```php artisan migrate```
 - Generate some dummy data ```php artisan db:seed```
 - Generate App Key with `php artisan key:generate`
 - Start local dev server: ```php artisan serve --port=5000``` 
-- Run Seeders?
 ### Frontend Setup
 - Run `npm install`
 - Then run `npm run dev`
