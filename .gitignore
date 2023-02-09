@@ -7,6 +7,7 @@
 /app/Photos
 .env.local
 .env.example
+.env
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
